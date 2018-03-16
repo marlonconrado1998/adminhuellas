@@ -8,8 +8,12 @@ app.config(function ($stateProvider) {
         url: '/form',
         templateUrl: 'pages/forms/basic_elements.html'
     }).state({
-    	name: 'chart',
+        name: 'chart',
         url: '/chart',
         templateUrl: 'pages/charts/chartjs.html'
+    }).state({
+        name: 'animales',
+        url: '/animales',
+        templateUrl: 'pages/widgets.html'
     });    	
 });
