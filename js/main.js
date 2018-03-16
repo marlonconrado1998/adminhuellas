@@ -2,6 +2,7 @@ var app = angular.module('app', [
     'ui.router'
 ]);
 
+<<<<<<< HEAD
 app.config(["$stateProvider", "$urlRouterProvider",
     function ($stateProvider, $urlRouterProvider) {
         
@@ -19,6 +20,10 @@ app.config(["$stateProvider", "$urlRouterProvider",
             name: 'Inicio',
             url: '/Inicio',
             templateUrl: 'pages/inicio.html'
-        });
+        }).state({
+            name: 'animales',
+            url: '/animales',
+            templateUrl: 'pages/widgets.html'
+        });  
     }
 ]);
