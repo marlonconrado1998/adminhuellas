@@ -6,7 +6,7 @@ function gestionAnimalCtrl($uibModal) {
 
     var gestionCtrl = this;
 
-    gestionCtrl.modal = function(animal) {
+    gestionCtrl.modal = function(animal, tipo) {
         var modalInstance = $uibModal.open({
             templateUrl: 'modal.html',
             size: 'md',
@@ -14,15 +14,20 @@ function gestionAnimalCtrl($uibModal) {
             controllerAs: '$ctrl',
             resolve: {
                 items: function() {
-                    return animal;
+                    return { data: animal, tipo: tipo };
                 }
             }
+        });
+
+        modalInstance.result.then(function() {}, function(info) {
+            // console.log(info);
         });
     };
     gestionCtrl.animales = [{
         nombre: "Chanda",
+        especie: "Perro",
         raza: "Pastor alemán",
-        peso: "20kg",
+        peso: 20,
         color: "Azul",
         sexo: "Hembra",
         fecha: new Date(),
@@ -30,8 +35,9 @@ function gestionAnimalCtrl($uibModal) {
         imagen: "https://perro.shop/wp-content/uploads/pastor_aleman2.jpg"
     }, {
         nombre: "Tomi",
+        especie: "Perro",
         raza: "Bull terry",
-        peso: "40kg",
+        peso: 40,
         color: "Amarillo",
         sexo: "Macho",
         fecha: new Date(),
@@ -39,8 +45,9 @@ function gestionAnimalCtrl($uibModal) {
         imagen: "http://4.bp.blogspot.com/-CVpZ-bIuvc8/Uqst3oHwdSI/AAAAAAAAEuI/Gq5H4d8hANM/s1600/bull+terrier.jpg"
     }, {
         nombre: "Neider",
+        especie: "Perro",
         raza: "Pitbull",
-        peso: "20kg",
+        peso: 20,
         color: "Azul",
         sexo: "Hembra",
         fecha: new Date(),
@@ -48,39 +55,67 @@ function gestionAnimalCtrl($uibModal) {
         imagen: "https://www.muyperruno.com/wp-content/uploads/2016/07/perro-pitbull-2.jpg"
     }, {
         nombre: "Roberto",
+        especie: "Perro",
         raza: "Pastor alemán",
-        peso: "20kg",
+        peso: 20,
         color: "Azul",
         sexo: "Hembra",
         fecha: new Date(),
         estado: "Malderrabia",
         imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN5aCiqeaIEGsX-ZOTFdUb1lnOWA8_Dcnc9o1rkV9fmwYrULfOuA"
     }];
-    gestionCtrl.mostrarAnimal = function(animal) {
-        swal({
-            title: "",
-            text: "Información",
-            confirmButtonText: "Aceptar",
-            confirmButtonClass: "btn-success",
-            showCancelButton: true,
-            cancelButtonText: "Cancelar",
-            cancelButtonClass: "btn-danger",
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            width: 350
-        });
+    gestionCtrl.mostrarAnimal = function() {
+        //        swal({
+        //            title: 'Submit email to run ajax request',
+        //            showCancelButton: true,
+        //            confirmButtonText: 'Submit',
+        //            showLoaderOnConfirm: true,
+        //            preConfirm: () => {
+        //                return new Promise((resolve) => {
+        //                    gestionCtrl.animales.splice(0, 1);
+        //                    resolve();
+        //                })
+        //            },
+        //            allowOutsideClick: () => !swal.isLoading()
+        //        }).then((result) => {
+        //            if (result.value) {
+        //                swal({
+        //                    type: 'success',
+        //                    title: 'Ajax request finished!',
+        //                    html: 'Submitted email: ' + result.value
+        //                })
+        //            }
+        //        })
     };
 }
 app.controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
-ModalInstanceCtrl.$inject = ['$uibModalInstance', 'items'];
+ModalInstanceCtrl.$inject = ['$uibModalInstance', 'items', "$http"];
 
-function ModalInstanceCtrl($uibModalInstance, items) {
+function ModalInstanceCtrl($uibModalInstance, items, $http) {
 
     var gestionCtrl = this;
-    gestionCtrl.animal = items;
+    gestionCtrl.animal = items.data;
+    gestionCtrl.css = items.tipo;
 
+    $http.get("js/config/gestionAnimal.config.json").then(function(result) {
+        gestionCtrl.form = result.data.camp;
+        console.log(gestionCtrl.form);
+        if (typeof gestionCtrl.animal == 'object' && typeof gestionCtrl.form == 'object' && gestionCtrl.animal != null) {
+            for (var item in gestionCtrl.animal) {
+                angular.forEach(gestionCtrl.form, function(value, key) {
+                    if (item === value["name"]) {
+                        value["value"] = gestionCtrl.animal[item];
+                        angular.break;
+                    }
+                });
+            }
+        }
+    });
     gestionCtrl.cerrar = function() {
         $uibModalInstance.dismiss('cancel');
-    }
+    };
+    gestionCtrl.test = function() {
+        alert("Bien");
+    };
 }

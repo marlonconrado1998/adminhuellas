@@ -6,8 +6,8 @@
     <title>Star Admin Free Bootstrap-4 Admin Dashboard Template</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/favicon.png" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+    <link rel="stylesheet" 
+    href="fonts/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
     <link rel="stylesheet" type="text/css" href="css/gestionAnimal.css">
     <link rel="stylesheet" type="text/css" href="bower_components/sweetalert2/dist/sweetalert2.min.css">
 </head>
@@ -18,8 +18,10 @@
     <div class="d-none d-md-block">
         <ng-include src="'partials/_sidebar.html'">
     </div>
-    <div class="container offset-md-2 col-md-10" style="margin-top: 5em;">
-        <ui-view></ui-view>
+    <div class="container offset-md-2 col-md-10 content-wrapper">
+        <div style="margin-top: 5em">
+            <ui-view></ui-view>
+        </div>
     </div>
     <!-- Bower-->
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>

@@ -1,164 +1,71 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-</head>
-
-<body>
-    <div class="container" ng-controller="gestionAnimalCtrl as ctrl" ng-init="ctrl.mostrar = true">
-        <div class="content-wrapper" ng-if="ctrl.mostrar">
-            <h4 class="text-center">Lista de animales</h4>
-            <br>
-            <span class="btn btn-success btn-xs mb-2" ng-click="ctrl.mostrar = false">
+<div class="container" ng-controller="gestionAnimalCtrl as ctrl" ng-init="ctrl.mostrar = true">
+    <div ng-if="ctrl.mostrar">
+        <span class="btn btn-success mb-2" ng-click="ctrl.modal(null, 'success');">
             <i class="fa fa-plus"></i> Nuevo
         </span>
-            <div class="overflow-x">
-                <table class="table table-condensed table-bordered  text-center">
-                    <thead>
-                        <tr>
-                            <th>Imagen</th>
-                            <th>Nombre</th>
-                            <th>Raza</th>
-                            <th>Peso</th>
-                            <th>Color</th>
-                            <th>Sexo</th>
-                            <th>Fecha ingreso</th>
-                            <!-- <th>Estado</th> -->
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="animal in ctrl.animales">
-                            <td>
-                                <img src="{{animal.imagen}}" class="img-fluid" width="80">
-                            </td>
-                            <td>{{animal.nombre}}</td>
-                            <td>{{animal.raza}}</td>
-                            <td>{{animal.peso}}</td>
-                            <td>{{animal.color}}</td>
-                            <td>{{animal.sexo}}</td>
-                            <td>{{animal.fecha| date:'yyyy/MM/dd HH:mm:ss'}}</td>
-                            <!-- <td>{{animal.estado}}</td> -->
-                            <td>
-                                <span class="cursor-pointer badge badge-primary" ng-click="ctrl.modal(animal);">
-                                <i class="fa fa-eye"></i>
-                            </span>
-                                <span class="cursor-pointer badge badge-info" ng-click="ctrl.modal(animal);">
-                                <i class="fa fa-pencil-alt"></i>
-                            </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="overflow-x">
+            <table class="table table-condensed table-bordered  text-center table-hover">
+                <thead class="table-active">
+                    <tr>
+                        <th>#Código</th>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Raza</th>
+                        <th>Sexo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="animal in ctrl.animales" ng-click="ctrl.modal(animal, 'primary');" ng-mouseenter="cssmodal = true" ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
+                        <td>{{$index}}</td>
+                        <td><img src="{{animal.imagen}}" class="img-fluid rounded" width="80"></td>
+                        <td>{{animal.nombre}}</td>
+                        <td>{{animal.raza}}</td>
+                        <td>{{animal.sexo}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="content-wrapper" ng-if="!ctrl.mostrar">
-            <span class="btn btn-danger btn-xs mb-3" ng-click="ctrl.mostrar = true">
-            <i class="fa fa-arrow-left"></i> Atrás
-        </span>
+    </div>
+</div>
+<script type="text/ng-template" id="modal.html">
+    <div class="modal-header alert-{{$ctrl.css}}">
+        <div class="justify-content-start">
+            <span class="text-{{$ctrl.css}} h4"  ng-repeat="form in $ctrl.form" ng-if="form.main" ng-bind="form.value "></span>
+        </div>
+        <div class="justify-content-end">
+            <i class="fa fa-eye cursor-pointer" ng-hide="$ctrl.css=='success'" ng-click="$ctrl.css='primary'"></i>
+            <i class="fa fa-pencil-alt cursor-pointer" ng-hide="$ctrl.css=='success'" ng-click="$ctrl.css='info'"></i>
+            <i class="fa fa-times cursor-pointer" ng-click="$ctrl.cerrar()"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="container">
             <form>
                 <div class="row">
-                    <div class="form-group col-md-6">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Raza</label>
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label>Peso</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Color</label>
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label>Sexo</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Fecha de ingreso</label>
-                        <input type="date" class="form-control">
+                    <div ng-repeat="inp in $ctrl.form" ng-class="inp.col">
+                        <label ng-bind="inp.nombre"></label>
+                        <div ng-switch="inp.type">
+                            <div ng-switch-when="img">
+                                <img ng-src="{{inp.value}}" ng-class="inp.class"/>
+                            </div>
+                            <div ng-switch-when="select">
+                                <select ng-model="inp.value" ng-class="inp.class" ng-disabled="$ctrl.css=='primary'">
+                                    <option value="{{option}}" ng-repeat="option in inp.options" ng-bind="option"></option>
+                                </select>
+                            </div>
+                            <div ng-switch-when="textarea">
+                                <textarea ng-model="inp.value" placeholder="{{inp.placeholder}}" ng-disabled="$ctrl.css=='primary'" ng-class="inp.class" required="{{inp.required}}"></textarea>
+                            </div>
+                            <div ng-switch-default>
+                                <input type="{{inp.type}}" ng-model="inp.value" placeholder="{{inp.placeholder}}" ng-class="inp.class" ng-disabled="$ctrl.css=='primary'" required="{{inp.required}}">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label>Estado</label>
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Identificacion</label>
-                        <input type="text" class="form-control">
-                    </div>
+                <div class="row justify-content-center" ng-hide="$ctrl.css=='primary'">
+                    <button ng-disabled="$ctrl.css=='primary'" type="submit" class="btn btn-success mt-3" type="button">Guardar</button>
                 </div>
             </form>
         </div>
     </div>
-    <script type="text/ng-template" id="modal.html">
-        <div class="modal-header">
-            <div class="justify-content-start">
-                <h4 class="text-primary">{{$ctrl.animal.nombre}}</h4>
-            </div>
-            <div class="justify-content-end">
-                <i class="fa fa-times pointer text-danger" ng-click="$ctrl.cerrar()"></i>
-                <!-- <span class="btn btn-danger btn-xs" ng-click="$ctrl.cerrar();">X</span> -->
-            </div>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="{{$ctrl.animal.imagen}}" class="img-fluid ">
-                </div>
-                <div class="col-md-6">
-                    <!-- <h5 class="text-center">Información general</h5> -->
-                    <div class="row border-bottom text-center">
-                        <div class="col-sm-2" uib-tooltip="Nombre"><i class="fa fa-bookmark"></i></div>
-                        <div class="col-sm-10" uib-tooltip="{{$ctrl.animal.nombre}}"><span>{{$ctrl.animal.nombre}} </span></div>
-                    </div>
-                    <div class="row border-bottom text-center">
-                        <div class="col-sm-2" uib-tooltip="Raza"><i class="fa fa-stop"></i></div>
-                        <div class="col-sm-10" uib-tooltip="{{$ctrl.animal.raza}}"><span>{{$ctrl.animal.raza}} </span></div>
-                    </div>
-                    <div class="row border-bottom text-center">
-                        <div class="col-sm-2" uib-tooltip="Peso"><i class="fa fa-weight"></i></div>
-                        <div class="col-sm-10" uib-tooltip="{{$ctrl.animal.peso}}"><span>{{$ctrl.animal.peso}} </span></div>
-                    </div>
-                    <div class="row border-bottom text-center">
-                        <div class="col-sm-2" uib-tooltip="Color"><i class="fa fa-paint-brush"></i></div>
-                        <div class="col-sm-10" uib-tooltip="{{$ctrl.animal.color}}"><span>{{$ctrl.animal.color}} </span></div>
-                    </div>
-                    <div class="row border-bottom text-center">
-                        <div class="col-sm-2" uib-tooltip="Sexo" ng-init="sexo = $ctrl.animal.sexo=='Macho'?true:false">
-                            <i class="fa" ng-class="{'fa-venus': !sexo, 'fa-venus-mars': sexo}"></i>
-                        </div>
-                        <div class="col-sm-10" uib-tooltip="{{$ctrl.animal.sexo}}"><span>{{$ctrl.animal.sexo}} </span></div>
-                    </div>
-                    <div class="row border-bottom text-center">
-                        <div class="col-sm-2" uib-tooltip="Fecha ingreso"><i class="fa fa-calendar"></i></div>
-                        <div class="col-sm-10" uib-tooltip="{{$ctrl.animal.fecha | date:'yyyy-MM-dd H:m:s'}}"><span>{{$ctrl.animal.fecha | date:"yyyy-MM-dd  H:m:s"}} </span></div>
-                    </div>
-                    <div class="row border-bottom text-center">
-                        <div class="col-sm-2" uib-tooltip="Estado"><i class="fa fa-book"></i></div>
-                        <div class="col-sm-10 text-truncate" uib-tooltip="{{$ctrl.animal.estado}}"><span>{{$ctrl.animal.estado}}</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </script>
-</body>
-
-</html>
+</script>

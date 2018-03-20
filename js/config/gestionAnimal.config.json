@@ -1,0 +1,101 @@
+{
+    "camp": [
+    {
+        "name": "imagen",
+        "type": "img",
+        "value": "",
+        "placeholder": "Nombre",
+        "class": "img-fluid rounded",
+        "col": "offset-md-3 col-md-6 text-center mb-2",
+        "required": true
+    },
+    {
+        "nombre": "Nombre",
+        "main": true,
+        "name": "nombre",
+        "type": "text",
+        "value": "",
+        "placeholder": "Nombre",
+        "class": "form-control",
+        "col": "col-md-6",
+        "required": true
+    },
+    {
+        "nombre": "Especie",
+        "name": "especie",
+        "type": "select",
+        "value": "Perro",
+        "options": [
+            "Perro",
+            "Gato"
+        ],
+        "placeholder": "",
+        "class": "form-control",
+        "col": "col-md-6",
+        "required": true
+    },
+    {
+        "nombre": "Raza",
+        "name": "raza",
+        "type": "text",
+        "value": "",
+        "placeholder": "Raza",
+        "class": "form-control",
+        "col": "col-md-6",
+        "required": true
+    },
+    {
+        "nombre": "Peso (Kg)",
+        "name": "peso",
+        "type": "number",
+        "value": "",
+        "placeholder": "Peso",
+        "class": "form-control",
+        "col": "col-md-6",
+        "required": true
+    },
+    {
+        "nombre": "Color",
+        "name": "color",
+        "type": "text",
+        "value": "",
+        "placeholder": "Color",
+        "class": "form-control",
+        "col": "col-md-6",
+        "required": true
+    },
+    {
+        "nombre": "Sexo",
+        "name": "sexo",
+        "type": "select",
+        "value": "Macho",
+        "options": [
+            "Macho",
+            "Hembra"
+        ],
+        "placeholder": "",
+        "class": "form-control",
+        "col": "col-md-6",
+        "required": true
+    },
+    {
+        "nombre": "Fecha",
+        "name": "fecha",
+        "type": "datetime-local",
+        "value": "",
+        "placeholder": "",
+        "class": "form-control",
+        "col": "col-md-6",
+        "required": true
+    },
+    {
+        "nombre": "Estado",
+        "name": "estado",
+        "type": "textarea",
+        "value": "",
+        "placeholder": "Estado",
+        "class": "form-control",
+        "col": "col-md-6",
+        "required": true
+    }]
+}
