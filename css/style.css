@@ -14346,16 +14346,17 @@ html {
 
 .main-panel {
   transition: width 0.25s ease, margin 0.25s ease;
-  width: calc(100% - 255px);
+  width: 100%;
+  /* width: calc(100% - 255px); */
   min-height: calc(100vh - 58px);
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column; }
-  @media (max-width: 991px) {
+  /* @media (max-width: 991px) {
     .main-panel {
       margin-left: 0;
-      width: 100%; } }
+      width: 100%; } } */
 
 .content-wrapper {
   background: #F6F8FA;

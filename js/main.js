@@ -2,7 +2,6 @@ var app = angular.module('app', [
     'ui.router'
 ]);
 
-<<<<<<< HEAD
 app.config(["$stateProvider", "$urlRouterProvider",
     function ($stateProvider, $urlRouterProvider) {
         
