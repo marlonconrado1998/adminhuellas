@@ -1,0 +1,71 @@
+<div class="container" ng-controller="gestionAnimalCtrl as ctrl" ng-init="ctrl.mostrar = true">
+    <div ng-if="ctrl.mostrar">
+        <span class="btn btn-success mb-2" ng-click="ctrl.modal(null, 'success');">
+            <i class="fa fa-plus"></i> Nuevo
+        </span>
+        <div class="overflow-x">
+            <table class="table table-condensed table-bordered  text-center table-hover">
+                <thead class="table-active">
+                    <tr>
+                        <th>#Código</th>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Raza</th>
+                        <th>Sexo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="animal in ctrl.animales" ng-click="ctrl.modal(animal, 'primary');" ng-mouseenter="cssmodal = true" ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
+                        <td>{{$index}}</td>
+                        <td><img src="{{animal.imagen}}" class="img-fluid rounded" width="80"></td>
+                        <td>{{animal.nombre}}</td>
+                        <td>{{animal.raza}}</td>
+                        <td>{{animal.sexo}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="modal.html">
+    <div class="modal-header alert-{{$ctrl.css}}">
+        <div class="justify-content-start">
+            <span class="text-{{$ctrl.css}} h4"  ng-repeat="form in $ctrl.form" ng-if="form.main" ng-bind="form.value "></span>
+        </div>
+        <div class="justify-content-end">
+            <i class="fa fa-eye cursor-pointer" ng-hide="$ctrl.css=='success'" ng-click="$ctrl.css='primary'"></i>
+            <i class="fa fa-pencil-alt cursor-pointer" ng-hide="$ctrl.css=='success'" ng-click="$ctrl.css='info'"></i>
+            <i class="fa fa-times cursor-pointer" ng-click="$ctrl.cerrar()"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <form>
+                <div class="row">
+                    <div ng-repeat="inp in $ctrl.form" ng-class="inp.col">
+                        <label ng-bind="inp.nombre"></label>
+                        <div ng-switch="inp.type">
+                            <div ng-switch-when="img">
+                                <img ng-src="{{inp.value}}" ng-class="inp.class"/>
+                            </div>
+                            <div ng-switch-when="select">
+                                <select ng-model="inp.value" ng-class="inp.class" ng-disabled="$ctrl.css=='primary'">
+                                    <option value="{{option}}" ng-repeat="option in inp.options" ng-bind="option"></option>
+                                </select>
+                            </div>
+                            <div ng-switch-when="textarea">
+                                <textarea ng-model="inp.value" placeholder="{{inp.placeholder}}" ng-disabled="$ctrl.css=='primary'" ng-class="inp.class" required="{{inp.required}}"></textarea>
+                            </div>
+                            <div ng-switch-default>
+                                <input type="{{inp.type}}" ng-model="inp.value" placeholder="{{inp.placeholder}}" ng-class="inp.class" ng-disabled="$ctrl.css=='primary'" required="{{inp.required}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center" ng-hide="$ctrl.css=='primary'">
+                    <button ng-disabled="$ctrl.css=='primary'" type="submit" class="btn btn-success mt-3" type="button">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,136 @@
+<div id="app" class="container-scroller">
+
+    <div class="container-fluid page-body-wrapper" ng-controller="gestionAnimalCtrl as ct">
+        <div class="main-panel" ng-init="ct.onSolicitarAdopcion();">
+            <div class="content-wrapper">
+
+                <section>
+                    <h1 class="text-center text-gray">Solicitud de adopcion</h1>
+                    <br>
+                    <br>
+                </section>
+
+                <!-- <form>
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div ng-repeat="campo in ct.campos_adopcion" class="form-group {{campo.col}}">
+                                <label for="{{campo.name}}">{{campo.nombre}}</label>
+                                <input name="{{campo.name}}" type="{{campo.type}}" class="form-control {{campo.class}}" placeholder="{{campo.placeholder}}"
+                                    required="{{campo.required}}" ng-bind="{{campo.value}}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-primary float-left">Cancelar</button>
+                            <button class="btn btn-success float-right">Aceptar</button>
+                        </div>
+                    </div>
+
+                </form> -->
+
+                <wizard current-step-number="currentStepNumber" submit="submit()">
+                    <wizard-step title="Animal" entered="stepEntered()">
+                        <h3>¿Cual es el animal?</h3>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <label for="codigo_animal">{{campo.nombre}}</label>
+                            <input type="text" name="codigo_animal" class="form-control input-group-text" ng-model="codigo_animal" required placeholder="Códigp del animal"
+                            />
+                        </div>
+                    </wizard-step>
+                    <wizard-step title="Adoptante" required-step-number="0" entered="stepEntered()">
+                        <h3>Datos de la persona adoptante</h3>
+                        <br>
+                        <br>
+                        <form>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div ng-repeat="campo in ct.campos_adopcion" class="form-group {{campo.col}}">
+                                        <label for="{{campo.name}}">{{campo.nombre}}</label>
+                                        <input name="{{campo.name}}" type="{{campo.type}}" class="form-control {{campo.class}}" ng-model="dato" required placeholder="{{campo.placeholder}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </wizard-step>
+                    <wizard-step title="Confirmacion" required-step-number="1" entered="stepEntered()">
+                        <h3>Confirma todos los datos</h3>
+                        <br>
+                        <br>
+                        <p>Datos Datos Datos Datos Datos Datos Datos Datos Datos </p>
+                        <p>Datos Datos Datos Datos Datos Datos Datos Datos Datos </p>
+                        <p>Datos Datos Datos Datos Datos Datos Datos Datos Datos </p>
+                        <p>Datos Datos Datos Datos Datos Datos Datos Datos Datos </p>
+                        <input type="text" ng-model="requi" required placeholder="Campo requerido">
+                    </wizard-step>
+                </wizard>
+
+
+
+                <!-- <form>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label for="nombre">Nombre</label>
+                                <br>
+                                <input type="text" id="nombre" class="input-group-text" placeholder="Nombre del adoptante">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="apellidos">Apellidos</label>
+                                <br>
+                                <input type="text" id="apellidos" class="input-group-text" placeholder="Apelldos del adoptante">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="identificacion">Identificacion</label>
+                                <br>
+                                <input type="number" id="Identificacion" class="input-group-text" placeholder="Identificacion del adoptante">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="telefono">Teléfono</label>
+                                <br>
+                                <input type="tel" id="telefono" class="input-group-text" placeholder="Telefono de contacto">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="correo">Correo</label>
+                                <br>
+                                <input type="email" id="correo" class="input-group-text" placeholder="correo de contacto">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="ciudad_residencia">Ciudad</label>
+                                <br>
+                                <input type="text" id="ciudad_residencia" class="input-group-text" placeholder="Ciudad de residencia">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="direccion">Direccion</label>
+                                <br>
+                                <input type="text" id="direccion" class="input-group-text" placeholder="Direccion de residencia">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="ocupacion">Ocupación</label>
+                                <br>
+                                <input type="text" id="ocupacion" class="input-group-text" placeholder="Ocupacion">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="empresa">Empresa</label>
+                                <br>
+                                <input type="text" id="empresa" class="input-group-text" placeholder="Lugar donde labora">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-primary">Cancelar</button>
+                            </div>
+                            <div class="col-5">
+                                <button class="btn btn-success float-right">Registrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form> -->
+            </div>
+        </div>
+    </div>
+</div>

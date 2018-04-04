@@ -1,5 +1,5 @@
 <nav class="sidebar d-none d-md-block fixed-top col-xs-4 col-sm-4 col-md-2" id="sidebar" style="box-shadow: 1px 1px 7px lightslategray; height: 100%">
-  <ul class="nav">
+  <ul class="nav" ng-controller="gestionAnimalCtrl as ctr">
     <li class="nav-item nav-profile">
       <div class="nav-link">
         <div class="profile-image">
@@ -51,12 +51,13 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="pages/icons/font-awesome.html">
+      <a class="nav-link" ng-click="ctr.onSolicitarAdopcion(null);" href ui-sref="adopcion">
         <img class="menu-icon" src="images/menu_icons/07.png" alt="menu icon">
-        <span class="menu-title">Icons</span>
+        <span class="menu-title">Adopción</span>
       </a>
     </li>
     <!-- <li class="nav-item">
+
             <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages"> <img class="menu-icon" src="images/menu_icons/08.png" alt="menu icon"> <span class="menu-title">General Pages</span><i class="menu-arrow"></i></a>
             <div class="collapse" id="general-pages">
               <ul class="nav flex-column sub-menu">
@@ -72,4 +73,5 @@
           <li class="nav-item"><a class="nav-link" href="pages/ui-features/typography.html"><img class="menu-icon" src="images/menu_icons/09.png" alt="menu icon"> <span class="menu-title">Typography</span></a></li>
           <li class="nav-item purchase-button"><a class="nav-link" href="https://www.bootstrapdash.com/product/star-admin-pro/" target="_blank">Get full version</a></li> -->
   </ul>
+
 </nav>

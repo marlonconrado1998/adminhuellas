@@ -8,6 +8,10 @@
     <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="stylesheet" href="fonts/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/gestionAnimal.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/ng-wizard/dist/ngWizard.css">
 </head>
 
 <body>
@@ -22,7 +26,7 @@
             <div class="col-sm-10" style="padding:55px 0px 0px;">
                 <ui-view></ui-view>
             </div>
-            <div class="col-sm-12"style="padding:0px;">
+            <div class="col-sm-12" style="padding:0px;">
                 <ng-include src="'partials/_footer.html'">
             </div>
         </div>
@@ -30,8 +34,18 @@
     <!-- Bower-->
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    
+    <script type="text/javascript" src="bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="bower_components/ng-wizard/dist/ngWizard.js"></script>
     <!-- Main -->
     <script type="text/javascript" src="js/main.js"></script>
+    <!-- Controller -->
+    <script type="text/javascript" src="js/controller/gestionAnimal.controller.js"></script>
+    <!-- Service -->
+    <script type="text/javascript" src="js/services/gestionAnimal.service.js"></script>
+    <!-- Node modules -->
+    <script type="text/javascript" src="node_modules/ui-bootstrap4/dist/ui-bootstrap-tpls.js"></script>
 </body>
 
 </html>

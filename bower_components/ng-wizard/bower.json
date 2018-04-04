@@ -1,0 +1,31 @@
+{
+  "name": "ng-wizard",
+  "version": "1.1.1",
+  "authors": [
+    "David Martin <dwmartin41@gmail.com>"
+  ],
+  "description": "A wizard directive for angular",
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src",
+    "tmp"
+  ],
+  "dependencies": {
+    "bootstrap-css": "~3.3.6",
+    "angular": "1.4.9",
+    "angular-animate": "~1.4.9",
+    "font-awesome": "~4.5.0",
+    "angular-tooltips": "~1.0.6"
+  },
+  "resolutions": {
+    "angular": "1.4.9"
+  }
+}
