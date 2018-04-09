@@ -34,25 +34,25 @@
                         <br>
                         <br>
                         <div class="form-group">
-                            <label for="codigo_animal">{{campo.nombre}}</label>
-                            <input type="text" name="codigo_animal" class="form-control input-group-text" ng-model="codigo_animal" required placeholder="Códigp del animal"
-                            />
+                            <label for="codigo_animal" ng-bind="campo.nombre"></label>
+                            <input type="text" name="codigo_animal" class="form-control input-group-text" ng-model="codigo_animal" required placeholder="Código del animal" />
                         </div>
                     </wizard-step>
                     <wizard-step title="Adoptante" required-step-number="0" entered="stepEntered()">
                         <h3>Datos de la persona adoptante</h3>
                         <br>
                         <br>
-                        <form>
+                        <form name="FormAdopcion">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div ng-repeat="campo in ct.campos_adopcion" class="form-group {{campo.col}}">
-                                        <label for="{{campo.name}}">{{campo.nombre}}</label>
-                                        <input name="{{campo.name}}" type="{{campo.type}}" class="form-control {{campo.class}}" ng-model="dato" required placeholder="{{campo.placeholder}}">
+                                        <label for="{{campo.name}}" ng-bind="campo.nombre"></label>
+                                        <input name="{{campo.name}}" type="{{campo.type}}" class="form-control {{campo.class}}" ng-model="campo.value" required placeholder="{{campo.placeholder}}">
                                     </div>
                                 </div>
                             </div>
                         </form>
+
                     </wizard-step>
                     <wizard-step title="Confirmacion" required-step-number="1" entered="stepEntered()">
                         <h3>Confirma todos los datos</h3>
@@ -65,7 +65,6 @@
                         <input type="text" ng-model="requi" required placeholder="Campo requerido">
                     </wizard-step>
                 </wizard>
-
 
 
                 <!-- <form>
