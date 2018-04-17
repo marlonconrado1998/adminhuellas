@@ -15617,7 +15617,11 @@ select.form-control {
   padding: 10px 0;
   position: relative;
   width: 100%;
+<<<<<<< HEAD
   background: #ffffff;
+=======
+  background: #f7f7f8;
+>>>>>>> ddd62806ed968ed1d4c8e5e11ad547bd3db02e15
   border-radius: 5px;
 }
 
