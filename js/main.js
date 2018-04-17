@@ -1,5 +1,7 @@
 var app = angular.module('app', [
-    'ui.router'
+    'ui.router',
+    'ui.bootstrap',
+    'ngWizard'
 ]);
 
 app.config(["$stateProvider", "$urlRouterProvider",
@@ -8,10 +10,6 @@ app.config(["$stateProvider", "$urlRouterProvider",
         $urlRouterProvider.otherwise("/Inicio");
 
         $stateProvider.state({
-            name: 'form',
-            url: '/form',
-            templateUrl: 'pages/forms/basic_elements.html'
-        }).state({
             name: 'chart',
             url: '/chart',
             templateUrl: 'pages/charts/chartjs.html'
@@ -22,7 +20,19 @@ app.config(["$stateProvider", "$urlRouterProvider",
         }).state({
             name: 'animales',
             url: '/animales',
-            templateUrl: 'pages/widgets.html'
+            templateUrl: 'pages/animales.html'
+        }).state({
+            name: 'adopcion',
+            url: '/adopcion',
+            templateUrl: 'pages/adopcion.html'
+        }).state({
+            name: 'historias',
+            url: '/historias',
+            templateUrl: 'pages/historias.html'
+        }).state({
+            name: 'login',
+            url: '/login',
+            templateUrl: 'pages/login.html'
         });  
     }
 ]);

@@ -1,0 +1,216 @@
+{
+    "var": {
+        "class-general": "col-md-6"
+    },
+    "camp": [
+        {
+            "name": "imagen",
+            "type": "img",
+            "value": "",
+            "placeholder": "Nombre",
+            "class": "img-fluid rounded",
+            "col": "offset-md-3 col-md-6 text-center mb-2",
+            "required": true
+        },
+        {
+            "nombre": "Nombre",
+            "main": true,
+            "name": "nombre",
+            "type": "text",
+            "value": "",
+            "placeholder": "Nombre",
+            "class": "form-control",
+            "col": "col-md-6",
+            "required": true
+        },
+        {
+            "nombre": "Especie",
+            "name": "especie",
+            "type": "select",
+            "value": "Perro",
+            "options": [
+                "Perro",
+                "Gato"
+            ],
+            "placeholder": "",
+            "class": "form-control",
+            "col": "col-md-6",
+            "required": true
+        },
+        {
+            "nombre": "Raza",
+            "name": "raza",
+            "type": "text",
+            "value": "",
+            "placeholder": "Raza",
+            "class": "form-control",
+            "col": "col-md-6",
+            "required": true
+        },
+        {
+            "nombre": "Peso (Kg)",
+            "name": "peso",
+            "type": "number",
+            "value": "",
+            "placeholder": "Peso",
+            "class": "form-control",
+            "col": "col-md-6",
+            "required": true
+        },
+        {
+            "nombre": "Color",
+            "name": "color",
+            "type": "text",
+            "value": "",
+            "placeholder": "Color",
+            "class": "form-control",
+            "col": "col-md-6",
+            "required": true
+        },
+        {
+            "nombre": "Sexo",
+            "name": "sexo",
+            "type": "select",
+            "value": "Macho",
+            "options": [
+                "Macho",
+                "Hembra"
+            ],
+            "placeholder": "",
+            "class": "form-control",
+            "col": "col-md-6",
+            "required": true
+        },
+        {
+            "nombre": "Fecha",
+            "name": "fecha",
+            "type": "datetime-local",
+            "value": "",
+            "placeholder": "",
+            "class": "form-control",
+            "col": "col-md-6",
+            "required": true
+        },
+        {
+            "nombre": "Estado",
+            "name": "estado",
+            "type": "textarea",
+            "value": "",
+            "placeholder": "Estado",
+            "class": "form-control",
+            "col": "col-md-6",
+            "required": true
+        }
+    ],
+    "campos_adopcion": [
+        {
+            "nombre": "Nombre",
+            "name": "nombre",
+            "type": "text",
+            "value": "",
+            "placeholder": "Nombre del adoptante",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": true
+        },{
+            "nombre": "Apellidos",
+            "name": "apellidos",
+            "type": "text",
+            "value": "",
+            "placeholder": "Apellidos del adoptante",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": true
+        },{
+            "nombre": "Identificación",
+            "name": "identificacion",
+            "type": "text",
+            "value": "",
+            "placeholder": "Identificacion del adoptante",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": true
+        },{
+            "nombre": "Ciudad",
+            "name": "ciudad",
+            "type": "text",
+            "value": "",
+            "placeholder": "Ciudad de residencia",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": true
+        },{
+            "nombre": "Dirección",
+            "name": "direccion",
+            "type": "text",
+            "value": "",
+            "placeholder": "Dirección de residencia",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": true
+        },{
+            "nombre": "Teléfono",
+            "name": "telefono",
+            "type": "number",
+            "value": "",
+            "placeholder": "Número de telefono",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": true
+        },{
+            "nombre": "Correo",
+            "name": "correo",
+            "type": "email",
+            "value": "",
+            "placeholder": "Correo electronico",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": true
+        },{
+            "nombre": "Ocupacion",
+            "name": "ocupacion",
+            "type": "text",
+            "value": "",
+            "placeholder": "Ocupacion",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": true
+        },{
+            "nombre": "Empresa donde labora",
+            "name": "empresa",
+            "type": "text",
+            "value": "",
+            "placeholder": "Nombre de la empresa donde labora",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": false
+        },{
+            "nombre": "Cargo",
+            "name": "cargo",
+            "type": "text",
+            "value": "",
+            "placeholder": "Cargo que desempeña",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": false
+        },{
+            "nombre": "Ciudad",
+            "name": "ciudad",
+            "type": "text",
+            "value": "",
+            "placeholder": "Ciudad de la empresa",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": true
+        },{
+            "nombre": "Teléfono",
+            "name": "telefono",
+            "type": "number",
+            "value": "",
+            "placeholder": "Teléfono de trabajo",
+            "class": "input-group-text",
+            "col": "col-sm-4",
+            "required": false
+        }
+    ]
+}
