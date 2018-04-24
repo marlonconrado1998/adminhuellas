@@ -36,3 +36,10 @@ app.config(["$stateProvider", "$urlRouterProvider",
         });  
     }
 ]);
+
+app.constant("FUNCION", {
+
+    date : function () {
+        return new Date();
+    }
+});

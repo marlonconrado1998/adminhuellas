@@ -10,7 +10,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService) {
     gestionCtrl.campos_adopcion = gestionAnimalService.campos_adopcion;
     gestionCtrl.campos_animal = gestionAnimalService.campos_animal;
     gestionCtrl.informacion_animal = {};
-    console.log(gestionCtrl.informacion_animal);
+
     gestionCtrl.modal = function (animal, tipo) {
         var modalInstance = $uibModal.open({
             templateUrl: 'modal.html',
