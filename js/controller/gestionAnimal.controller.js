@@ -1,15 +1,15 @@
 app.controller('gestionAnimalCtrl', gestionAnimalCtrl);
 
-gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService'];
+gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', 'FORMULARIO'];
 
-function gestionAnimalCtrl($uibModal, gestionAnimalService) {
+function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO) {
 
     var gestionCtrl = this;
-
     //VARIABLES
     gestionCtrl.campos_adopcion = gestionAnimalService.campos_adopcion;
     gestionCtrl.campos_animal = gestionAnimalService.campos_animal;
     gestionCtrl.informacion_animal = {};
+    gestionCtrl.formAnimales = FORMULARIO.animales;
 
     gestionCtrl.modal = function (animal, tipo) {
         var modalInstance = $uibModal.open({

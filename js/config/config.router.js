@@ -1,9 +1,3 @@
-var app = angular.module('app', [
-    'ui.router',
-    'ui.bootstrap',
-    'ngWizard'
-]);
-
 app.config(["$stateProvider", "$urlRouterProvider",
     function ($stateProvider, $urlRouterProvider) {
         
@@ -36,10 +30,3 @@ app.config(["$stateProvider", "$urlRouterProvider",
         });  
     }
 ]);
-
-app.constant("FUNCION", {
-
-    date : function () {
-        return new Date();
-    }
-});
