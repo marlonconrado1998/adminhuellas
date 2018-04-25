@@ -3,12 +3,10 @@
     <div class="container-fluid page-body-wrapper">
         <div class="main-panel">
             <div class="content-wrapper" ng-controller="gestionAnimalCtrl as ctrl" ng-init="ctrl.mostrar = true">
-                
+
                 <section class="page-title">
                     <h2 class="text-gray text-center">Lista de animales</h2>
                 </section>
-                
-                <!-- <div ng-form array-form="ctrl.formAnimales"></div> -->
 
                 <div ng-if="ctrl.mostrar">
                     <span class="btn btn-success mb-2" ng-click="ctrl.modal(null, 'success');">
@@ -26,8 +24,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="animal in ctrl.animales" ng-click="ctrl.modal(animal, 'primary');" ng-mouseenter="cssmodal = true" ng-mouseleave="cssmodal = false"
-                                    ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
+                                <tr ng-repeat="animal in ctrl.animales" ng-click="ctrl.modal(animal, 'primary');" ng-mouseenter="cssmodal = true" ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
                                     <td>{{$index}}</td>
                                     <td>
                                         <img src="{{animal.imagen}}" class="img-fluid rounded" width="80">
@@ -47,7 +44,7 @@
 <script type="text/ng-template" id="modal.html">
     <div class="modal-header alert-{{$ctrl.css}}">
         <div class="justify-content-start">
-            <span class="text-{{$ctrl.css}} h4"  ng-repeat="form in $ctrl.form" ng-if="form.main" ng-bind="form.value "></span>
+            <span class="text-{{$ctrl.css}} h4" ng-repeat="form in $ctrl.form" ng-if="form.main" ng-bind="form.value "></span>
         </div>
         <div class="justify-content-end">
             <i class="fa fa-eye cursor-pointer" ng-hide="$ctrl.css=='success'" ng-click="$ctrl.css='primary'"></i>
@@ -63,7 +60,7 @@
                         <label ng-bind="inp.nombre"></label>
                         <div ng-switch="inp.type">
                             <div ng-switch-when="img">
-                                <img ng-src="{{inp.value}}" ng-class="inp.class"/>
+                                <img ng-src="{{inp.value}}" ng-class="inp.class" />
                             </div>
                             <div ng-switch-when="select">
                                 <select ng-model="inp.value" ng-class="inp.class" ng-disabled="$ctrl.css=='primary'">

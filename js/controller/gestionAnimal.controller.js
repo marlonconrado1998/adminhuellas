@@ -10,41 +10,45 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO) {
     gestionCtrl.campos_animal = gestionAnimalService.campos_animal;
     gestionCtrl.informacion_animal = {};
     gestionCtrl.formAnimales = FORMULARIO.animales;
+    console.log(gestionCtrl.formAnimales);
 
-    gestionCtrl.modal = function (animal, tipo) {
+    gestionCtrl.modal = function(animal, tipo) {
         var modalInstance = $uibModal.open({
             templateUrl: 'modal.html',
             size: 'md',
             controller: 'ModalInstanceCtrl',
             controllerAs: '$ctrl',
             resolve: {
-                items: function () {
+                items: function() {
                     return { data: animal, tipo: tipo };
                 }
             }
         });
-
-        modalInstance.result.then(function () { }, function (info) {
+        modalInstance.result.then(function() {}, function(info) {
             console.log(info);
         });
     };
 
-    gestionCtrl.exitValidation = function (context) {
+    gestionCtrl.getForm = function() {
+        console.log(gestionCtrl.formAnimales);
+    }
+
+    gestionCtrl.exitValidation = function(context) {
         // gestionCtrl.model.label = "Hola neider";
         console.log(context);
         return true;
     }
 
-    gestionCtrl.onSolicitarAdopcion = function () {
+    gestionCtrl.onSolicitarAdopcion = function() {
         gestionAnimalService.solicitarAdopcion()
-            .then(function (response) {
+            .then(function(response) {
                 gestionCtrl.campos_adopcion = gestionAnimalService.campos_adopcion;
             });
     }
 
-    gestionCtrl.onBuscarAnimal = function (animal) {
+    gestionCtrl.onBuscarAnimal = function(animal) {
         gestionCtrl.informacion_animal = {};
-        angular.forEach(gestionCtrl.animales, function (value) {
+        angular.forEach(gestionCtrl.animales, function(value) {
             if (value.codigo == animal) {
                 gestionCtrl.informacion_animal = value;
                 angular.break;
@@ -56,6 +60,17 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO) {
             gestionCtrl.informacion_animal.error = "Código de animal invalido, por favor intente nuevamente.";
         }
     }
+
+    gestionCtrl.registrarAnimal = function(json) {
+        var url = 'http://localhost/StartAdmin_back-end/webapis/api/api_gestionAnimal.php/'
+        gestionAnimalService.registrarAnimal(url, json)
+            .then(function(response) {
+                console.log(response);
+            }).catch(function(error) {
+                console.log(error);
+            });;
+    }
+
 
     gestionCtrl.animales = [{
         codigo: 0,
@@ -115,11 +130,11 @@ function ModalInstanceCtrl($uibModalInstance, items, $http) {
     gestionCtrl.animal = items.data;
     gestionCtrl.css = items.tipo;
 
-    $http.get("js/config/gestionAnimal.config.json").then(function (result) {
+    $http.get("js/config/gestionAnimal.config.json").then(function(result) {
         gestionCtrl.form = result.data.camp;
         if (typeof gestionCtrl.animal == 'object' && typeof gestionCtrl.form == 'object' && gestionCtrl.animal != null) {
             for (var item in gestionCtrl.animal) {
-                angular.forEach(gestionCtrl.form, function (value, key) {
+                angular.forEach(gestionCtrl.form, function(value, key) {
                     if (item === value["name"]) {
                         value["value"] = gestionCtrl.animal[item];
                         angular.break;
@@ -128,10 +143,10 @@ function ModalInstanceCtrl($uibModalInstance, items, $http) {
             }
         }
     });
-    gestionCtrl.cerrar = function () {
+    gestionCtrl.cerrar = function() {
         $uibModalInstance.dismiss('cancel');
     };
-    gestionCtrl.test = function () {
+    gestionCtrl.test = function() {
         alert("Bien");
     };
 }

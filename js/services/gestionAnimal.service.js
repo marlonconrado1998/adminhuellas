@@ -1,10 +1,9 @@
-
 app.service('gestionAnimalService', gestionAnimalService);
 
 /** @ngInject */
-gestionAnimalService.$inject = ['$http', '$q'];
+gestionAnimalService.$inject = ['generalService'];
 
-function gestionAnimalService($http, $q) {
+function gestionAnimalService(generalService) {
 
     var service = this;
 
@@ -15,31 +14,28 @@ function gestionAnimalService($http, $q) {
     //FUNCTIONS
     service.solicitarAdopcion = solicitarAdopcion;
     service.buscarAnimal = buscarAnimal;
+    service.registrarAnimal = registrarAnimal;
 
     function solicitarAdopcion() {
-        var defered = $q.defer();
-        $http.get("js/config/gestionAnimal.config.json")
-            .then(function (response) {
-                service.campos_adopcion = response.data.campos_adopcion;
-                defered.resolve(service.campos_adopcion);
-            })
-            .catch(function (error) {
-                defered.reject(error);
-            });
-        return defered.promise;
+
+        return generalService.EJECUTAR_SERVICES('GET', 'js/config/gestionAnimal.config.json', null);
+
     }
 
     function buscarAnimal(animal) {
         var defered = $q.defer();
         $http.get("js/config/gestionAnimal.config.json")
-            .then(function (response) {
+            .then(function(response) {
                 service.campos_animal = response.data.camp;
                 defered.resolve(service.campos_animal);
             })
-            .catch(function (error) {
+            .catch(function(error) {
                 defered.reject(error);
             });
         return defered.promise;
     }
 
+    function registrarAnimal(url, datos) {
+        return generalService.EJECUTAR_SERVICES('POST', url, datos);
+    }
 }

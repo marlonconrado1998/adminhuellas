@@ -1,6 +1,6 @@
 app.config(["$stateProvider", "$urlRouterProvider",
-    function ($stateProvider, $urlRouterProvider) {
-        
+    function($stateProvider, $urlRouterProvider) {
+
         $urlRouterProvider.otherwise("/Inicio");
 
         $stateProvider.state({
@@ -27,6 +27,10 @@ app.config(["$stateProvider", "$urlRouterProvider",
             name: 'login',
             url: '/login',
             templateUrl: 'pages/login.html'
-        });  
+        }).state({
+            name: 'registro_animal',
+            url: '/registro_animal',
+            templateUrl: 'pages/registro_animal.html'
+        });
     }
 ]);
