@@ -1,68 +1,59 @@
 <nav class="sidebar d-none d-md-block fixed-top col-xs-4 col-sm-4 col-md-2" id="sidebar" style="box-shadow: 1px 1px 7px lightslategray; height: 100%">
-  <ul class="nav" ng-controller="gestionAnimalCtrl as ctr">
-    <li class="nav-item nav-profile">
-      <div class="nav-link">
-        <div class="profile-image">
-          <img src="images/menu_icons/01.png" alt="image" />
-          <span class="online-status online"></span>
-        </div>
-        <div class="profile-name">
-          <p class="name">Huellitas de amor</p>
-          <p class="designation">Fundación</p>
-          <!-- <div class="badge badge-teal mx-auto mt-3">Online</div> -->
-        </div>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" ui-sref="Inicio">
+    <ul class="nav" ng-controller="gestionAnimalCtrl as ctr">
+        <li class="nav-item nav-profile">
+            <img src="images/logo_main.svg" alt="image" class="img-fluid" />
+            <span class="online-status online"></span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" ui-sref="Inicio">
         <img class="menu-icon" src="images/menu_icons/01.png" alt="menu icon">
         <!-- <i class="fa fa-dashboard"></i> -->
         <span class="menu-title">Inicio</span>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href ui-sref="animales">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href ui-sref="animales">
         <img class="menu-icon" src="images/menu_icons/02.png" alt="menu icon">
         <span class="menu-title">Lista animales</span>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link"  href ui-sref="historias">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href ui-sref="historias">
         <img class="menu-icon" src="images/menu_icons/06.png" alt="menu icon">
         <span class="menu-title">Historias medicas</span>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link"  href>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href>
         <img class="menu-icon" src="images/pic-4.png" alt="menu icon">
         <span class="menu-title">Solicitudes</span>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" ng-click="ctr.onSolicitarAdopcion(null);" href ui-sref="adopcion">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" ng-click="ctr.onSolicitarAdopcion(null);" href ui-sref="adopcion">
         <img class="menu-icon" src="images/menu_icons/07.png" alt="menu icon">
         <span class="menu-title">Adopción</span>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="pages/ui-features/buttons.html">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="pages/ui-features/buttons.html">
         <img class="menu-icon" src="images/menu_icons/03.png" alt="menu icon">
         <span class="menu-title">Buttons</span>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href ui-sref="form">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href ui-sref="form">
         <img class="menu-icon" src="images/menu_icons/04.png" alt="menu icon">
         <span class="menu-title">Form</span>
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href ui-sref="chart">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href ui-sref="chart">
         <img class="menu-icon" src="images/menu_icons/05.png" alt="menu icon">
         <span class="menu-title">Charts</span>
       </a>
-    </li>
-    <!-- <li class="nav-item">
+        </li>
+        <!-- <li class="nav-item">
 
             <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages"> <img class="menu-icon" src="images/menu_icons/08.png" alt="menu icon"> <span class="menu-title">General Pages</span><i class="menu-arrow"></i></a>
             <div class="collapse" id="general-pages">
@@ -75,9 +66,8 @@
               </ul>
             </div>
           </li> -->
-    <!-- 
+        <!-- 
           <li class="nav-item"><a class="nav-link" href="pages/ui-features/typography.html"><img class="menu-icon" src="images/menu_icons/09.png" alt="menu icon"> <span class="menu-title">Typography</span></a></li>
           <li class="nav-item purchase-button"><a class="nav-link" href="https://www.bootstrapdash.com/product/star-admin-pro/" target="_blank">Get full version</a></li> -->
-  </ul>
-
+    </ul>
 </nav>
