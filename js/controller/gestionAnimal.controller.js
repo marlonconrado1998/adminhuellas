@@ -62,10 +62,17 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO) {
     }
 
     gestionCtrl.registrarAnimal = function(json) {
-        var url = 'http://localhost/StartAdmin_back-end/webapis/api/api_gestionAnimal.php/'
+        var url = 'http://localhost/StartAdmin_back-end/webapis/api/api_gestionAnimal.php/registrarAnimal'
         gestionAnimalService.registrarAnimal(url, json)
             .then(function(response) {
                 console.log(response);
+                swal({
+                    position: 'top-end',
+                    type: 'success',
+                    title: 'Animal registrado Exitosamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }).catch(function(error) {
                 console.log(error);
             });;

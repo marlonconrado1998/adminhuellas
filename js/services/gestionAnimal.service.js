@@ -36,6 +36,7 @@ function gestionAnimalService(generalService) {
     }
 
     function registrarAnimal(url, datos) {
-        return generalService.EJECUTAR_SERVICES('POST', url, datos);
+        console.log(datos);
+        return generalService.EJECUTAR_SERVICES('POST', url, { "data": datos });
     }
 }
