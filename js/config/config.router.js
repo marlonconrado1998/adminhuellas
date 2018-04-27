@@ -1,5 +1,8 @@
-app.config(["$stateProvider", "$urlRouterProvider",
-    function($stateProvider, $urlRouterProvider) {
+app.config(["$stateProvider", "$urlRouterProvider", '$compileProvider', '$locationProvider',
+    function($stateProvider, $urlRouterProvider, $compileProvider, $locationProvider) {
+
+        $compileProvider.debugInfoEnabled(false);
+        // $locationProvider.hashPrefix(".com");
 
         $urlRouterProvider.otherwise("/Inicio");
 

@@ -22,14 +22,17 @@
                 <label for="{{obj.name}}" ng-bind="obj.label"></label>
                 <i ng-show="obj.icon" ng-class="{
 					'text-success fa fa-check': form[obj.name].$valid,
-					'text-danger fa fa-times': !form[obj.name].$valid
+					'text-danger fa fa-asterisk': !form[obj.name].$valid
 				}"></i>
                 <div ng-switch-default>
-                    <input class="form-control" type="{{obj.type}}" name="{{obj.name}}" ng-model="obj.value" placeholder="{{obj.placeholder}}" ng-required="obj.required" ng-disabled="obj.disabled">
+                    <input class="form-control" type="{{obj.type}}" name="{{obj.name}}" min="{{obj.min}}" ng-model="obj.value" placeholder="{{obj.placeholder}}" ng-required="obj.required" ng-disabled="obj.disabled">
                 </div>
                 <div ng-switch-when="select">
-                    <select class="form-control" name="{{obj.name}}" ng-model="obj.value" ng-disabled="obj.disabled" ng-options="item for item in obj.options">
-					</select>
+                    <!-- <select class="form-control" name="{{obj.name}}" ng-model="item.name" ng-disabled="obj.disabled" ng-options="item as item.name for item in obj.options">
+                    </select>{{obj.name}} -->
+                    <select class="form-control" name="{{obj.name}}" ng-model="obj.value" ng-disabled="obj.disabled">
+                        <option ng-repeat="item in obj.options" ng-value="item.id" ng-bind="item.name"></option>
+                    </select>{{obj.value}}
                 </div>
                 <div ng-switch-when="textarea">
                     <textarea ng-class="{'resize': !obj.resize, 'noresize': obj.resize}" class="form-control" type="{{obj.type}}" name="{{obj.name}}" ng-model="obj.value" placeholder="{{obj.placeholder}}" ng-required="obj.required" ng-disabled="obj.disabled">
