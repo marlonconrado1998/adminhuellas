@@ -1,8 +1,8 @@
 app.controller('gestionAnimalCtrl', gestionAnimalCtrl);
 
-gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', 'FORMULARIO'];
+gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', 'FORMULARIO', "GeneralURL", "selectFactory"];
 
-function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO) {
+function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralURL, selectFactory) {
 
     var gestionCtrl = this;
     //VARIABLES
@@ -10,7 +10,6 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO) {
     gestionCtrl.campos_animal = gestionAnimalService.campos_animal;
     gestionCtrl.informacion_animal = {};
     gestionCtrl.formAnimales = FORMULARIO.animales;
-    console.log(gestionCtrl.formAnimales);
 
     gestionCtrl.modal = function(animal, tipo) {
         var modalInstance = $uibModal.open({
@@ -62,7 +61,8 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO) {
     }
 
     gestionCtrl.registrarAnimal = function(json) {
-        var url = 'http://localhost/StartAdmin_back-end/webapis/api/api_gestionAnimal.php/registrarAnimal'
+        var url = GeneralURL + 'api_gestionAnimal.php/registrarAnimal'
+
         gestionAnimalService.registrarAnimal(url, json)
             .then(function(response) {
                 console.log(response);
