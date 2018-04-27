@@ -12,3 +12,5 @@ app.constant("FORMULARIO", {
         { label: "Estado de Ingreso", type: "textarea", name: "estado_ingreso", required: true, icon: true }
     ]
 });
+
+app.constant("GeneralURL", "http://localhost/startadmin_back-end/webapis/api/");

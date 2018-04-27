@@ -10,7 +10,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO) {
     gestionCtrl.campos_animal = gestionAnimalService.campos_animal;
     gestionCtrl.informacion_animal = {};
     gestionCtrl.formAnimales = FORMULARIO.animales;
-    console.log(gestionCtrl.formAnimales);
+    gestionCtrl.animales = gestionAnimalService.animales;
 
     gestionCtrl.modal = function(animal, tipo) {
         var modalInstance = $uibModal.open({
@@ -78,52 +78,15 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO) {
             });;
     }
 
-
-    gestionCtrl.animales = [{
-        codigo: 0,
-        nombre: "Chanda",
-        especie: "Perro",
-        raza: "Pastor alemán",
-        peso: 20,
-        color: "Azul",
-        sexo: "Hembra",
-        fecha: new Date(),
-        estado: "Gusanos dasdbasdasd asdgas dyasgd asydgasd saygduyas duyasgda sdyas dasyuda",
-        imagen: "https://perro.shop/wp-content/uploads/pastor_aleman2.jpg"
-    }, {
-        codigo: 1,
-        nombre: "Tomi",
-        especie: "Perro",
-        raza: "Bull terry",
-        peso: 40,
-        color: "Amarillo",
-        sexo: "Macho",
-        fecha: new Date(),
-        estado: "Pata rota",
-        imagen: "http://4.bp.blogspot.com/-CVpZ-bIuvc8/Uqst3oHwdSI/AAAAAAAAEuI/Gq5H4d8hANM/s1600/bull+terrier.jpg"
-    }, {
-        codigo: 2,
-        nombre: "Neider",
-        especie: "Perro",
-        raza: "Pitbull",
-        peso: 20,
-        color: "Azul",
-        sexo: "Hembra",
-        fecha: new Date(),
-        estado: "Desnutrición",
-        imagen: "https://www.muyperruno.com/wp-content/uploads/2016/07/perro-pitbull-2.jpg"
-    }, {
-        codigo: 3,
-        nombre: "Roberto",
-        especie: "Perro",
-        raza: "Pastor alemán",
-        peso: 20,
-        color: "Azul",
-        sexo: "Hembra",
-        fecha: new Date(),
-        estado: "Malderrabia",
-        imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN5aCiqeaIEGsX-ZOTFdUb1lnOWA8_Dcnc9o1rkV9fmwYrULfOuA"
-    }];
+    gestionCtrl.onBuscarAnimal = function() {
+        gestionAnimalService.obtenerAnimal()
+        .then(function(response) {
+            gestionCtrl.animales = response.data;
+        }).catch(function(error){
+            console.error(error);
+        });
+    }
+    gestionCtrl.onBuscarAnimal();
 }
 
 

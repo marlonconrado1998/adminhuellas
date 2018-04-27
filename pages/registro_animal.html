@@ -3,33 +3,15 @@
     <div class="container-fluid page-body-wrapper">
         <div class="main-panel">
             <div class="content-wrapper">
-
                 <section class="page-title">
                     <h2 class="text-gray text-center">Registro de animal</h2>
-                    <br>
                 </section>
-
                 <div class="container-fluid" ng-controller="gestionAnimalCtrl as ctrl">
                     <div class="row">
                         <div class="col-sm-6 col-md-6 border">
                             <br>
                             <h3 class="text-gray text-center">Información</h3>
                             <br>
-                            <br>
-                            <!-- <div class="row">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" name="nombre" ng-model="animal.nombre" class="form-control">
-                                <label for="peso">Peso</label>
-                                <input type="number" name="peso" ng-model="animal.peso" class="form-control">
-                                <label for="edad">Edad</label>
-                                <input type="number" name="edad" ng-model="animal.edad" class="form-control">
-                                <label for="especie">Especie</label>
-                                <select name="especie" ng-model="animal.especie" ng-options=""></select>
-                                <label for="raza">Raza</label>
-                                <select name="raza" ng-model="animal.raza" ng-options=""></select>
-                                <label for="color">Color</label>
-                                <select name="color" ng-model="animal.color" ng-options=""></select>
-                            </div> -->
                             <div ng-form array-form="ctrl.formAnimales" submit-function="ctrl.registrarAnimal"></div>
                         </div>
                         <div class="col-sm-6 col-md-6 border">
