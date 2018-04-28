@@ -9,28 +9,53 @@
                     <br>
                 </section>
 
-                <div class="container-fluid" ng-controller="gestionAnimalCtrl as ctrl">
+                <!-- <form action=""> -->
+                <div class="container" ng-controller="gestionAnimalCtrl as ctrl">
                     <div class="row">
-                        <div class="col-sm-6 col-md-6 border">
-                            <br>
-                            <h3 class="text-gray text-center">Información</h3>
-                            <br>
-                            <br>
-                            <!-- <div class="row">
+                        <div class="row col-sm-6 border">
+                            <div class="form-group col-sm-12">
+                                <br>
+                                <h3 class="text-gray text-center">Informcación</h3>
+                                <br>
+                                <br>
+                            </div>
+                            <div class="form-group col-sm-6">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" name="nombre" ng-model="animal.nombre" class="form-control">
+                            </div>
+                            <div class="form-group col-sm-6">
                                 <label for="peso">Peso</label>
                                 <input type="number" name="peso" ng-model="animal.peso" class="form-control">
+                            </div>
+                            <div class="form-group col-sm-6">
                                 <label for="edad">Edad</label>
                                 <input type="number" name="edad" ng-model="animal.edad" class="form-control">
+                            </div>
+                            <div class="form-group col-sm-6">
                                 <label for="especie">Especie</label>
-                                <select name="especie" ng-model="animal.especie" ng-options=""></select>
+                                <select name="especie" ng-model="animal.especie" class="form-control" ng-options=""></select>
+                            </div>
+                            <div class="form-group col-sm-6">
                                 <label for="raza">Raza</label>
-                                <select name="raza" ng-model="animal.raza" ng-options=""></select>
+                                <select name="raza" ng-model="animal.raza" class="form-control" ng-options=""></select>
+                            </div>
+                            <div class="form-group col-sm-6">
                                 <label for="color">Color</label>
-                                <select name="color" ng-model="animal.color" ng-options=""></select>
-                            </div> -->
-                            <div ng-form array-form="ctrl.formAnimales" submit-function="ctrl.registrarAnimal"></div>
+                                <select name="color" ng-model="animal.color" class="form-control" ng-options=""></select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="sexo">Sexo</label>
+                                <select name="sexo" ng-model="animal.sexo" class="form-control" ng-options=""></select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="fecha_ingreso">Fecha de ingreso</label>
+                                <input type="datetime-local" name="fecha_ingreso" class="form-control">
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label for="estado_ingreso">Estado de ingreso</label>
+                                <textarea class="form-control" name="estado_ingreso" ng-model="animal.value" class="form-control"></textarea>
+                            </div>
+                            <!-- <div ng-form array-form="ctrl.formAnimales" submit-function="ctrl.registrarAnimal"></div> -->
                         </div>
                         <div class="col-sm-6 col-md-6 border">
                             <br>
@@ -41,6 +66,7 @@
                     </div>
                 </div>
             </div>
+            <!-- </form> -->
         </div>
     </div>
 </div>
