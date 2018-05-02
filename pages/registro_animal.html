@@ -1,70 +1,122 @@
+<style>
+    .adjunt {
+        border: 3px dashed silver;
+        height: 70%;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .adjunt:hover {
+        background-color: rgba(245, 245, 249, 0.92)
+    }
+</style>
 <div id="app" class="container-scroller">
 
-    <div class="container-fluid page-body-wrapper">
+    <div class="container-fluid page-body-wrapper" ng-controller="gestionAnimalCtrl as ctrl">
         <div class="main-panel">
-            <div class="content-wrapper">
-                <section class="page-title">
-                    <h2 class="text-gray text-center">Registro de animal</h2>
+            <div class="content-wrapper" ng-init="ctrl.onCamposParaRegistroAnimal();">
+                <section class="page-title text-gray text-center    ">
+                    <h2 class="">Registro de animal</h2>
+                    <small>Todos los campos son obligatorios, incluido fotos.</small>
                 </section>
 
-                <!-- <form action=""> -->
-                <div class="container" ng-controller="gestionAnimalCtrl as ctrl">
-                    <div class="row">
-                        <div class="row col-sm-6 border">
-                            <div class="form-group col-sm-12">
+                <div class="container text-gray">
+                    <form ng-model="formAnimalRegister" name="formAnimalRegister" ng-submit="ctrl.registrarAnimal(animal);">
+                        <div class="row">
+                            <div class="row col-sm-6">
+                                <div class="form-group col-sm-12">
+                                    <br>
+                                    <h3 class="text-gray text-center">Información</h3>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" name="nombre" ng-model="animal.nombre" class="form-control" ng-required="true">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="peso">Peso</label>
+                                    <input type="number" name="peso" ng-model="animal.peso" class="form-control" min="0" ng-required="true">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="edad">Edad</label>
+                                    <input type="number" name="edad" ng-model="animal.edad" class="form-control" min="0" ng-required="true">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="especie">Especie</label>
+                                    <select name="especie" ng-model="animal.especie" class="form-control" ng-options="especie.nombre for especie in ctrl.optionsSelect.especies" ng-required="true"></select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="raza">Raza</label>
+                                    <select name="raza" ng-model="animal.raza" class="form-control" ng-options="raza.nombre for raza in ctrl.optionsSelect.razas | filter: animal.especie.nombre" ng-required="true"></select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="color">Color</label>
+                                    <select name="color" ng-model="animal.color" class="form-control" ng-options="color for color in ctrl.optionsSelect.colores" ng-required="true"></select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="sexo">Sexo</label>
+                                    <select name="sexo" ng-model="animal.sexo" class="form-control" ng-options="sexo for sexo in ctrl.optionsSelect.sexos" ng-required="true"></select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="fecha_ingreso">Fecha de ingreso</label>
+                                    <input type="datetime-local" name="fecha_ingreso" class="form-control" ng-required="true">
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="estado_ingreso">Estado de ingreso</label>
+                                    <textarea class="form-control" name="estado_ingreso" ng-model="animal.value" class="form-control" ng-required="true"></textarea>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <input type="checkbox" ng-model="animal.entregado" class="btn btn-danger">
+                                    <span>El animal fue entregado a la fundacion.</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
                                 <br>
-                                <h3 class="text-gray text-center">Informcación</h3>
+                                <h3 class="text-gray text-center">Adjuntar fotos</h3>
                                 <br>
-                                <br>
+                                <div class="text-center adjunt">
+                                    <span class="text-muted">Selecciona o arrastrar imagenes aqui</span>
+                                </div>
                             </div>
-                            <div class="form-group col-sm-6">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" name="nombre" ng-model="animal.nombre" class="form-control">
+                            <div class="row col-sm-12 pt-3" ng-show="animal.entregado">
+                                <div class="form-group col-sm-4">
+                                    <label for="identificacion_persona">Identificacion</label>
+                                    <input type="number" name="identificacion_persona" ng-model="animal.persona.identificacion" class="form-control" ng-required="animal.entregado">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="nombre_persona">Nombre</label>
+                                    <input type="text" name="nombre_persona" ng-model="animal.persona.nombre" class="form-control" ng-required="animal.entregado">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="apellido_persona">Apellido</label>
+                                    <input type="text" name="apellido_persona" ng-model="animal.persona.apellido" class="form-control" ng-required="animal.entregado">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="ciudad_persona">Ciudad residencia</label>
+                                    <select type="text" name="ciudad_persona" ng-model="animal.persona.ciudad" class="form-control" ng-required="animal.entregado"
+                                        ng-options="ciudad.nombre for ciudad in ctrl.optionsSelect.ciudades"></select>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="direccion_persona">Detalles residencia</label>
+                                    <input type="text" name="direccion_persona" ng-model="animal.persona.detalles_direccion" class="form-control" ng-required="animal.entregado">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="telefono_persona">Telefono</label>
+                                    <input type="number" name="telefono_persona" ng-minlenght="10" ng-model="animal.persona.telefono" class="form-control" ng-required="animal.entregado">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="correo_persona">Correo</label>
+                                    <input type="email" name="correo_persona" ng-minlenght="8" ng-model="animal.persona.correo" class="form-control" ng-required="animal.entregado">
+                                </div>
                             </div>
-                            <div class="form-group col-sm-6">
-                                <label for="peso">Peso</label>
-                                <input type="number" name="peso" ng-model="animal.peso" class="form-control">
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="edad">Edad</label>
-                                <input type="number" name="edad" ng-model="animal.edad" class="form-control">
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="especie">Especie</label>
-                                <select name="especie" ng-model="animal.especie" class="form-control" ng-options=""></select>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="raza">Raza</label>
-                                <select name="raza" ng-model="animal.raza" class="form-control" ng-options=""></select>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="color">Color</label>
-                                <select name="color" ng-model="animal.color" class="form-control" ng-options=""></select>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="sexo">Sexo</label>
-                                <select name="sexo" ng-model="animal.sexo" class="form-control" ng-options=""></select>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label for="fecha_ingreso">Fecha de ingreso</label>
-                                <input type="datetime-local" name="fecha_ingreso" class="form-control">
-                            </div>
-                            <div class="form-group col-sm-12">
-                                <label for="estado_ingreso">Estado de ingreso</label>
-                                <textarea class="form-control" name="estado_ingreso" ng-model="animal.value" class="form-control"></textarea>
-                            </div>
-                            <!-- <div ng-form array-form="ctrl.formAnimales" submit-function="ctrl.registrarAnimal"></div> -->
                         </div>
-                        <div class="col-sm-6 col-md-6 border">
-                            <br>
-                            <h3 class="text-gray text-center">Adjuntar fotos</h3>
-                            <br>
-                            <br>
+                        <div class="row pt-5">
+                            <div class="col-12 text-center">
+                                <button type="submit" ng-disabled="formAnimalRegister.$invalid" class="btn btn-outline-success">Finalizar Registro</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <!-- </form> -->
         </div>
     </div>
 </div>
