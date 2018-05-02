@@ -13,4 +13,4 @@ app.constant("FORMULARIO", {
     ]
 });
 
-app.constant("GeneralURL", "http://localhost/StartAdmin_back-end/webapis/api/");
+app.constant("GeneralURL", "http://localhost/startadmin_back-end/webapis/api/");

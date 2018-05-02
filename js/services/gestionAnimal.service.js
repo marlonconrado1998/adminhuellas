@@ -10,16 +10,16 @@ function gestionAnimalService(generalService) {
     //VARIABLES
     service.campos_adopcion = [];
     service.campos_animal = [];
+    service.animales = [];
 
     //FUNCTIONS
     service.solicitarAdopcion = solicitarAdopcion;
     service.buscarAnimal = buscarAnimal;
     service.registrarAnimal = registrarAnimal;
+    service.obtenerAnimal = obtenerAnimal;
 
     function solicitarAdopcion() {
-
         return generalService.EJECUTAR_SERVICES('GET', 'js/config/gestionAnimal.config.json', null);
-
     }
 
     function buscarAnimal(animal) {
@@ -36,7 +36,10 @@ function gestionAnimalService(generalService) {
     }
 
     function registrarAnimal(url, datos) {
-        console.log(datos);
         return generalService.EJECUTAR_SERVICES('POST', url, { "data": datos });
+    }
+
+    function obtenerAnimal() {
+        return generalService.EJECUTAR_SERVICES('GET', "api_gestionAnimal.php/animal");
     }
 }

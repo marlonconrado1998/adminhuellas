@@ -3,7 +3,6 @@
     <div class="container-fluid page-body-wrapper">
         <div class="main-panel">
             <div class="content-wrapper" ng-controller="gestionAnimalCtrl as ctrl" ng-init="ctrl.mostrar = true">
-
                 <section class="page-title">
                     <h2 class="text-gray text-center">Lista de animales</h2>
                 </section>
@@ -19,17 +18,19 @@
                                     <th>#Código</th>
                                     <th>Imagen</th>
                                     <th>Nombre</th>
+                                    <th>Especie</th>
                                     <th>Raza</th>
                                     <th>Sexo</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="animal in ctrl.animales" ng-click="ctrl.modal(animal, 'primary');" ng-mouseenter="cssmodal = true" ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
-                                    <td>{{$index}}</td>
+                                    <td>{{animal.idanimal}}</td>
                                     <td>
                                         <img src="{{animal.imagen}}" class="img-fluid rounded" width="80">
                                     </td>
                                     <td>{{animal.nombre}}</td>
+                                    <td>{{animal.especie}}</td>
                                     <td>{{animal.raza}}</td>
                                     <td>{{animal.sexo}}</td>
                                 </tr>
