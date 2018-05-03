@@ -1,8 +1,8 @@
 app.controller('gestionAnimalCtrl', gestionAnimalCtrl);
 
-gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', 'FORMULARIO', "GeneralURL", "selectFactory"];
+gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', 'FORMULARIO', "GeneralURL", "selectFactory", "Upload"];
 
-function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralURL, selectFactory) {
+function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralURL, selectFactory, Upload) {
 
     var gestionCtrl = this;
     //VARIABLES
@@ -12,6 +12,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
     gestionCtrl.formAnimales = FORMULARIO.animales;
     gestionCtrl.animales = gestionAnimalService.animales;
     gestionCtrl.optionsSelect = {};
+    gestionCtrl.imagenesAnimalRegistro = [];
 
     gestionCtrl.modal = function (animal, tipo) {
         var modalInstance = $uibModal.open({
@@ -80,6 +81,33 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         };
         console.log(selectFactory);
     }
+   
+    gestionCtrl.uploadMultipleFiles = function (files) {
+        var existe = false;
+
+        if (gestionCtrl.imagenesAnimalRegistro.length + files.length <= 5) {
+            angular.forEach(files, function (file) {
+                angular.forEach(gestionCtrl.imagenesAnimalRegistro, function (value) {
+                    if (value.name == file.name) {
+                       alert("Ya fue agregada esa imagen.");
+                        existe = true;
+                    }
+                });
+                if (!existe) {
+                    Upload.base64DataUrl(file).then(function (response) {
+                        gestionCtrl.imagenesAnimalRegistro.push({
+                            "image": response,
+                            "name": file.name
+                        }
+                        );
+                    });
+                }
+            });
+        } else {
+            alert("Error: Maximo 5 fotos por animal");
+        }
+
+    };
 
     gestionCtrl.onBuscarAnimal = function () {
         gestionAnimalService.obtenerAnimal()
@@ -93,7 +121,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
     gestionCtrl.onBuscarAnimal();
 }
 
-
+//Controller MODAL==============================================//
 app.controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
 ModalInstanceCtrl.$inject = ['$uibModalInstance', 'items', "$http"];
