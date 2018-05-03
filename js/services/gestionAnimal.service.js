@@ -11,6 +11,7 @@ function gestionAnimalService(generalService) {
     service.campos_adopcion = [];
     service.campos_animal = [];
     service.animales = [];
+    service.options = {};
 
     //FUNCTIONS
     service.solicitarAdopcion = solicitarAdopcion;
