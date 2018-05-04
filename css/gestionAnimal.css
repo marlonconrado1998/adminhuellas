@@ -1,79 +1,125 @@
-.cursor-pointer {
-    cursor: pointer;
-}
-
-.overflow-x {
-    overflow-x: auto;
-}
-
-.overflow-y {
-    overflow-x: auto;
-}
-
-.border-radius-50 {
-    border-radius: 50%;
-}
-
-
-/* Caja de subir imagenes */
-
-.drop-box {
-    border: 3px dashed #DDD;
-    width: 100%;
-    height: 50%;
-    display: flex;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-}
-
-.drop-box:hover {
-    background-color: rgb(255, 255, 255);
-}
-
-.dragover {
-    border: 4px dashed rgb(199, 199, 218);
-    background-color: rgb(246, 247, 255);
-}
-
-.drop-box-small {
-    height: 80px;
-    width: 80px;
-    border: 3px dashed #DDD;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.drop-box-small:hover {
-    background-color: rgb(255, 255, 255);
-}
-
-.box-principal-img {
-    padding: 0px;
-    height: 300px;
-    width: auto;
-    margin-bottom: 10px;
-    text-align: center;
-    border: 1px solid lightgray;
-    background-color: #dad7d747;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.slide-box-image {
-    /* border: 1px solid lightgray;
+    .cursor-pointer {
+        cursor: pointer;
+    }
+    
+    .overflow-x {
+        overflow-x: auto;
+    }
+    
+    .overflow-y {
+        overflow-x: auto;
+    }
+    
+    .border-radius-50 {
+        border-radius: 50%;
+    }
+    /* Caja de subir imagenes */
+    
+    .drop-box {
+        border: 3px dashed #DDD;
+        width: 100%;
+        height: 50%;
+        cursor: pointer;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .drop-box:hover {
+        background-color: rgb(255, 255, 255);
+    }
+    
+    .dragover {
+        border: 4px dashed rgb(199, 199, 218);
+        background-color: rgb(246, 247, 255);
+    }
+    
+    .drop-box-small {
+        height: 80px;
+        width: 80px;
+        border: 3px dashed #DDD;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    .drop-box-small:hover {
+        background-color: rgb(255, 255, 255);
+    }
+    
+    .box-principal-img {
+        padding: 0px;
+        height: 300px;
+        width: auto;
+        margin-bottom: 10px;
+        text-align: center;
+        border: 1px solid lightgray;
+        background-color: #dad7d747;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .slide-box-image {
+        /* border: 1px solid lightgray;
     background-color: #dad7d747; */
-    height: 80px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.image-responsive {
-    max-width: 100%;
-    max-height: 100%;
-}
+        height: 90px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .image-responsive {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    
+    .box-img {
+        height: 100%;
+    }
+    
+    .box-mask:hover .text-on-box {
+        opacity: 0.5;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        background: #000000;
+        padding: 10px;
+        color: #fff;
+        font-family: sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .text-on-box {
+        color: white;
+        z-index: -1;
+        position: absolute;
+        text-align: center;
+        height: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .text-on-box p {
+        cursor: pointer;
+    }
+    
+    .text-on-box p:hover {
+        color: red;
+    }
+    
+    .cropArea {
+        background: #E4E4E4;
+        overflow: hidden;
+        width: 500px;
+        height: 350px;
+    }

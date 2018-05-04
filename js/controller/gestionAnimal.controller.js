@@ -31,6 +31,23 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         });
     };
 
+
+    gestionCtrl.myImage = '';
+    gestionCtrl.myCroppedImage = '';
+
+    gestionCtrl.handleFileSelect = function(evt) {
+        console.log(evt);
+        var file = evt.currentTarget.files[0];
+        var reader = new FileReader();
+        reader.onload = function(evt) {
+            // this.$apply(function(gestionCtrl) {
+            gestionCtrl.myImage = evt.target.result;
+            // });
+        };
+        reader.readAsDataURL(file);
+    };
+    angular.element(document.querySelector('#fileInput')).on('change', gestionCtrl.handleFileSelect);
+
     gestionCtrl.onSolicitarAdopcion = function() {
         gestionAnimalService.solicitarAdopcion()
             .then(function(response) {
@@ -79,7 +96,6 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
             "ciudades": selectFactory.getCiudades(),
             "colores": selectFactory.getColores()
         };
-        console.log(selectFactory);
     }
 
     gestionCtrl.uploadMultipleFiles = function(files) {
@@ -105,8 +121,21 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         } else {
             alert("Error: Maximo 5 fotos por animal");
         }
-
     };
+
+    gestionCtrl.onDeleteImage = function(position_image) {
+        gestionCtrl.imagenesAnimalRegistro.splice(position_image, 1)
+    }
+
+    gestionCtrl.onShowImage = function(position_image) {
+        var aux = gestionCtrl.imagenesAnimalRegistro[position_image];
+        gestionCtrl.imagenesAnimalRegistro[position_image] = gestionCtrl.imagenesAnimalRegistro[gestionCtrl.imagenesAnimalRegistro.length - 1];
+        gestionCtrl.imagenesAnimalRegistro[gestionCtrl.imagenesAnimalRegistro.length - 1] = aux;
+    }
+
+    gestionCtrl.onCropImage = function(position_image) {
+
+    }
 
     gestionCtrl.onBuscarAnimal = function() {
         gestionAnimalService.obtenerAnimal()
