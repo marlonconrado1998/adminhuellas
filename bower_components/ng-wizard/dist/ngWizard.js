@@ -156,16 +156,12 @@ angular.module("ngWizardTemplate.html", []).run(["$templateCache", function ($te
         '<br><br>'+
         '<div class="container-fluid">' +
             '<div class="row">' +
-                '<div class="col-xs-12 form-group">' +
-                    '<button class="btn btn-primary btn-block submit animate fade-in-out" ng-hide="!isSubmittable()" ng-click="onSubmitClicked()" ng-disabled="submitting">{{submitString}} <i class="fa fa-circle-o-notch fa-spin" ng-show="submitting"></i></button>' +
+                '<div class="col-6 form-group">'+
+                    '<button class="float-left btn btn-primary submit animate fade-in-out" ng-show="hasPrevious()" ng-class="{disabled: !hasPrevious()}" ng-click="goToPrevious()"> <i class="fa fa-arrow-circle-left"></i> {{prevString}} </button>'+
                 "</div>" +
-                '<div class="row" ng-show="!isSubmittable()">' +
-                    '<div class="col-sm-6 form-group">'+
-                       '<button class="previous btn btn-primary btn-block submit animate fade-in-out" ng-class="{disabled: !hasPrevious()}" ng-click="goToPrevious()"> <i class="fa fa-arrow-circle-left"></i> {{prevString}} </button>'+
-                    "</div>" +
-                    '<div class="col-sm-6 form-group">'+
-                       '<button class="next btn btn-primary btn-block submit animate fade-in-out ml-5" ng-class="{disabled: !hasNext()}" ng-click="goToNext()"> {{nextString}} <i class="fa fa-arrow-circle-right"> </i> </button>'+            
-                    "</div>" +
+                '<div class="col-6 form-group">'+
+                    '<button class="float-right btn btn-primary submit animate fade-in-out" ng-show="hasNext() && !isSubmittable()" ng-class="{disabled: !hasNext()}" ng-click="goToNext()"> {{nextString}} <i class="fa fa-arrow-circle-right"> </i> </button>'+            
+                    '<button class="float-right btn btn-primary submit animate fade-in-out" ng-show="isSubmittable()" ng-click="onSubmitClicked()">{{submitString}} <i class="fa fa-circle-o-notch fa-spin"></i></button>' +
                 "</div>" +
             "</div>" +
         "</div>" +

@@ -31,30 +31,6 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         });
     };
 
-
-    gestionCtrl.myImage = '';
-    gestionCtrl.myCroppedImage = '';
-
-    gestionCtrl.handleFileSelect = function(evt) {
-        console.log(evt);
-        var file = evt.currentTarget.files[0];
-        var reader = new FileReader();
-        reader.onload = function(evt) {
-            // this.$apply(function(gestionCtrl) {
-            gestionCtrl.myImage = evt.target.result;
-            // });
-        };
-        reader.readAsDataURL(file);
-    };
-    angular.element(document.querySelector('#fileInput')).on('change', gestionCtrl.handleFileSelect);
-
-    gestionCtrl.onSolicitarAdopcion = function() {
-        gestionAnimalService.solicitarAdopcion()
-            .then(function(response) {
-                gestionCtrl.campos_adopcion = gestionAnimalService.campos_adopcion;
-            });
-    }
-
     gestionCtrl.onBuscarAnimal = function(animal) {
         gestionCtrl.informacion_animal = {};
         angular.forEach(gestionCtrl.animales, function(value) {
@@ -71,7 +47,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
     }
 
     gestionCtrl.registrarAnimal = function(animal) {
-        var url = GeneralURL + 'api_gestionAnimal.php/registrarAnimal'
+        // var url = GeneralURL + 'api_gestionAnimal.php/registrarAnimal'
         console.log(animal);
         // gestionAnimalService.registrarAnimal(url, json)
         //     .then(function (response) {

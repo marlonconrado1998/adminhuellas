@@ -13,6 +13,8 @@
     .border-radius-50 {
         border-radius: 50%;
     }
+
+
     /* Caja de subir imagenes */
     
     .drop-box {
@@ -65,8 +67,7 @@
     }
     
     .slide-box-image {
-        /* border: 1px solid lightgray;
-    background-color: #dad7d747; */
+        width: 100%;
         height: 90px;
         display: flex;
         flex-direction: row;
@@ -80,7 +81,11 @@
     }
     
     .box-img {
-        height: 100%;
+        height: 90px;
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .box-mask:hover .text-on-box {
@@ -97,6 +102,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: 0.3s;
     }
     
     .text-on-box {
@@ -122,4 +128,20 @@
         overflow: hidden;
         width: 500px;
         height: 350px;
+    }
+
+    /* Validacion de campo */
+
+    .form-animal-register .ng-touched.ng-invalid, .formAdopcion .ng-touched.ng-invalid{
+        border: 1px solid red;
+    }
+
+    .form-animal-register .ng-valid, .formAdopcion .ng-valid{
+        border: 1px solid rgb(0, 255, 64);
+    }
+
+    .symbol-required{
+        content: "*";
+        display: inline;
+        color: #E6674A;
     }
