@@ -1,15 +1,14 @@
 app.controller('gestionAnimalCtrl', gestionAnimalCtrl);
 
-gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', 'FORMULARIO', "GeneralURL", "selectFactory", "Upload"];
+gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', "GeneralURL", "selectFactory", "Upload"];
 
-function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralURL, selectFactory, Upload) {
+function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFactory, Upload) {
 
     var gestionCtrl = this;
     //VARIABLES
     gestionCtrl.campos_adopcion = gestionAnimalService.campos_adopcion;
     gestionCtrl.campos_animal = gestionAnimalService.campos_animal;
     gestionCtrl.informacion_animal = {};
-    gestionCtrl.formAnimales = FORMULARIO.animales;
     gestionCtrl.animales = gestionAnimalService.animales;
     gestionCtrl.optionsSelect = {};
     gestionCtrl.imagenesAnimalRegistro = [];
@@ -79,7 +78,6 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
             "ciudades": selectFactory.getCiudades(),
             "colores": selectFactory.getColores()
         };
-        console.log(selectFactory);
     }
    
     gestionCtrl.uploadMultipleFiles = function (files) {
@@ -112,7 +110,6 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
     gestionCtrl.onBuscarAnimal = function () {
         gestionAnimalService.obtenerAnimal()
             .then(function (response) {
-                console.log(response);
                 gestionCtrl.animales = response.data;
             }).catch(function (error) {
                 console.error(error);

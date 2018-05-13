@@ -7,10 +7,6 @@ app.config(["$stateProvider", "$urlRouterProvider", '$compileProvider', '$locati
         $urlRouterProvider.otherwise("/Inicio");
 
         $stateProvider.state({
-            name: 'chart',
-            url: '/chart',
-            templateUrl: 'pages/charts/chartjs.html'
-        }).state({
             name: 'Inicio',
             url: '/Inicio',
             templateUrl: 'pages/inicio.html'
