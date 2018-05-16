@@ -7,7 +7,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFa
     var gestionCtrl = this;
     gestionCtrl.campos_adopcion = gestionAnimalService.campos_adopcion;
     gestionCtrl.campos_animal = gestionAnimalService.campos_animal;
-    gestionCtrl.informacion_animal = {};
+    gestionCtrl.informacion_animal = {};  
     gestionCtrl.animales = gestionAnimalService.animales;
     gestionCtrl.optionsSelect = {};
     gestionCtrl.imagenesAnimalRegistro = [];
@@ -20,7 +20,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFa
             controllerAs: '$ctrl',
             resolve: {
                 items: function() {
-                    return { data: animal};
+                    return { data: animal };
                 }
             }
         });
@@ -52,8 +52,8 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFa
     }
 
     gestionCtrl.registrarAnimal = function(animal) {
+
         var url = GeneralURL + 'api_gestionAnimal.php/registrarAnimal'
-        console.log(animal);
         // gestionAnimalService.registrarAnimal(url, json)
         //     .then(function (response) {
         //         console.log(response);
@@ -102,8 +102,22 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFa
         } else {
             alert("Error: Maximo 5 fotos por animal");
         }
-
     };
+
+
+    gestionCtrl.onDeleteImage = function(position_image) {
+        gestionCtrl.imagenesAnimalRegistro.splice(position_image, 1)
+    }
+
+    gestionCtrl.onShowImage = function(position_image) {
+        var aux = gestionCtrl.imagenesAnimalRegistro[position_image];
+        gestionCtrl.imagenesAnimalRegistro[position_image] = gestionCtrl.imagenesAnimalRegistro[gestionCtrl.imagenesAnimalRegistro.length - 1];
+        gestionCtrl.imagenesAnimalRegistro[gestionCtrl.imagenesAnimalRegistro.length - 1] = aux;
+    }
+
+    gestionCtrl.onCropImage = function(position_image) {
+
+    }
 
     gestionCtrl.onBuscarAnimal = function() {
         gestionAnimalService.obtenerAnimal()
@@ -160,9 +174,11 @@ function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory) {
         Upload.base64DataUrl(gestionCtrl.files).then(function(images) {
             console.log(images);
         });
+    }
+    gestionCtrl.cerrar = function() {
+        $uibModalInstance.dismiss('cancel');
     };
-
-    gestionCtrl.asignarAttr = function () {
+    gestionCtrl.asignarAttr = function() {
         for (var attr in items.data) {
             gestionCtrl.animal[attr] = items.data[attr];
         }
@@ -170,4 +186,5 @@ function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory) {
     }
 
     gestionCtrl.asignarAttr();
+
 }

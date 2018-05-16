@@ -1,7 +1,16 @@
 <style type="text/css" media="screen">
-
 .border-error {
     border: 1px dotted red;
+}
+
+.delete-image:hover {
+    border: 3px solid #318be3 !important;
+}
+
+.btn-delete {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 </style>
 <div class="modal-header">
@@ -15,10 +24,6 @@
         <i class="fa fa-times cursor-pointer" ng-click="$ctrl.cerrar()"></i>
     </div> -->
 </div>
-<!-- <div class="progress mb-2">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-        ng-style="$ctrl.porcentaje" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-</div> -->
 <div class="modal-body" style="background-color: white;">
     <div class="container">
         <uib-tabset active="pills">
@@ -30,13 +35,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name">Nombre</label>
-                                        <input type="text" name="name" class="form-control" 
-                                        ng-class="{'border-error': form.name.$invalid,}" 
-                                        placeholder="Nombre de animal" 
-                                        ng-model="$ctrl.animal.name" ng-required="true"/>
+                                        <input type="text" name="name" class="form-control" ng-class="{'border-error': form.name.$invalid,}" placeholder="Nombre de animal" ng-model="$ctrl.animal.name" ng-required="true" />
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="especie">Especie</label>
@@ -83,8 +84,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="estado">Estado</label>
-                                        <textarea name="estado" class="form-control" 
-                                        ng-class="{'border-error': form.estado.$invalid,}" placeholder="Estado de ingreso" ng-model="$ctrl.animal.estado" ng-required="true"></textarea>
+                                        <textarea name="estado" class="form-control" ng-class="{'border-error': form.estado.$invalid,}" placeholder="Estado de ingreso" ng-model="$ctrl.animal.estado" ng-required="true"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -142,19 +142,26 @@
                 </form>
             </uib-tab>
             <uib-tab index="2" heading="Galería">
-                <form class="my-3" name="form_galeria">
-                    <div ngf-drop="$ctrl.addImages($ctrl.images);" ngf-select="$ctrl.addImages($ctrl.images);" ng-model="$ctrl.images" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-multiple="true" style="height: 320px;" ngf-max-files="6" class="px-2 d-flex justify-content-center">
-                        <h4 style="line-height: 300px; position: absolute;" class="text-center">
-                        Arrastra o presiona aquí para subir tus fotos</h4>
+                <div ng-show="!$ctrl.show_galery">
+                    <form class="my-3" name="form_galeria">
+                        <div ngf-drop="$ctrl.addImages($ctrl.images);" ngf-select="$ctrl.addImages($ctrl.images);" ng-model="$ctrl.images" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-multiple="true" ngf-max-files="6" class="px-2 d-flex justify-content-center border py-2" style="cursor: pointer;">
+                            <h4 class="text-center">
+                            Arrastra o presiona aquí para subir tus fotos</h4>
+                        </div>
                         <div class="row mt-2 mb-2 text-center">
-                            <div ng-repeat="file in $ctrl.files" class="col-lg-3 p-2">
-                                <img ngf-src="file" class="img-fluid img-thumbnail">
+                            <div ng-repeat="file in $ctrl.files" class="col-lg-3 p-2 delete-image d-flex justify-content-center align-items-center border" ng-click="$ctrl.show_galery = true; $ctrl.imagen_preview = file;" style="height: 250px; cursor: pointer;">
+                                <img ngf-src="file" class="img-fluid" style="max-height: 100%;">
+                                <i class="btn btn-danger fa fa-times btn-delete" ng-click="$ctrl.files.splice($index, 1);"></i>
                             </div>
                         </div>
+                    </form>
+                    <div class="row justify-content-center">
+                        <button ng-disabled="form_persona.$invalid" ng-click="$ctrl.next();" class="btn btn-success mt-3" type="button">Siguiente</button>
                     </div>
-                </form>
-                <div class="row justify-content-center">
-                    <button ng-disabled="form_persona.$invalid" ng-click="$ctrl.next();" class="btn btn-success mt-3" type="button">Siguiente</button>
+                </div>
+                <div ng-show="$ctrl.show_galery">
+                    <button ng-click="$ctrl.show_galery=false;" class="btn btn-info">Atrás</button>
+                    <img ngf-src="$ctrl.imagen_preview" class="img-fluid">
                 </div>
             </uib-tab>
         </uib-tabset>

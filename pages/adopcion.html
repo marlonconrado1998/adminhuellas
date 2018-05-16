@@ -5,7 +5,7 @@
             <div class="content-wrapper">
 
                 <section>
-                    <h1 class="text-center text-gray">Solicitud de adopción</h1>
+                    <h1 class="text-center text-gray">Registro de adopción</h1>
                     <br>
                     <br>
                 </section>
@@ -86,7 +86,7 @@
                                 <small>Todos los campos son obligatorios.</small>
                                 <br>
                                 <br>
-                                <form name="formAdopcion">
+                                <form name="formAdopcion" class="formAdopcion">
                                     <!-- <div class="container"> -->
                                     <!-- <div class="row">
                                     <div ng-repeat="campo in ct.campos_adopcion" class="form-group {{campo.col}}">
@@ -162,20 +162,45 @@
                                 </form>
                             </wizard-step>
                             <wizard-step title="Confirmacion" required-step-number="1" entered="stepEntered()">
-                                <h3>Confirma todos los datos</h3>
+                                <h3>Compromiso de adopcion</h3>
                                 <br>
-                                <br>
-                                <p>Codigo del animal: {{ct.adopcion.codigo_animal}}</p>
-                                <p>Nombre completo del adoptante: {{ct.adopcion.nombre + " " + ct.adopcion.apellido}}</p>
-                                <p>Identificacion: {{ct.adopcion.identificacion}}</p>
-                                <p>Telefono: {{ct.adopcion.telefono}}</p>
-                                <p>Correo: {{ct.adopcion.correo}}</p>
-                                <p>Ocupacion: {{ct.adopcion.ocupacion}}</p>
-                                <p>Empresa: {{ct.adopcion.empresa}}</p>
-                                <!-- <input type="checkbox" ng-model="treminos" required> Acepto terminos y condiciones -->
+                                <p>
+                                    <span>
+                                        Me comprometo a no violar los derechos del animal establecidos en la Ley 84 de 1989 y a cumplir los deberes específicos determinados
+                                        por la Fundación Huellas de Amor / Fundación Amigo Fiel:
+                                    </span>
+                                    <ul>
+                                        <li>
+                                            El animal no debe permanecer atado.
+                                        </li>
+                                        <li>El lugar donde permanecerá el animal debe ser seguro para evitar que se escape a
+                                            la calle.</li>
+                                        <li>El nuevo hogar será permanente, no debe ser entregado a terceros sin previa autorización
+                                            de la Fundación.</li>
+                                        <li>El adoptante debe dar alimento, agua suficiente y atención veterinaria.
+                                        </li>
+                                        <li>La salud de animal es responsabilidad del adoptante luego de que este salga del albergue.</li>
+                                        <li>El adoptante debe continuar el plan oficial de vacunación del animal anualmente y
+                                            su desparasitación cada tres meses.</li>
+                                        <li>El adoptante debe proveer al animal de un techo, espacio amplio y limpio, buen trato
+                                            y muchísimo cariño. </li>
+                                        <li>El animal no debe ser sometido a encerramiento en cubiculos, a actividades de agresión
+                                            a otros animales</li>
+                                        <li>Al animal no debe dejársele solo por tiempos que generen su desatención en alimentación
+                                            y estado anímico saludable.</li>
+                                        <li> Debe brindársele esparcimiento y actividades que propicien su ejercitación.</li>
+                                        <li>Mantenérsele con identificación permanente para evitar extravíos - El animal no debe
+                                            ser sometido a mutilaciones, entendiéndose corte de rabo, orejas, etc.
+                                        </li>
+                                        <li>El animal si no se entrega esterilizado, se entrega con compromiso de esterilización
+                                            hasta que cumpla edad prudente para la misma.</li>
+                                        <li>El adoptante debe permitir cada tanto para verificar su estado.</li>
+                                        <li>En caso de no estar conforme con el animal, debe devolverlo inmediatamente a la Fundación.</li>
+                                    </ul>
+                                </p>
                                 <div class="form-check form-check-flat">
                                     <label class="form-check-label">
-                                        <input type="checkbox" ng-model="treminos" class="form-check-input" required> Acepta terminos y condiciones
+                                        <input type="checkbox" ng-model="treminos" class="form-check-input" required> Acepta compromiso
                                         <i class="input-helper"></i>
                                     </label>
                                 </div>
@@ -188,56 +213,7 @@
                 <!-- <form>
                     <div class="container-fluid">
                         <div class="row">
-<<<<<<< HEAD
                         
-=======
-                            <div class="form-group col-sm-4">
-                                <label for="nombre">Nombre</label>
-                                <br>
-                                <input type="text" id="nombre" class="input-group-text" placeholder="Nombre del adoptante">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="apellidos">Apellidos</label>
-                                <br>
-                                <input type="text" id="apellidos" class="input-group-text" placeholder="Apelldos del adoptante">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="identificacion">Identificacion</label>
-                                <br>
-                                <input type="number" id="Identificacion" class="input-group-text" placeholder="Identificacion del adoptante">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="telefono">Teléfono</label>
-                                <br>
-                                <input type="tel" id="telefono" class="input-group-text" placeholder="Telefono de contacto">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="correo">Correo</label>
-                                <br>
-                                <input type="email" id="correo" class="input-group-text" placeholder="correo de contacto">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="ciudad_residencia">Ciudad</label>
-                                <br>
-                                <input type="text" id="ciudad_residencia" class="input-group-text" placeholder="Ciudad de residencia">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="direccion">Direccion</label>
-                                <br>
-                                <input type="text" id="direccion" class="input-group-text" placeholder="Direccion de residencia">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="ocupacion">Ocupación</label>
-                                <br>
-                                <input type="text" id="ocupacion" class="input-group-text" placeholder="Ocupacion">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="empresa">Empresa</label>
-                                <br>
-                                <input type="text" id="empresa" class="input-group-text" placeholder="Lugar donde labora">
-                            </div>
-                        </div>
->>>>>>> ddd62806ed968ed1d4c8e5e11ad547bd3db02e15
                         <br>
                         <br>
                         <br>
