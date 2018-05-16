@@ -1,0 +1,162 @@
+<style type="text/css" media="screen">
+
+.border-error {
+    border: 1px dotted red;
+}
+</style>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="$ctrl.cerrar()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <!-- <div class="justify-content-start"></div>
+    <div class="justify-content-end">
+        <i class="fa fa-eye cursor-pointer" ng-hide="$ctrl.css=='success'" ng-click="$ctrl.css='primary'"></i>
+        <i class="fa fa-pencil-alt cursor-pointer" ng-hide="$ctrl.css=='success'" ng-click="$ctrl.css='info'"></i>
+        <i class="fa fa-times cursor-pointer" ng-click="$ctrl.cerrar()"></i>
+    </div> -->
+</div>
+<!-- <div class="progress mb-2">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+        ng-style="$ctrl.porcentaje" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div> -->
+<div class="modal-body" style="background-color: white;">
+    <div class="container">
+        <uib-tabset active="pills">
+            <uib-tab index="0" heading="Datos animal">
+                <form class="container my-3 row" name="form" ng-submit="$ctrl.registrarDatos();">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" name="name" class="form-control" 
+                                        ng-class="{'border-error': form.name.$invalid,}" 
+                                        placeholder="Nombre de animal" 
+                                        ng-model="$ctrl.animal.name" ng-required="true"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="especie">Especie</label>
+                                        <select name="especie" ng-model="$ctrl.animal.especie" class="form-control" ng-options="especie.nombre for especie in   $ctrl.optionsSelect.especies" ng-required="true">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="raza">Raza</label>
+                                        <select name="raza" ng-model="$ctrl.animal.raza" class="form-control" ng-options="raza.nombre for raza in $ctrl.optionsSelect.razas | filter: animal.especie.nombre" ng-required="true"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="peso">Peso</label>
+                                        <input type="text" name="peso" class="form-control" ng-class="{'border-error': form.peso.$invalid}" placeholder="Peso" ng-model="$ctrl.animal.peso" ng-required="true">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="color">Color</label>
+                                        <select name="color" ng-model="$ctrl.animal.color" class="form-control" ng-options="color for color in $ctrl.optionsSelect.colores" ng-required="true"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="sexo">Sexo</label>
+                                        <select name="sexo" ng-model="$ctrl.animal.sexo" class="form-control" ng-options="sexo for sexo in $ctrl.optionsSelect.sexos" ng-required="true"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="fecha_ingreso">Fecha ingreso</label>
+                                        <input type="datetime-local" name="fecha_ingreso" class="form-control" ng-class="{'border-error': form.fecha_ingreso.$invalid}" placeholder="Fecha de ingreso" ng-model="$ctrl.animal.fecha_ingreso" ng-required="true">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="fecha_nacimiento">Fecha nacimiento</label>
+                                        <input type="date" name="fecha_nacimiento" class="form-control" ng-class="{'border-error': form.fecha_nacimiento.$invalid}" placeholder="Fecha de nacimiento" ng-model="$ctrl.animal.fecha_nacimiento" ng-required="true">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="estado">Estado</label>
+                                        <textarea name="estado" class="form-control" 
+                                        ng-class="{'border-error': form.estado.$invalid,}" placeholder="Estado de ingreso" ng-model="$ctrl.animal.estado" ng-required="true"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="identificacion">Identificación</label>
+                                        <input type="text" name="identificacion" class="form-control" ng-class="{'border-error': form.identificacion.$invalid}" placeholder="Nombre" ng-model="$ctrl.animal.identificacion_persona">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre</label>
+                                        <input type="text" name="nombre" class="form-control" ng-class="{'border-error': form.nombre.$invalid}" placeholder="Nombre" ng-model="$ctrl.animal.nombre_persona">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="apellido">Apellido</label>
+                                        <input type="text" name="apellido" class="form-control" ng-class="{'border-error': form.apellido.$invalid}" placeholder="Especie" ng-model="$ctrl.animal.apellido_persona">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="ciudad_residencia">Ciudad de residencia</label>
+                                        <input type="text" name="ciudad_residencia" class="form-control" ng-class="{'border-error': form.ciudad_residencia.$invalid}" placeholder="Raza" ng-model="$ctrl.animal.ciudad_persona">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="detalle_residencia">Detalles de residencia</label>
+                                        <input type="text" name="detalle_residencia" class="form-control" ng-class="{'border-error': form.detalle_residencia.$invalid}" placeholder="Peso" ng-model="$ctrl.animal.direccion_persona">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="telefono">Teléfono</label>
+                                        <input type="text" name="telefono" class="form-control" ng-class="{'border-error': form.telefono.$invalid}" placeholder="Color" ng-model="$ctrl.animal.telefono_persona">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="correo">Correo</label>
+                                        <input type="text" name="correo" class="form-control" ng-class="{'border-error': form.correo.$invalid}" placeholder="Sexo" ng-model="$ctrl.animal.correo_persona">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 justify-content-center">
+                        <button ng-disabled="form.$invalid" type="submit" class="btn btn-success mt-3" type="button">Guardar datos</button>
+                    </div>
+                </form>
+            </uib-tab>
+            <uib-tab index="2" heading="Galería">
+                <form class="my-3" name="form_galeria">
+                    <div ngf-drop="$ctrl.addImages($ctrl.images);" ngf-select="$ctrl.addImages($ctrl.images);" ng-model="$ctrl.images" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-multiple="true" style="height: 320px;" ngf-max-files="6" class="px-2 d-flex justify-content-center">
+                        <h4 style="line-height: 300px; position: absolute;" class="text-center">
+                        Arrastra o presiona aquí para subir tus fotos</h4>
+                        <div class="row mt-2 mb-2 text-center">
+                            <div ng-repeat="file in $ctrl.files" class="col-lg-3 p-2">
+                                <img ngf-src="file" class="img-fluid img-thumbnail">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row justify-content-center">
+                    <button ng-disabled="form_persona.$invalid" ng-click="$ctrl.next();" class="btn btn-success mt-3" type="button">Siguiente</button>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

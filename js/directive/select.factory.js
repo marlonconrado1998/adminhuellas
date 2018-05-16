@@ -13,7 +13,6 @@ app.factory("selectFactory", ["generalService", 'GeneralURL', function (generalS
         getCiudades: function () {
             if (ciudades.length == 0) {
                 ciudades = generalService.EJECUTAR_SERVICES("GET", url + "ciudad");
-                console.log(ciudades);
             }
             return ciudades;
         },
@@ -38,6 +37,15 @@ app.factory("selectFactory", ["generalService", 'GeneralURL', function (generalS
             }
             return colores;
         },
+        getAll : function () {
+            return {
+                ciudades: ciudades,
+                especies: especies,
+                sexos: sexos,
+                razas: razas,
+                colores: colores
+            }
+        }
     };
     return all;
 }]);
