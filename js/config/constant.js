@@ -1,1 +1,1 @@
-app.constant("GeneralURL", "http://localhost:8080/startadmin_back-end/webapis/api/");
+app.constant("GeneralURL", "http://localhost:80/startadmin_back-end/webapis/api/");

@@ -17,6 +17,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFa
             templateUrl: 'pages/modal/modal_animales.html',
             size: 'lg',
             controller: 'ModalInstanceCtrl',
+            backdrop: true,
             controllerAs: '$ctrl',
             resolve: {
                 items: function() {
@@ -133,12 +134,14 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFa
 //Controller MODAL==============================================//
 app.controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
-ModalInstanceCtrl.$inject = ['$uibModalInstance', 'items', "$http", 'selectFactory'];
+ModalInstanceCtrl.$inject = ['$uibModalInstance', 'items', "$http", 'selectFactory', 'Upload'];
 
-function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory) {
+function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory, Upload) {
 
     var gestionCtrl = this;
     gestionCtrl.animal = {};
+    gestionCtrl.imageCrop = '';
+    gestionCtrl.imageCroped = '';
     gestionCtrl.files = [];
     gestionCtrl.optionsSelect = selectFactory.getAll();
 
@@ -151,30 +154,32 @@ function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory) {
     }
 
     gestionCtrl.addImages = function(images) {
-        if (gestionCtrl.files.length >= 6) {
+        if (gestionCtrl.files.length >= 5) {
             return false;
         }
-        var iter = images.length;
-        while (iter--) {
-            if (gestionCtrl.files.length < 6 && !gestionCtrl.imageRepeated(images[iter])) {
-                gestionCtrl.files.push(images[iter]);
+        Upload.base64DataUrl(images).then(function(imagesB64) {
+            var iter = imagesB64.length;
+            while (iter--) {
+                if (gestionCtrl.files.length < 5) {
+                    gestionCtrl.files.push(imagesB64[iter]);
+                }
             }
-        }
-    }
-
-    gestionCtrl.imageRepeated = function(image) {
-        for (var i = 0; i < gestionCtrl.files.length; i++) {
-            if (gestionCtrl.files[i].name == image.name) {
-                return true;
-            }
-        }
-    }
-
-    gestionCtrl.uploadImages = function() {
-        Upload.base64DataUrl(gestionCtrl.files).then(function(images) {
-            console.log(images);
         });
     }
+
+    gestionCtrl.updateImage = function (index, imageCroped) {
+        gestionCtrl.files[index] = imageCroped;
+    }
+
+    gestionCtrl.deleteImage = function (index) {
+        gestionCtrl.files.splice(index, 1);
+    }
+
+    gestionCtrl.previewImage = function (file) {
+        var view = open();
+        view.document.write("<img src='"+file+"'>")
+    }
+
     gestionCtrl.cerrar = function() {
         $uibModalInstance.dismiss('cancel');
     };
@@ -182,7 +187,6 @@ function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory) {
         for (var attr in items.data) {
             gestionCtrl.animal[attr] = items.data[attr];
         }
-        console.log(gestionCtrl.animal)
     }
 
     gestionCtrl.asignarAttr();

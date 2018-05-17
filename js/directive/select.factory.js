@@ -38,13 +38,17 @@ app.factory("selectFactory", ["generalService", 'GeneralURL', function (generalS
             return colores;
         },
         getAll : function () {
-            return {
-                ciudades: ciudades,
-                especies: especies,
-                sexos: sexos,
-                razas: razas,
-                colores: colores
+            if (colores.length == 0 && razas.length == 0 && especies.length == 0 && ciudades.length == 0) {
+                return false;
             }
+                return {
+                    ciudades: ciudades,
+                    especies: especies,
+                    sexos: sexos,
+                    razas: razas,
+                    colores: colores
+                }
+           
         }
     };
     return all;
