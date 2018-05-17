@@ -1,9 +1,6 @@
 app.factory("selectFactory", ["generalService", 'GeneralURL', function (generalService, GeneralURL) {
+    
     var fac = this;
-    // var ciudades = [];
-    // var especies = [];
-    // var razas = [];
-    // var colores = [];
     var ciudades = [{ nombre: "Cartagena", id: 1 }, { nombre: "Barranquilla", id: 3 }, { nombre: "Bogotá", id: 2 }];
     var especies = [{ nombre: "Perro", id: 1 }, { nombre: "Gato", id: 2 }];
     var razas = [{ nombre: "Criollo", id: 1, especie: "Perro" }, { nombre: "Pug", id: 2, especie: "Perro" }, { nombre: "Criollo", id: 3, especie: "Gato" }];
@@ -14,10 +11,8 @@ app.factory("selectFactory", ["generalService", 'GeneralURL', function (generalS
 
     var all = {
         getCiudades: function () {
-
             if (ciudades.length == 0) {
                 ciudades = generalService.EJECUTAR_SERVICES("GET", url + "ciudad");
-                console.log(ciudades);
             }
             return ciudades;
         },
@@ -42,7 +37,19 @@ app.factory("selectFactory", ["generalService", 'GeneralURL', function (generalS
             }
             return colores;
         },
+        getAll : function () {
+            if (colores.length == 0 && razas.length == 0 && especies.length == 0 && ciudades.length == 0) {
+                return false;
+            }
+                return {
+                    ciudades: ciudades,
+                    especies: especies,
+                    sexos: sexos,
+                    razas: razas,
+                    colores: colores
+                }
+           
+        }
     };
-
     return all;
 }]);

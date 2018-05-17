@@ -132,12 +132,12 @@
 
     /* Validacion de campo */
 
-    .form-animal-register .ng-touched.ng-invalid, .formAdopcion .ng-touched.ng-invalid{
-        border: 1px solid red;
+    .form-animal-register .ng-touched.ng-invalid, .formAdopcion .ng-touched.ng-invalid, .form_modify_animal .ng-touched.ng-invalid{
+        border: 1px dotted red;
     }
 
-    .form-animal-register .ng-valid, .formAdopcion .ng-valid{
-        border: 1px solid rgb(0, 255, 64);
+    .form-animal-register .ng-valid, .formAdopcion .ng-valid, .form_modify_animal .ng-valid{
+        border: 1px dotted rgb(0, 255, 64);
     }
 
     .symbol-required{

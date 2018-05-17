@@ -1,52 +1,38 @@
 app.controller('gestionAnimalCtrl', gestionAnimalCtrl);
 
-gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', 'FORMULARIO', "GeneralURL", "selectFactory", "Upload"];
+gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', "GeneralURL", "selectFactory", "Upload"];
 
-function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralURL, selectFactory, Upload) {
+function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFactory, Upload) {
 
     var gestionCtrl = this;
     //VARIABLES
-    gestionCtrl.informacion_animal = {};
-    gestionCtrl.formAnimales = FORMULARIO.animales;
+
     gestionCtrl.animales = gestionAnimalService.animales;
     gestionCtrl.optionsSelect = {};
     gestionCtrl.imagenesAnimalRegistro = [];
 
-    gestionCtrl.modal = function (animal, tipo) {
+    gestionCtrl.modal = function(animal) {
         var modalInstance = $uibModal.open({
-            templateUrl: 'modal.html',
-            size: 'md',
+            templateUrl: 'pages/modal/modal_animales.html',
+            size: 'lg',
             controller: 'ModalInstanceCtrl',
+            backdrop: true,
             controllerAs: '$ctrl',
             resolve: {
-                items: function () {
-                    return { data: animal, tipo: tipo };
+                items: function() {
+                    return { data: animal };
                 }
             }
         });
-        modalInstance.result.then(function () { }, function (info) {
+        modalInstance.result.then(function() {}, function(info) {
             console.log(info);
         });
     };
 
-    gestionCtrl.onBuscarAnimal = function (animal) {
-        gestionCtrl.informacion_animal = {};
-        angular.forEach(gestionCtrl.animales, function (value) {
-            if (value.codigo == animal) {
-                gestionCtrl.informacion_animal = value;
-                angular.break;
-                return;
-            }
-        });
-        if (gestionCtrl.informacion_animal.codigo == null || gestionCtrl.informacion_animal.codigo == undefined) {
-            gestionCtrl.adopcion.codigo_animal = "";
-            gestionCtrl.informacion_animal.error = "Código de animal invalido, por favor intente nuevamente.";
-        }
-    }
-
-    gestionCtrl.registrarAnimal = function (animal) {
+    gestionCtrl.registrarAnimal = function(animal) {
         // var url = GeneralURL + 'api_gestionAnimal.php/registrarAnimal'
         console.log(animal);
+
         // gestionAnimalService.registrarAnimal(url, json)
         //     .then(function (response) {
         //         console.log(response);
@@ -62,7 +48,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         //     });
     }
 
-    gestionCtrl.onCamposParaRegistroAnimal = function () {
+    gestionCtrl.onCamposParaRegistroAnimal = function() {
         gestionCtrl.optionsSelect = {
             "sexos": selectFactory.getSexos(),
             "especies": selectFactory.getEspecies(),
@@ -72,14 +58,14 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         };
     }
 
-    gestionCtrl.uploadMultipleFiles = function (files) {
+    gestionCtrl.uploadMultipleFiles = function(files) {
         var existe = false;
 
         if (gestionCtrl.imagenesAnimalRegistro.length + files.length <= 5) {
-            angular.forEach(files, function (file) {
-                angular.forEach(gestionCtrl.imagenesAnimalRegistro, function (value) {
+            angular.forEach(files, function(file) {
+                angular.forEach(gestionCtrl.imagenesAnimalRegistro, function(value) {
                     var b64;
-                    Upload.base64DataUrl(file).then(function (response) {
+                    Upload.base64DataUrl(file).then(function(response) {
                         b64 = response;
                         if (value.image == b64) {
                             alert("Ya fue agregada esa imagen.");
@@ -88,7 +74,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
                     });
                 });
                 if (!existe) {
-                    Upload.base64DataUrl(file).then(function (response) {
+                    Upload.base64DataUrl(file).then(function(response) {
                         gestionCtrl.imagenesAnimalRegistro.push({
                             "image": response,
                             "name": file.name
@@ -101,26 +87,25 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         }
     };
 
-    gestionCtrl.onDeleteImage = function (position_image) {
+    gestionCtrl.onDeleteImage = function(position_image) {
         gestionCtrl.imagenesAnimalRegistro.splice(position_image, 1)
     }
 
-    gestionCtrl.onShowImage = function (position_image) {
+    gestionCtrl.onShowImage = function(position_image) {
         var aux = gestionCtrl.imagenesAnimalRegistro[position_image];
         gestionCtrl.imagenesAnimalRegistro[position_image] = gestionCtrl.imagenesAnimalRegistro[gestionCtrl.imagenesAnimalRegistro.length - 1];
         gestionCtrl.imagenesAnimalRegistro[gestionCtrl.imagenesAnimalRegistro.length - 1] = aux;
     }
 
-    gestionCtrl.onCropImage = function (position_image) {
+    gestionCtrl.onCropImage = function(position_image) {
 
     }
 
-    gestionCtrl.onBuscarAnimal = function () {
+    gestionCtrl.onBuscarAnimal = function() {
         gestionAnimalService.obtenerAnimal()
-            .then(function (response) {
-                console.log(response);
+            .then(function(response) {
                 gestionCtrl.animales = response.data;
-            }).catch(function (error) {
+            }).catch(function(error) {
                 console.error(error);
             });
     }
@@ -130,31 +115,61 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
 //Controller MODAL==============================================//
 app.controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
-ModalInstanceCtrl.$inject = ['$uibModalInstance', 'items', "$http"];
+ModalInstanceCtrl.$inject = ['$uibModalInstance', 'items', "$http", 'selectFactory', 'Upload'];
 
-function ModalInstanceCtrl($uibModalInstance, items, $http) {
+function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory, Upload) {
 
     var gestionCtrl = this;
-    gestionCtrl.animal = items.data;
-    gestionCtrl.css = items.tipo;
+    gestionCtrl.animal = {};
+    gestionCtrl.imageCrop = '';
+    gestionCtrl.imageCroped = '';
+    gestionCtrl.files = [];
+    gestionCtrl.optionsSelect = selectFactory.getAll();
 
-    $http.get("js/config/gestionAnimal.config.json").then(function (result) {
-        gestionCtrl.form = result.data.camp;
-        if (typeof gestionCtrl.animal == 'object' && typeof gestionCtrl.form == 'object' && gestionCtrl.animal != null) {
-            for (var item in gestionCtrl.animal) {
-                angular.forEach(gestionCtrl.form, function (value, key) {
-                    if (item === value["name"]) {
-                        value["value"] = gestionCtrl.animal[item];
-                        angular.break;
-                    }
-                });
-            }
-        }
-    });
-    gestionCtrl.cerrar = function () {
+    gestionCtrl.cerrar = function() {
         $uibModalInstance.dismiss('cancel');
     };
-    gestionCtrl.test = function () {
-        alert("Bien");
+
+    gestionCtrl.registrarDatos = function() {
+        console.log(gestionCtrl.animal);
+    }
+
+    gestionCtrl.addImages = function(images) {
+        if (gestionCtrl.files.length >= 5) {
+            return false;
+        }
+        Upload.base64DataUrl(images).then(function(imagesB64) {
+            var iter = imagesB64.length;
+            while (iter--) {
+                if (gestionCtrl.files.length < 5) {
+                    gestionCtrl.files.push(imagesB64[iter]);
+                }
+            }
+        });
+    }
+
+    gestionCtrl.updateImage = function(index, imageCroped) {
+        gestionCtrl.files[index] = imageCroped;
+    }
+
+    gestionCtrl.deleteImage = function(index) {
+        gestionCtrl.files.splice(index, 1);
+    }
+
+    gestionCtrl.previewImage = function(file) {
+        var view = open();
+        view.document.write("<img src='" + file + "'>")
+    }
+
+    gestionCtrl.cerrar = function() {
+        $uibModalInstance.dismiss('cancel');
     };
+    gestionCtrl.asignarAttr = function() {
+        for (var attr in items.data) {
+            gestionCtrl.animal[attr] = items.data[attr];
+        }
+    }
+
+    gestionCtrl.asignarAttr();
+
 }

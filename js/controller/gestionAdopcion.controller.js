@@ -1,16 +1,32 @@
 app.controller("adopcionController", adopcionController);
 
-adopcionController.$inject = ['printFile'];
+adopcionController.$inject = ['gestionAnimalService'];
 
-function adopcionController(printFile) {
-    console.log("adopcion controller ready", printFile);
+function adopcionController(gestionAnimalService) {
 
     var gestionAdopcion = this;
+    gestionAdopcion.informacion_animal = {};
+    gestionAdopcion.animales = gestionAnimalService.animales;
+    console.log(gestionAdopcion.animales);
+    gestionAdopcion.onVerificarAnimal = function(animal) {
+        gestionAdopcion.informacion_animal = {};
+        angular.forEach(gestionAdopcion.animales, function(value) {
+            if (value.codigo == animal) {
+                gestionAdopcion.informacion_animal = value;
+                angular.break;
+                return;
+            }
+        });
+        if (gestionAdopcion.informacion_animal.codigo == null || gestionAdopcion.informacion_animal.codigo == undefined) {
+            gestionAdopcion.adopcion.codigo_animal = "";
+            gestionAdopcion.informacion_animal.error = "Código de animal invalido, por favor intente nuevamente.";
+        }
+    }
 
-    gestionAdopcion.imprimirAdopcion = function (datos) {
+    gestionAdopcion.imprimirAdopcion = function(datos) {
         var contenidoOriginal = document.body.innerHTML;
         var titulo = document.getElementById("tituloCompromiso").innerHTML;
-        
+
         var cuerpo = document.getElementById("textoCompromiso").innerHTML;
         var logotipo = '<div style="display: flex; justify-content: center; opacity: 0.5"><img src="images/logo_main.svg" style="height:4.5cm"></div>';
 
