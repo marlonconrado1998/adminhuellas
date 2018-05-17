@@ -6,34 +6,32 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
 
     var gestionCtrl = this;
     //VARIABLES
-    gestionCtrl.campos_adopcion = gestionAnimalService.campos_adopcion;
-    gestionCtrl.campos_animal = gestionAnimalService.campos_animal;
     gestionCtrl.informacion_animal = {};
     gestionCtrl.formAnimales = FORMULARIO.animales;
     gestionCtrl.animales = gestionAnimalService.animales;
     gestionCtrl.optionsSelect = {};
     gestionCtrl.imagenesAnimalRegistro = [];
 
-    gestionCtrl.modal = function(animal, tipo) {
+    gestionCtrl.modal = function (animal, tipo) {
         var modalInstance = $uibModal.open({
             templateUrl: 'modal.html',
             size: 'md',
             controller: 'ModalInstanceCtrl',
             controllerAs: '$ctrl',
             resolve: {
-                items: function() {
+                items: function () {
                     return { data: animal, tipo: tipo };
                 }
             }
         });
-        modalInstance.result.then(function() {}, function(info) {
+        modalInstance.result.then(function () { }, function (info) {
             console.log(info);
         });
     };
 
-    gestionCtrl.onBuscarAnimal = function(animal) {
+    gestionCtrl.onBuscarAnimal = function (animal) {
         gestionCtrl.informacion_animal = {};
-        angular.forEach(gestionCtrl.animales, function(value) {
+        angular.forEach(gestionCtrl.animales, function (value) {
             if (value.codigo == animal) {
                 gestionCtrl.informacion_animal = value;
                 angular.break;
@@ -46,7 +44,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         }
     }
 
-    gestionCtrl.registrarAnimal = function(animal) {
+    gestionCtrl.registrarAnimal = function (animal) {
         // var url = GeneralURL + 'api_gestionAnimal.php/registrarAnimal'
         console.log(animal);
         // gestionAnimalService.registrarAnimal(url, json)
@@ -64,7 +62,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         //     });
     }
 
-    gestionCtrl.onCamposParaRegistroAnimal = function() {
+    gestionCtrl.onCamposParaRegistroAnimal = function () {
         gestionCtrl.optionsSelect = {
             "sexos": selectFactory.getSexos(),
             "especies": selectFactory.getEspecies(),
@@ -74,19 +72,23 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         };
     }
 
-    gestionCtrl.uploadMultipleFiles = function(files) {
+    gestionCtrl.uploadMultipleFiles = function (files) {
         var existe = false;
 
         if (gestionCtrl.imagenesAnimalRegistro.length + files.length <= 5) {
-            angular.forEach(files, function(file) {
-                angular.forEach(gestionCtrl.imagenesAnimalRegistro, function(value) {
-                    if (value.name == file.name) {
-                        alert("Ya fue agregada esa imagen.");
-                        existe = true;
-                    }
+            angular.forEach(files, function (file) {
+                angular.forEach(gestionCtrl.imagenesAnimalRegistro, function (value) {
+                    var b64;
+                    Upload.base64DataUrl(file).then(function (response) {
+                        b64 = response;
+                        if (value.image == b64) {
+                            alert("Ya fue agregada esa imagen.");
+                            existe = true;
+                        }
+                    });
                 });
                 if (!existe) {
-                    Upload.base64DataUrl(file).then(function(response) {
+                    Upload.base64DataUrl(file).then(function (response) {
                         gestionCtrl.imagenesAnimalRegistro.push({
                             "image": response,
                             "name": file.name
@@ -99,26 +101,26 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, FORMULARIO, GeneralU
         }
     };
 
-    gestionCtrl.onDeleteImage = function(position_image) {
+    gestionCtrl.onDeleteImage = function (position_image) {
         gestionCtrl.imagenesAnimalRegistro.splice(position_image, 1)
     }
 
-    gestionCtrl.onShowImage = function(position_image) {
+    gestionCtrl.onShowImage = function (position_image) {
         var aux = gestionCtrl.imagenesAnimalRegistro[position_image];
         gestionCtrl.imagenesAnimalRegistro[position_image] = gestionCtrl.imagenesAnimalRegistro[gestionCtrl.imagenesAnimalRegistro.length - 1];
         gestionCtrl.imagenesAnimalRegistro[gestionCtrl.imagenesAnimalRegistro.length - 1] = aux;
     }
 
-    gestionCtrl.onCropImage = function(position_image) {
+    gestionCtrl.onCropImage = function (position_image) {
 
     }
 
-    gestionCtrl.onBuscarAnimal = function() {
+    gestionCtrl.onBuscarAnimal = function () {
         gestionAnimalService.obtenerAnimal()
-            .then(function(response) {
+            .then(function (response) {
                 console.log(response);
                 gestionCtrl.animales = response.data;
-            }).catch(function(error) {
+            }).catch(function (error) {
                 console.error(error);
             });
     }
@@ -136,11 +138,11 @@ function ModalInstanceCtrl($uibModalInstance, items, $http) {
     gestionCtrl.animal = items.data;
     gestionCtrl.css = items.tipo;
 
-    $http.get("js/config/gestionAnimal.config.json").then(function(result) {
+    $http.get("js/config/gestionAnimal.config.json").then(function (result) {
         gestionCtrl.form = result.data.camp;
         if (typeof gestionCtrl.animal == 'object' && typeof gestionCtrl.form == 'object' && gestionCtrl.animal != null) {
             for (var item in gestionCtrl.animal) {
-                angular.forEach(gestionCtrl.form, function(value, key) {
+                angular.forEach(gestionCtrl.form, function (value, key) {
                     if (item === value["name"]) {
                         value["value"] = gestionCtrl.animal[item];
                         angular.break;
@@ -149,10 +151,10 @@ function ModalInstanceCtrl($uibModalInstance, items, $http) {
             }
         }
     });
-    gestionCtrl.cerrar = function() {
+    gestionCtrl.cerrar = function () {
         $uibModalInstance.dismiss('cancel');
     };
-    gestionCtrl.test = function() {
+    gestionCtrl.test = function () {
         alert("Bien");
     };
 }
