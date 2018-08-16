@@ -1,22 +1,31 @@
 <div id="app" class="container-scroller">
     <div class="container-fluid page-body-wrapper">
         <div class="main-panel">
-            <div class="content-wrapper" ng-controller="gestionAnimalCtrl as ctrl" 
-            ng-init="ctrl.mostrar = true">
-                <section class="page-title">
+            <div class="content-wrapper" ng-controller="gestionAnimalCtrl as ctrl">
+                <section class="page-title" ng-init="ctrl.onBuscarAnimal();">
                     <h2 class="text-gray text-center">Lista de animales</h2>
                 </section>
-
-                <div ng-if="ctrl.mostrar">
-                    <a class="btn btn-success mb-2" href ui-sref="registro_animal">
-                        <i class="fa fa-plus"></i> Nuevo
-                    </a>
-                    <div class="overflow-x">
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-8">
+                        <a class="btn btn-inverse-success btn-rounded btn-fw mb-2 float-left" href ui-sref="registro_animal">
+                            <i class="fa fa-plus"></i> Nuevo
+                        </a> 
+                        <a class="btn btn-inverse-primary btn-rounded btn-fw mb-2 float-right" href ng-click="ctrl.onBuscarAnimal('');">
+                            <i class="fa fa-redo"></i> Refrescar
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-4 col-md-4 input-group-icon">
+                        <div class="icon">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
+                        <input type="search" name="buscar_animal" ng-model="buscar_animal" placeholder="Buscar" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Buscar'"
+                            class="single-input btn btn-rounded btn-inverse-light w-100">
+                    </div>
+                    <div class="col-12 overflow-x mt-2">
                         <table class="table table-condensed table-bordered  text-center table-hover">
                             <thead class="table-active">
                                 <tr>
                                     <th>#Código</th>
-                                    <!-- <th>Imagen</th> -->
                                     <th>Nombre</th>
                                     <th>Especie</th>
                                     <th>Raza</th>
@@ -24,17 +33,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="animal in ctrl.animales" ng-click="ctrl.modal(animal);" ng-mouseenter="cssmodal = true" ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
-                                    <td>{{animal.idanimal}}</td>
-                                    <td>{{animal.nombre}}</td>
-                                    <td>{{animal.especie}}</td>
-                                    <td>{{animal.raza}}</td>
-                                    <td>{{animal.sexo}}</td>
+                                <tr ng-repeat="animal in ctrl.animales | filter: buscar_animal" ng-click="ctrl.modal(animal.idanimal);" ng-mouseenter="cssmodal = true"
+                                    ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
+                                    <td>
+                                        <span class="count-table-item" ng-class="{'bg-info':animal.estado_actual == 'Adoptado', 'bg-danger':animal.estado_actual == 'Cuarentena', 'bg-success':animal.estado_actual == 'Patio (Adoptable)', 'bg-warning':animal.estado_actual == 'Patio (No adoptable)'}"></span>
+                                        <span ng-bind="animal.idanimal"></span>
+                                    </td>
+                                    <td ng-bind="animal.nombre"></td>
+                                    <td ng-bind="animal.especie"></td>
+                                    <td ng-bind="animal.raza"></td>
+                                    <td ng-bind="animal.sexo"></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div>
+                            <h4 class="text-center pt-5 text-gray" ng-bind="ctrl.mensajeListaAnimales"></h4>
+                        </div>
                     </div>
                 </div>
+
+                <section class="container" ng-show="ctrl.mensajeListaAnimales == ''">
+                    <p class="text-gray small">Adoptado.
+                        <span class="count-table-item bg-info mt-1 mr-2"></span>
+                    </p>
+                    <p class="text-gray small">Cuarentena.
+                        <span class="count-table-item bg-danger mt-1 mr-2"></span>
+                    </p>
+                    <p class="text-gray small">Patio (Adoptable).
+                        <span class="count-table-item bg-success mt-1 mr-2"></span>
+                    </p>
+                    <p class="text-gray small">Patio (No adoptable).
+                        <span class="count-table-item bg-warning mt-1 mr-2"></span>
+                    </p>
+                </section>
             </div>
         </div>
     </div>

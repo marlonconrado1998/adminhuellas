@@ -1,5 +1,10 @@
-<nav class="navbar col-md-12 fixed-top p-0 col-lg-12 offset-2" style="z-index: 1;">
+<nav class="navbar fixed-top p-0 col-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">
     <div class="navbar-menu-wrapper d-flex align-items-center">
+        <div class="nav-item bt-toggle-menu" id="bt-toggle-menu" onclick="openMenu()">
+            <a href>
+                <i class="fa fa-list fa-2x"></i>
+            </a>
+        </div>
         <ul class="navbar-nav navbar-nav-right">
             <!-- <li class="nav-item dropdown">
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
@@ -7,18 +12,18 @@
                     
                 </a>
             </li> -->
-            <li class="nav-item dropdown">
-                <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                    <i class="fa fa-bell"></i>
-                    <span class="count">3</span>
+            <li class="nav-item dropdown" ng-controller="solicitudAdopcionController as solCtrl">
+                <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href data-toggle="dropdown" ng-controller="solicitudAdopcionController as solCtrl">
+                    <i class="fa fa-bell" ng-init="solCtrl.obtenerListaSolicitudes();"></i>
+                    <span ng-show="solCtrl.listaSolicitudes.length > 0" class="count" ng-bind="solCtrl.listaSolicitudes.length"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                     <a class="dropdown-item">
                         <p class="mb-0 font-weight-normal float-left">
                             Solicitudes de adopción
                         </p>
-                        <span class="badge badge-pill badge-warning float-right" style="cursor: pointer;">
-                            Ver todo
+                        <span class="badge badge-pill badge-warning float-right">
+                           <a ui-sref="/Solicitudes">Ver todo</a>
                         </span>
                     </a>
                     <div class="dropdown-divider"></div>
@@ -66,13 +71,11 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link count-indicator dropdown-toggle" id="userDropdown" href="#" 
-                data-toggle="dropdown">
+                <a class="nav-link count-indicator dropdown-toggle" id="userDropdown" href data-toggle="dropdown">
                     <i class="fa fa-user"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" 
-                aria-labelledby="userDropdown">
-                    <a class="dropdown-item">
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" ng-click="lc.logout();">
                         <p class="mb-0 font-weight-normal float-left">
                             <i class="fa fa-sign-out-alt"></i> Cerrar sesión
                         </p>

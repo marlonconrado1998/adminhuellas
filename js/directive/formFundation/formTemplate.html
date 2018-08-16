@@ -1,0 +1,54 @@
+<style type="text/css" media="screen">
+    .resize {
+        resize: none;
+    }
+    
+    .noresize {
+        resize: auto;
+    }
+    
+    .cursor-not-allowed {
+        cursor: not-allowed;
+    }
+    
+    .cursor-default {
+        cursor: default;
+    }
+</style>
+<form name="form" ng-submit="send();">
+    <div class="row">
+        <div ng-repeat="obj in arrayForm" class="form-group col-md-{{obj.col}}" ng-class="{'col-md-6': obj.col==undefined}">
+            <div ng-switch="obj.type">
+                <label for="{{obj.name}}" ng-bind="obj.label"></label>
+                <i ng-show="obj.icon" ng-class="{
+					'text-success fa fa-check': form[obj.name].$valid,
+					'text-danger fa fa-times': !form[obj.name].$valid
+				}"></i>
+                <div ng-switch-default>
+                    <input class="form-control" type="{{obj.type}}" name="{{obj.name}}" min="{{obj.min}}" ng-model="obj.value" placeholder="{{obj.placeholder}}" ng-required="obj.required" ng-disabled="obj.disabled">
+                </div>
+                <div ng-switch-when="select">   
+                    <select class="form-control" name="{{obj.name}}" ng-model="obj.value" ng-disabled="obj.disabled">
+                        <option ng-repeat="item in obj.options" ng-value="item.id" ng-bind="item.name"></option>
+                    </select>
+                </div>
+                <div ng-switch-when="textarea">
+                    <textarea ng-class="{'resize': !obj.resize, 'noresize': obj.resize}" class="form-control" type="{{obj.type}}" name="{{obj.name}}" ng-model="obj.value" placeholder="{{obj.placeholder}}" ng-required="obj.required" ng-disabled="obj.disabled">
+					</textarea>
+                </div>
+                <div ng-switch-when="datetime-local">
+                    <input class="form-control" type="{{obj.type}}" name="{{obj.name}}" ng-model="obj.value" placeholder="{{obj.placeholder}}" ng-required="obj.required" ng-disabled="obj.disabled">
+                </div>
+                <div ng-switch-when="img">
+                    <img class="img-fluid" name="{{obj.name}}" ng-src="{{obj.value}}" />
+                </div>
+                <div ng-show="!form[obj.name].$pristine && form[obj.name].$invalid">
+                    <small class="text-danger" ng-bind="'Valor inválido'"></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 form-group d-flex justify-content-center">
+            <input ng-class="{'cursor-not-allowed': !form.$valid, 'cursor-default': form.$valid}" type="submit" class="btn btn-success" ng-disabled="!form.$valid" value="Guardar">
+        </div>
+    </div>
+</form>

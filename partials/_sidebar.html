@@ -1,41 +1,41 @@
-<nav class="sidebar d-none d-md-block fixed-top col-xs-4 col-sm-4 col-md-2" id="sidebar" style="box-shadow: 1px 1px 7px lightslategray; height: 100%">
+
+<nav class="sidebar d-md-block fixed-top col-10 col-sm-4 col-md-3 col-lg-3 col-xl-2" id="sidebar">
     <ul class="nav" ng-controller="gestionAnimalCtrl as ctr">
-        <li class="nav-item nav-profile">
+        <li class="nav-item itemClose nav-profile">
             <img src="images/logo_main.svg" alt="image" class="img-fluid" />
             <span class="online-status online"></span>
         </li>
-        <li class="nav-item">
+        <li class="nav-item itemClose">
             <a class="nav-link" ui-sref="Inicio">
                 <img class="menu-icon" src="images/menu_icons/01.png" alt="menu icon">
-                <!-- <i class="fa fa-dashboard"></i> -->
                 <span class="menu-title">Inicio</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item itemClose">
             <a class="nav-link" href ui-sref="animales">
                 <img class="menu-icon" src="images/menu_icons/02.png" alt="menu icon">
                 <span class="menu-title">Lista animales</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item itemClose">
             <a class="nav-link" href ui-sref="historias">
                 <img class="menu-icon" src="images/menu_icons/06.png" alt="menu icon">
                 <span class="menu-title">Historias médicas</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href>
+        <li class="nav-item itemClose">
+            <a class="nav-link" ui-sref="Solicitudes">
                 <img class="menu-icon" src="images/pic-4.png" alt="menu icon">
                 <span class="menu-title">Solicitudes</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item itemClose">
             <a class="nav-link" ng-click="ctr.onSolicitarAdopcion(null);" href ui-sref="adopcion">
                 <img class="menu-icon" src="images/menu_icons/07.png" alt="menu icon">
                 <span class="menu-title">Adopción</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item itemClose">
             <a class="nav-link" href ui-sref="registro_animal">
                 <img class="menu-icon" src="images/menu_icons/04.png" alt="menu icon">
                 <span class="menu-title">Registrar</span>
@@ -47,7 +47,7 @@
                                         <span class="menu-title">Buttons</span>
                                     </a>
                                 </li> -->
-        
+
         <!-- <li class="nav-item">
 
             <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages"> <img class="menu-icon" src="images/menu_icons/08.png" alt="menu icon"> <span class="menu-title">General Pages</span><i class="menu-arrow"></i></a>

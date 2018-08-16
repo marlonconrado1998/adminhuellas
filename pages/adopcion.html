@@ -1,242 +1,239 @@
 <div id="app" class="container-scroller">
 
-    <div class="container-fluid page-body-wrapper" ng-controller="gestionAnimalCtrl as ct">
-        <div class="main-panel" ng-init="ct.onSolicitarAdopcion();">
-            <div class="content-wrapper">
-
-                <section>
-                    <h1 class="text-center text-gray">Registro de adopción</h1>
-                    <br>
-                    <br>
-                </section>
-
-                <!-- <form>
-
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div ng-repeat="campo in ct.campos_adopcion" class="form-group {{campo.col}}">
-                                <label for="{{campo.name}}">{{campo.nombre}}</label>
-                                <input name="{{campo.name}}" type="{{campo.type}}" class="form-control {{campo.class}}" placeholder="{{campo.placeholder}}"
-                                    required="{{campo.required}}" ng-bind="{{campo.value}}">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <button class="btn btn-primary float-left">Cancelar</button>
-                            <button class="btn btn-success float-right">Aceptar</button>
-                        </div>
-                    </div>
-
-                </form> -->
-                <div class="card" ng-controller="adopcionController as ac">
-                    <div class="card-body">
-                        <wizard current-step-number="currentStepNumber" submit="ac.imprimirAdopcion(ct.adopcion);" class="container">
-                            <wizard-step title="Animal" entered="stepEntered()">
-                                <h3>¿Cual es el animal?</h3>
-
-                                <div class="form-group" ng-init="animal = true">
-                                    <label for="codigo_animal">{{campo.nombre}}</label>
-                                    <input type="text" name="codigo_animal" class="form-control form-control text-center" ng-model="ct.adopcion.codigo_animal" required placeholder="Código del animal" ng-blur="ac.onVerificarAnimal(ct.adopcion.codigo_animal);" />
-                                </div>
-                                <div ng-if="ct.informacion_animal.codigo == null">
-                                    <span class="text-danger" ng-bind="ct.informacion_animal.error"></span>
-                                </div>
-                                <div ng-if="ct.informacion_animal.codigo != null" class="row">
-                                    <div class="col-sm-6">
-                                        <image src="{{ct.informacion_animal.imagen}}">
+        <div class="container-fluid page-body-wrapper" ng-controller="adopcionController as ac">
+            <div class="main-panel">
+                <div class="content-wrapper adopcion-wizard">
+    
+                    <section>
+                        <h1 class="text-center text-gray">Registro de adopción</h1>
+                        <br>
+                        <br>
+                    </section>
+                    <div class="card">
+                        <div class="card-body">
+                            <wizard current-step-number="currentStepNumber" submit="ac.imprimirAdopcion(ac.adopcion);" class="container">
+                                <wizard-step entered="stepEntered()">
+                                    <h3 class="text-center">¿Cual es el animal?</h3>
+                                    <div class="input-group pt-4 pb-5" ng-init="animal = true">
+                                        <input type="text" name="codigo_animal" class="form-control file-upload-info text-center" ng-model="ac.informacion_animal.idanimal"
+                                            required placeholder="Código del animal" ng-blur="ac.onVerificarAnimal(ac.informacion_animal.idanimal);"
+                                        />
+                                        <span class="input-group-append">
+                                            <button class="file-upload-browse btn btn-secondary" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                        <input type="hidden" ng-model="ac.informacion_animal.nombre" required>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <p class="text-gray">
-                                            <span class="h3">
-                                                <strong>Nombre: </strong>
-                                            </span>
-                                            <span class="h4" ng-bind="ct.informacion_animal.nombre"></span>
-                                        </p>
-                                        <p class="text-gray">
-                                            <span class="h3">
-                                                <strong>Especie: </strong>
-                                            </span>
-                                            <span class="h4" ng-bind="ct.informacion_animal.especie"></span>
-                                        </p>
-                                        <p class="text-gray">
-                                            <span class="h3">
-                                                <strong>Sexo: </strong>
-                                            </span>
-                                            <span class="h4" ng-bind="ct.informacion_animal.sexo"></span>
-                                        </p>
-                                        <p class="text-gray">
-                                            <span class="h3">
-                                                <strong>Raza: </strong>
-                                            </span>
-                                            <span class="h4" ng-bind="ct.informacion_animal.raza"></span>
-                                        </p>
-                                        <p class="text-gray">
-                                            <span class="h3">
-                                                <strong>Peso: </strong>
-                                            </span>
-                                            <span class="h4" ng-bind="ct.informacion_animal.peso"></span>
-                                        </p>
+                                    <div ng-if="ac.informacion_animal.mensaje != ''">
+                                        <p class="text-gray text-center" ng-bind="ac.informacion_animal.mensaje"></p>
                                     </div>
-                                </div>
-
-                            </wizard-step>
-                            <wizard-step title="Adoptante" required-step-number="0" entered="stepEntered()">
-                                <h3>Datos de la persona adoptante</h3>
-                                <small>Todos los campos son obligatorios.</small>
-                                <br>
-                                <br>
-                                <form name="formAdopcion" class="formAdopcion">
-                                    <div class="row">
-                                        <div class="form-group col-sm-4">
-                                            <label for="identificacion">Identificacion</label>
-                                            <br>
-                                            <input type="number" id="Identificacion" class="form-control " ng-model="ct.adopcion.identificacion" placeholder="Identificacion del adoptante" required>
+                                    <div ng-if="ac.informacion_animal.mensaje == '' && ac.informacion_animal.nombre != null" class="row">
+                                        <div class="col-12 col-sm-6 pb-4">
+                                            <center>
+                                                <image src="{{ac.informacion_animal.galeria[0].imagen}}" style="border-radius: 3%; max-height: 200px; max-width: 100%;">
+                                            </center>
                                         </div>
-                                        <div class="form-group col-sm-4">
-                                            <label for="nombre">Nombre</label>
-                                            <br>
-                                            <input type="text" id="nombre" class="form-control" ng-model="ct.adopcion.nombre" placeholder="Nombre del adoptante" required>
+                                        <div class="col-12 col-sm-6">
+                                            <center>
+                                                <p class="text-gray">
+                                                    <span class="h4">
+                                                        <strong>Nombre: </strong>
+                                                    </span>
+                                                    <span class="h4" ng-bind="ac.informacion_animal.nombre"></span>
+                                                </p>
+                                                <p class="text-gray">
+                                                    <span class="h4">
+                                                        <strong>Especie: </strong>
+                                                    </span>
+                                                    <span class="h4" ng-if="ac.informacion_animal.especie.nombre == undefined" ng-bind="ac.informacion_animal.especie"></span>
+                                                    <span class="h4" ng-bind="ac.informacion_animal.especie.nombre"></span> (
+                                                    <span class="h6" ng-bind="ac.informacion_animal.sexo.nombre"></span>)
+                                                </p>
+                                                <p class="text-gray">
+                                                    <span class="h4">
+                                                        <strong>Raza: </strong>
+                                                    </span>
+                                                    <span class="h4" ng-if="ac.informacion_animal.raza.nombre == undefined" ng-bind="ac.informacion_animal.raza"></span>
+                                                    <span class="h4" ng-bind="ac.informacion_animal.raza.nombre"></span>
+                                                </p>
+                                                <p class="text-gray">
+                                                    <span class="h4">
+                                                        <strong>Peso: </strong>
+                                                    </span>
+                                                    <span class="h4" ng-bind="ac.informacion_animal.peso"></span> Kg.
+                                                </p>
+                                                <p class="text-gray">
+                                                    <span class="h4">
+                                                        <strong>Edad: </strong>
+                                                    </span>
+                                                    <span class="h4" ng-bind="ac.informacion_animal.edad"></span>
+                                                </p>
+                                            </center>
                                         </div>
-                                        <div class="form-group col-sm-4">
-                                            <label for="apellidos">Apellidos</label>
-                                            <br>
-                                            <input type="text" id="apellidos" class="form-control" ng-model="ct.adopcion.apellido" placeholder="Apelldos del adoptante" required>
-                                        </div>
-                                        <!-- <div class="form-group col-sm-4">
-                                            <label for="telefono">Teléfono</label>
-                                            <br>
-                                            <input type="number" id="telefono" class="form-control" ng-model="ct.adopcion.telefono" placeholder="Telefono de contacto"
-                                                required>
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <label for="correo">Correo</label>
-                                            <br>
-                                            <input type="email" id="correo" class="form-control" ng-model="ct.adopcion.correo" placeholder="correo de contacto" required>
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <label for="ciudad_residencia">Ciudad</label>
-                                            <br>
-                                            <input type="text" id="ciudad_residencia" class="form-control" ng-model="ct.adopcion.ciudad" placeholder="Ciudad de residencia"
-                                                required>
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <label for="direccion">Direccion</label>
-                                            <br>
-                                            <input type="text" id="direccion" class="form-control" ng-model="ct.adopcion.direccion" placeholder="Direccion de residencia"
-                                                required>
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <label for="ocupacion">Ocupación</label>
-                                            <br>
-                                            <input type="text" id="ocupacion" class="form-control" ng-model="ct.adopcion.ocupacion" placeholder="Ocupacion" required>
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <label for="empresa">Empresa</label>
-                                            <br>
-                                            <input type="text" id="empresa" class="form-control" ng-model="ct.adopcion.empresa" placeholder="Lugar donde labora" required>
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <label for="ciudad_de_empresa">Ciudad de la empresa</label>
-                                            <br>
-                                            <input type="text" id="ciudad_de_empresa" class="form-control" ng-model="ct.adopcion.ciudad_empresa" placeholder="Ciudad de la empresa"
-                                                required>
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <label for="telefono_de_oficina">Teléfono de oficina</label>
-                                            <br>
-                                            <input type="number" id="telefono_de_oficina" class="form-control" ng-model="ct.adopcion.telefono_oficina" placeholder="Teléfono laboral"
-                                                required>
-                                        </div> -->
                                     </div>
-                                    <!-- </div> -->
-                                </form>
-                            </wizard-step>
-                            <wizard-step title="Confirmacion" required-step-number="1" entered="stepEntered()">
-                                <div id="compromisoAdopcion">
-                                    <h3 id="tituloCompromiso">Compromiso de adopcion</h3>
+    
+                                </wizard-step>
+                                <wizard-step required-step-number="0" entered="stepEntered()">
+                                    <h3 class="text-center">Datos de la persona adoptante</h3>
+                                    <small>Todos los campos son obligatorios.</small>
                                     <br>
-                                    <div id="textoCompromiso">
-                                        <p>
-                                            Me comprometo a no violar los derechos del animal establecidos en la Ley 84 de 1989 y a cumplir los deberes específicos determinados por la Fundación Huellas de Amor / Fundación Amigo Fiel:
-                                        </p>
-                                        <ul>
-                                            <li>
-                                                <p>El animal no debe permanecer atado.</p>
-                                            </li>
-                                            <li>
-                                                <p>El lugar donde permanecerá el animal debe ser seguro para evitar que se escape a la calle.</p>
-                                            </li>
-                                            <li>
-                                                <p>El nuevo hogar será permanente, no debe ser entregado a terceros sin previa autorización de la Fundación.</p>
-                                            </li>
-                                            <li>
-                                                <p>El adoptante debe dar alimento, agua suficiente y atención veterinaria.
-                                                </p>
-                                            </li>
-                                            <li>
-                                                <p>La salud de animal es responsabilidad del adoptante luego de que este salga del albergue.
-                                                </p>
-                                            </li>
-                                            <li>
-                                                <p>El adoptante debe continuar el plan oficial de vacunación del animal anualmente y su desparasitación cada tres meses.</p>
-                                            </li>
-                                            <li>
-                                                <p>El adoptante debe proveer al animal de un techo, espacio amplio y limpio, buen trato y muchísimo cariño. </p>
-                                            </li>
-                                            <li>
-                                                <p>El animal no debe ser sometido a encerramiento en cubiculos, a actividades de agresión a otros animales.</p>
-                                            </li>
-                                            <li>
-                                                <p>Al animal no debe dejársele solo por tiempos que generen su desatención en alimentación y estado anímico saludable.</p>
-                                            </li>
-                                            <li>
-                                                <p> Debe brindársele esparcimiento y actividades que propicien su ejercitación.</p>
-                                            </li>
-                                            <li>
-                                                <p>Mantenérsele con identificación permanente para evitar extravíos - El animal no debe ser sometido a mutilaciones, entendiéndose corte de rabo, orejas, etc.
-                                                </p>
-                                            </li>
-                                            <li>
-                                                <p>El animal si no se entrega esterilizado, se entrega con compromiso de esterilización hasta que cumpla edad prudente para la misma.</p>
-                                            </li>
-                                            <li>
-                                                <p>El adoptante debe permitir cada tanto para verificar su estado.</p>
-                                            </li>
-                                            <li>
-                                                <p>En caso de no estar conforme con el animal, debe devolverlo inmediatamente a la Fundación.</p>
-                                            </li>
-                                        </ul>
+                                    <br>
+                                    <form name="formAdopcion" class="formAdopcion">
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label for="identificacion">Identificacion</label>
+                                                <br>
+                                                <input type="number" id="Identificacion" ng-minlength="7" min="1" class="form-control " ng-model="ac.adopcion.identificacion"
+                                                    ng-blur="ac.onVerificarPersona(ac.adopcion.identificacion);" placeholder="Identificacion del adoptante"
+                                                    required>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="nombre">Nombre</label>
+                                                <br>
+                                                <input type="text" id="nombre" class="form-control" ng-model="ac.adopcion.nombre" placeholder="Nombre del adoptante" required>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="apellidos">Apellidos</label>
+                                                <br>
+                                                <input type="text" id="apellidos" class="form-control" ng-model="ac.adopcion.apellido" placeholder="Apelldos del adoptante"
+                                                    required>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="telefono">Teléfono</label>
+                                                <br>
+                                                <input type="number" id="telefono" ng-minlength="7" min="1" class="form-control" ng-model="ac.adopcion.telefono" placeholder="Telefono de contacto"
+                                                    required>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="correo">Correo</label>
+                                                <br>
+                                                <input type="email" id="correo" class="form-control" ng-model="ac.adopcion.correo" placeholder="correo de contacto" required>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="ciudad_residencia">Ciudad de residencia</label>
+                                                <br>
+                                                <select id="ciudad_residencia" class="form-control" ng-model="ac.adopcion.ciudad" placeholder="Ciudad de residencia" ng-required="true"
+                                                    ng-options="ciudad as ciudad.nombre for ciudad in ac.ciudades track by ciudad.id">
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="direccion">Direccion</label>
+                                                <br>
+                                                <input type="text" id="direccion" class="form-control" ng-model="ac.adopcion.direccion" placeholder="Direccion de residencia"
+                                                    required>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="ocupacion">Ocupación</label>
+                                                <br>
+                                                <input type="text" id="ocupacion" class="form-control" ng-model="ac.adopcion.ocupacion" placeholder="Ocupacion" required>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="empresa">Empresa</label>
+                                                <br>
+                                                <input type="text" id="empresa" class="form-control" ng-model="ac.adopcion.empresa" placeholder="Lugar donde labora" required>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="ciudad_de_empresa">Ciudad de la empresa</label>
+                                                <br>
+                                                <select id="ciudad_de_empresa" class="form-control" ng-model="ac.adopcion.ciudad_empresa" placeholder="Ciudad de la empresa"
+                                                    ng-required="true" ng-options="ciudad as ciudad.nombre for ciudad in ac.ciudades track by ciudad.id">
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="telefono_de_oficina">Teléfono de oficina</label>
+                                                <br>
+                                                <input type="number" id="telefono_de_oficina" ng-minlength="7" min="1" class="form-control" ng-model="ac.adopcion.telefono_oficina"
+                                                    placeholder="Teléfono laboral" required>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </wizard-step>
+                                <wizard-step required-step-number="1" entered="stepEntered()">
+                                    <div id="compromisoAdopcion">
+                                        <h3 class="text-center">Compromiso de adopcion</h3>
+                                        <br>
+                                        <div id="textoCompromiso">
+                                            <p>
+                                                Me comprometo a no violar los derechos del animal establecidos en la Ley 84 de 1989 y a cumplir los deberes específicos determinados
+                                                por la Fundación Huellas de Amor / Fundación Amigo Fiel:
+                                            </p>
+                                            <ul>
+                                                <li>
+                                                    <p>El animal no debe permanecer atado.</p>
+                                                </li>
+                                                <li>
+                                                    <p>El lugar donde permanecerá el animal debe ser seguro para evitar que se escape
+                                                        a la calle.</p>
+                                                </li>
+                                                <li>
+                                                    <p>El nuevo hogar será permanente, no debe ser entregado a terceros sin previa
+                                                        autorización de la Fundación.</p>
+                                                </li>
+                                                <li>
+                                                    <p>El adoptante debe dar alimento, agua suficiente y atención veterinaria.
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>La salud de animal es responsabilidad del adoptante luego de que este salga
+                                                        del albergue.
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>El adoptante debe continuar el plan oficial de vacunación del animal anualmente
+                                                        y su desparasitación cada tres meses.</p>
+                                                </li>
+                                                <li>
+                                                    <p>El adoptante debe proveer al animal de un techo, espacio amplio y limpio,
+                                                        buen trato y muchísimo cariño. </p>
+                                                </li>
+                                                <li>
+                                                    <p>El animal no debe ser sometido a encerramiento en cubiculos, a actividades
+                                                        de agresión a otros animales.</p>
+                                                </li>
+                                                <li>
+                                                    <p>Al animal no debe dejársele solo por tiempos que generen su desatención en
+                                                        alimentación y estado anímico saludable.</p>
+                                                </li>
+                                                <li>
+                                                    <p> Debe brindársele esparcimiento y actividades que propicien su ejercitación.</p>
+                                                </li>
+                                                <li>
+                                                    <p>Mantenérsele con identificación permanente para evitar extravíos.
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p> El animal no debe ser sometido a mutilaciones, entendiéndose corte de rabo,
+                                                        orejas, etc.
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>El animal si no se entrega esterilizado, se entrega con compromiso de esterilización
+                                                        hasta que cumpla edad prudente para la misma.</p>
+                                                </li>
+                                                <li>
+                                                    <p>El adoptante debe permitir cada tanto para verificar su estado.</p>
+                                                </li>
+                                                <li>
+                                                    <p>En caso de no estar conforme con el animal, debe devolverlo inmediatamente
+                                                        a la Fundación.</p>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-check form-check-flat">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" ng-model="treminos" class="form-check-input" required> Acepta compromiso
-                                        <i class="input-helper"></i>
-                                    </label>
-                                </div>
-                            </wizard-step>
-                        </wizard>
-
-                    </div>
-                </div>
-
-                <!-- <form>
-                    <div class="container-fluid">
-                        <div class="row">
-                        
-                        <br>
-                        <br>
-                        <br>
-                        <div class="row">
-                            <div class="col-6">
-                                <button class="btn btn-primary">Cancelar</button>
-                            </div>
-                            <div class="col-5">
-                                <button class="btn btn-success float-right">Registrar</button>
-                            </div>
+                                    <div class="form-check form-check-flat">
+                                        <label class="container-check">Acepta compromiso
+                                            <input type="checkbox" checked="checked" ng-model="treminos" class="form-check-input" required>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </wizard-step>
+                            </wizard>
                         </div>
                     </div>
-                </form> -->
+    
+    
+                </div>
             </div>
         </div>
     </div>
-</div>

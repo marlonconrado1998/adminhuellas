@@ -131,7 +131,7 @@ angular.module("ngWizard", ["720kb.tooltips", "ngAnimate", "ngWizardTemplates"])
         }
     };
 }).provider("wizardConfigProvider", function () {
-    this.nextString = "Siguiente";
+    this.nextString = "Seguir";
     this.prevString = "Atras";
     this.submitString = "Finalizar";
     this.$get = function () {
@@ -161,7 +161,7 @@ angular.module("ngWizardTemplate.html", []).run(["$templateCache", function ($te
                 "</div>" +
                 '<div class="col-6 form-group">'+
                     '<button class="float-right btn btn-primary submit animate fade-in-out" ng-show="hasNext() && !isSubmittable()" ng-class="{disabled: !hasNext()}" ng-click="goToNext()"> {{nextString}} <i class="fa fa-arrow-circle-right"> </i> </button>'+            
-                    '<button class="float-right btn btn-primary submit animate fade-in-out" ng-show="isSubmittable()" ng-click="onSubmitClicked()">{{submitString}} <i class="fa fa-circle-o-notch fa-spin"></i></button>' +
+                    '<button class="float-right btn btn-primary submit animate fade-in-out" ng-show="isSubmittable()" ng-click="onSubmitClicked()">{{submitString}} <i class="fa fa-check"></i></button>' +
                 "</div>" +
             "</div>" +
         "</div>" +

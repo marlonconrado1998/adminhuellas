@@ -1,143 +1,197 @@
 <style type="text/css" media="screen">
-.d-none {
-    display: none;
-}
+    .d-none {
+        display: none;
+    }
 
-.d-block {
-    display: block;
-}
+    .d-block {
+        display: block;
+    }
 
-.border-error {
-    border: 1px dotted red;
-}
+    .border-error {
+        border: 1px dotted red;
+    }
 
-.delete-image {
-    height: 250px;
-    cursor: pointer;
-}
+    .delete-image {
+        height: 250px;
+        cursor: pointer;
+    }
 
-.delete-image:hover {
-    border: 3px solid #318be3 !important;
-}
+    .delete-image:hover {
+        border: 3px solid #318be3 !important;
+    }
 
-.delete-image:hover>.contenedor {
-    display: block;
-}
+    .delete-image:hover>.contenedor {
+        display: block;
+    }
 
-.contenedor {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: #2196f33d;
-    display: none;
-}
+    .contenedor {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: #2196f33d;
+        display: none;
+    }
 
-.btn-delete {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-}
+    .btn-delete {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
 </style>
 <div class="modal-header">
-    <button type="button" class="close" ng-click="$ctrl.cerrar()" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <!-- <div class="justify-content-start"></div>
-    <div class="justify-content-end">
-        <i class="fa fa-eye cursor-pointer" ng-hide="$ctrl.css=='success'" ng-click="$ctrl.css='primary'"></i>
-        <i class="fa fa-pencil-alt cursor-pointer" ng-hide="$ctrl.css=='success'" ng-click="$ctrl.css='info'"></i>
-        <i class="fa fa-times cursor-pointer" ng-click="$ctrl.cerrar()"></i>
-    </div> -->
+    <span class="text-gray h3 mb-0" ng-if="$ctrl.animal.estado_actual == 'Adoptado'">Adoptado</span>
+    <a href class="text-gray" ui-sref="adopcion" ng-click="$ctrl.cerrar()" ng-if="$ctrl.animal.estado_actual.id == 2">
+        <span>
+            <i class="fa fa-shopping-basket fa-2x"></i>
+        </span>
+    </a>
+    <div class="ml-auto" ng-if="$ctrl.animal.estado_actual != 'Adoptado'">
+        <span class="text-gray text-sw">Editar:</span>
+        <label class="switch" title="Editar información">
+            <input type="checkbox" ng-model="$ctrl.editable">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <a href class="text-gray ml-auto" ng-click="$ctrl.cerrar()">
+        <span>
+            <i class="fa fa-times fa-2x"></i>
+        </span>
+    </a>
 </div>
-<div class="modal-body" style="background-color: white;">
+<div class="modal-body bg-white">
     <div class="container">
         <uib-tabset active="pills">
-            <uib-tab index="0" heading="Datos animal">
+            <uib-tab index="0" heading="Detalles">
                 <form class="container my-3 form_modify_animal" name="form_modify_animal" ng-submit="$ctrl.registrarDatos();">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" name="nombre" class="form-control" placeholder="Nombre de animal" ng-model="$ctrl.animal.nombre" ng-required="true" />
+                                <input type="text" name="nombre" class="form-control" placeholder="Nombre de animal" ng-model="$ctrl.animal.nombre" ng-required="true"
+                                    ng-disabled="!$ctrl.editable" />
                             </div>
                         </div>
-                        <!-- ng-options="especie.nombre for especie in $ctrl.optionsSelect.especies" -->
-                        <div class="col-md-6">
+                        <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="especie">Especie</label>
-                                <select name="especie" ng-model="$ctrl.animal.especie" class="form-control"  ng-required="true">
-                                    <option ng-repeat="especie in $ctrl.optionsSelect.especies" ng-bind="especie.nombre" ng-value="especie.nombre">
-                                    </option>
+                                <select name="especie" ng-model="$ctrl.animal.especie" class="form-control" ng-disabled="!$ctrl.editable" ng-options="especie as especie.nombre for especie in $ctrl.optionsSelect.especies track by especie.id"
+                                    required>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="raza">Raza</label>
-                                <select name="raza" ng-model="$ctrl.animal.raza" class="form-control" ng-required="true">
-                                    <option ng-repeat="raza in $ctrl.optionsSelect.razas" ng-bind="raza.nombre" ng-value="raza.nombre">
-                                    </option>
+                                <select name="raza" ng-model="$ctrl.animal.raza" class="form-control" ng-disabled="!$ctrl.editable" ng-options="raza as raza.nombre for raza in $ctrl.optionsSelect.razas | filter: $ctrl.animal.especie.nombre track by raza.id"
+                                    required>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
-                                <label for="peso">Peso</label>
-                                <input type="text" name="peso" class="form-control" placeholder="Peso" ng-model="$ctrl.animal.peso" ng-required="true">
+                                <label for="peso">Peso (Kg)</label>
+                                <input type="number" name="peso" class="form-control" min="1" placeholder="Peso" ng-model="$ctrl.animal.peso" ng-required="true"
+                                    ng-disabled="!$ctrl.editable">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group">
+                                <label for="edad">Edad</label>
+                                <input type="number" name="edad" class="form-control" min="0" placeholder="Edad" ng-model="$ctrl.animal.edad" ng-required="true"
+                                    ng-disabled="!$ctrl.editable">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="color">Color</label>
-                                <select name="color" ng-model="$ctrl.animal.color" class="form-control" ng-required="true">
-                                    <option ng-repeat="color in $ctrl.optionsSelect.colores" ng-bind="color.nombre" ng-value="color.nombre">
-                                    </option>
+                                <select name="color" ng-model="$ctrl.animal.color" class="form-control" ng-required="true" ng-disabled="!$ctrl.editable"
+                                    ng-options="color as color.nombre for color in $ctrl.optionsSelect.colores track by color.nombre">
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="sexo">Sexo</label>
-                                <select name="sexo" ng-model="$ctrl.animal.sexo" class="form-control" ng-required="true">
-                                    <option ng-repeat="sexo in $ctrl.optionsSelect.sexos" ng-bind="sexo.nombre" ng-value="sexo.nombre">
-                                    </option>
+                                <select name="sexo" ng-model="$ctrl.animal.sexo" class="form-control" ng-required="true" ng-disabled="!$ctrl.editable" ng-options="sexo as sexo.nombre for sexo in $ctrl.optionsSelect.sexos track by sexo.nombre">
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="fecha_ingreso">Fecha ingreso</label>
-                                <input type="datetime-local" name="fecha_ingreso" class="form-control" placeholder="Fecha de ingreso" ng-model="$ctrl.animal.fecha_ingreso" ng-required="true">
+                                <input type="datetime-local" name="fecha_ingreso" class="form-control" placeholder="Fecha de ingreso" ng-model="$ctrl.animal.fecha_ingreso"
+                                    ng-required="true" ng-disabled="!$ctrl.editable">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
-                                <label for="fecha_nacimiento">Fecha nacimiento</label>
-                                <input type="date" name="fecha_nacimiento" class="form-control" placeholder="Fecha de nacimiento" ng-model="$ctrl.animal.fecha_nacimiento" ng-required="true">
+                                <label for="estado_interno">Estado interno</label>
+                                <select name="estado_interno" ng-model="$ctrl.animal.estado_actual" class="form-control" ng-required="true" ng-disabled="!$ctrl.editable"
+                                    ng-options="estado as estado.nombre for estado in $ctrl.optionsSelect.estados track by estado.id">
+                                    <!-- <option ng-repeat="estado in $ctrl.optionsSelect.estados" ng-bind="estado.nombre" ng-value="estado.nombre"></option> -->
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label for="estado">Estado</label>
-                                <textarea name="estado" class="form-control" placeholder="Estado de ingreso" ng-model="$ctrl.animal.estado" ng-required="true"></textarea>
+                                <textarea name="estado" class="form-control" placeholder="Estado de ingreso" ng-model="$ctrl.animal.estado_ingreso" ng-required="true"
+                                    ng-disabled="!$ctrl.editable"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="row col-md-12 justify-content-center">
-                        <button ng-disabled="form.$invalid" type="submit" class="btn btn-success mt-3" type="button">Guardar datos</button>
+
+                    <div class="row col-md-12 justify-content-center" ng-show="$ctrl.editable">
+                        <button type="submit" class="btn btn-success mt-3" ng-disabled="form_modify_animal.$invalid">Guardar cambios</button>
                     </div>
                 </form>
             </uib-tab>
             <uib-tab index="2" heading="Galería">
                 <div ng-show="!$ctrl.show_galery">
                     <form class="my-3" name="form_galeria">
-                        <div ngf-drop="$ctrl.addImages($ctrl.images);" ngf-select="$ctrl.addImages($ctrl.images);" ng-model="$ctrl.images" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-multiple="true" ngf-max-files="6" class="px-2 d-flex justify-content-center border py-2" style="cursor: pointer;">
+                        <!-- <div ngf-drop="$ctrl.addImages($ctrl.images);" ngf-select="$ctrl.addImages($ctrl.images);" ng-model="$ctrl.images" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-multiple="true" ngf-max-files="6" class="px-2 d-flex justify-content-center border py-2" style="cursor: pointer;">
                             <h4 class="text-center">
                                 Arrastra o presiona aquí para subir tus fotos
                             </h4>
-                        </div>
+                        </div> -->
                         <div class="row mt-2 mb-2 text-center">
-                            <div ng-repeat="file in $ctrl.files track by $index" class="col-lg-3 p-2 delete-image d-flex justify-content-center align-items-center border" ng-init="imageCroped = ''">
+                            <div ng-repeat="i in $ctrl.animal.galeria track by $index" class="col-lg-3 p-2 delete-image d-flex justify-content-center align-items-center border"
+                                ng-init="imageCroped = ''">
+                                <img-crop ng-class="{'d-none': !modifyImage,'d-block': modifyImage}" image="imagen.imagen" area-type="square" result-image="imageCroped"></img-crop>
+                                <img ng-src="{{i.imagen}}" ng-class="{'d-none': modifyImage,'d-block': !modifyImage}" class="img-fluid" style="max-height: 100%;">
+                                <div ng-show="modifyImage">
+                                    <button class="btn btn-success btn-sm" ng-click="$ctrl.updateImage($index, imageCroped); modifyImage = false;" style="position: absolute; bottom: 5px; right: 5px;">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" ng-click="modifyImage = false;" style="position: absolute; bottom: 5px; left: 5px;">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <div ng-hide="modifyImage" class="contenedor">
+                                    <button type="button" class="btn btn-primary btn-sm btn-delete dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only"></span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href ng-click="$ctrl.deleteImage($index)">
+                                            <i class="fa fa-trash"></i> Eliminar
+                                        </a>
+                                        <a class="dropdown-item" href ng-click="$ctrl.previewImage(i.imagen);">
+                                            <i class="fa fa-eye"></i> Visualizar
+                                        </a>
+                                        <a class="dropdown-item" href ng-click="modifyImage = true;">
+                                            <i class="fa fa-expand"></i> Recortar
+                                        </a>
+                                        <a class="dropdown-item" ng-href="{{i.imagen}}" download>
+                                            <i class="fa fa-download"></i> Descargar
+                                        </a>
+                                        <a class="dropdown-item" ng-href="{{i.imagen}}" download>
+                                            <i class="fa fa-bookmark"></i> Predeterminada
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div ng-repeat="file in $ctrl.files track by $index" class="col-lg-3 p-2 delete-image d-flex justify-content-center align-items-center border" ng-init="imageCroped = ''">
                                 <img-crop ng-class="{'d-none': !modifyImage,'d-block': modifyImage}" image="file" area-type="square" result-image="imageCroped"></img-crop>
                                 <img ng-class="{'d-none': modifyImage,'d-block': !modifyImage}" ng-src="{{file}}" class="img-fluid" style="max-height: 100%;">
                                 <div ng-show="modifyImage">
@@ -170,11 +224,18 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </form>
                 </div>
             </uib-tab>
+            <!-- <div class="ml-auto" ng-if="$ctrl.animal.estado_actual != 'Adoptado'">
+                <span class="text-sw">Editar:</span>
+                <label class="switch" title="Editar información">
+                    <input type="checkbox" ng-model="$ctrl.editable">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
         </uib-tabset>
     </div>
 </div>

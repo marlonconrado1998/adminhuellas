@@ -1,24 +1,45 @@
-app.factory("selectFactory", ["generalService", 'GeneralURL', function (generalService, GeneralURL) {
-    
-    var fac = this;
-    var ciudades = [{ nombre: "Cartagena", id: 1 }, { nombre: "Barranquilla", id: 3 }, { nombre: "Bogotá", id: 2 }];
-    var especies = [{ nombre: "Perro", id: 1 }, { nombre: "Gato", id: 2 }];
-    var razas = [{ nombre: "Criollo", id: 1, especie: "Perro" }, { nombre: "Pug", id: 2, especie: "Perro" }, { nombre: "Criollo", id: 3, especie: "Gato" }];
-    var colores = ["Negro", "Blanco", "Café"];
-    var sexos = ["Macho", "Hembra"];
+app.factory("selectFactory", ["generalService", function (generalService) {
 
-    var url = GeneralURL + "api_generalRequest.php/";
+    var fac = this;
+
+    var ciudades;
+    var especies;
+    var razas;
+    var colores;
+    var estados;
+    var sexos = [{ nombre: "Macho" }, { nombre: "Hembra" }];
+
+    var url = "api_generalRequest.php/";
+
+    fac.findUrl = function (variable) {
+        generalService.EJECUTAR_SERVICES("GET", url + variable)
+            .then(function (response) {
+                if (variable == 'ciudad') {
+                    ciudades = response.data;
+                } else if (variable == 'especie') {
+                    especies = response.data;
+                } else if (variable == 'color') {
+                    colores = response.data;
+                } else if (variable == 'raza') {
+                    razas = response.data;
+                } else if (variable == 'estado') {
+                    estados = response.data;
+                }
+            }).catch(function () {
+                console.log("Ubo un error.");
+            });
+    }
 
     var all = {
         getCiudades: function () {
-            if (ciudades.length == 0) {
-                ciudades = generalService.EJECUTAR_SERVICES("GET", url + "ciudad");
+            if (ciudades == undefined) {
+                fac.findUrl('ciudad');
             }
             return ciudades;
         },
         getEspecies: function () {
-            if (especies.length == 0) {
-                especies = generalService.EJECUTAR_SERVICES("GET", url + "especie");
+            if (especies == undefined) {
+                fac.findUrl("especie");
             }
             return especies;
         },
@@ -26,29 +47,32 @@ app.factory("selectFactory", ["generalService", 'GeneralURL', function (generalS
             return sexos;
         },
         getRazas: function () {
-            if (razas.length == 0) {
-                razas = generalService.EJECUTAR_SERVICES("GET", url + "raza");
+            if (razas == undefined) {
+                fac.findUrl("raza");
             }
             return razas;
         },
         getColores: function () {
-            if (colores.length == 0) {
-                colores = generalService.EJECUTAR_SERVICES("GET", url + "color");
+            if (colores == undefined) {
+                colores = fac.findUrl('color');
             }
             return colores;
         },
-        getAll : function () {
-            if (colores.length == 0 && razas.length == 0 && especies.length == 0 && ciudades.length == 0) {
-                return false;
+        getEstados: function () {
+            if (estados == undefined) {
+                estados = fac.findUrl('estado');
             }
-                return {
-                    ciudades: ciudades,
-                    especies: especies,
-                    sexos: sexos,
-                    razas: razas,
-                    colores: colores
-                }
-           
+            return estados;
+        },
+        getAll: function () {
+            return {
+                ciudades: all.getCiudades(),
+                especies: all.getEspecies(),
+                sexos: all.getSexos(),
+                razas: all.getRazas(),
+                colores: all.getColores(),
+                estados: all.getEstados()
+            }
         }
     };
     return all;
