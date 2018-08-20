@@ -11,16 +11,11 @@
         border: 1px dotted red;
     }
 
-    .delete-image {
-        height: 250px;
+    .btn-down {
         cursor: pointer;
     }
 
-    .delete-image:hover {
-        border: 3px solid #318be3 !important;
-    }
-
-    .delete-image:hover>.contenedor {
+    .btn-down:hover>.contenedor {
         display: block;
     }
 
@@ -32,10 +27,9 @@
         display: none;
     }
 
-    .btn-delete {
+    .btn-opt {
         position: absolute;
-        top: 5px;
-        right: 5px;
+        bottom: 0;
     }
 </style>
 <div class="modal-header">
@@ -149,82 +143,121 @@
             <uib-tab index="2" heading="Galería">
                 <div ng-show="!$ctrl.show_galery">
                     <form class="my-3" name="form_galeria">
-                        <!-- <div ngf-drop="$ctrl.addImages($ctrl.images);" ngf-select="$ctrl.addImages($ctrl.images);" ng-model="$ctrl.images" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-multiple="true" ngf-max-files="6" class="px-2 d-flex justify-content-center border py-2" style="cursor: pointer;">
-                            <h4 class="text-center">
-                                Arrastra o presiona aquí para subir tus fotos
-                            </h4>
-                        </div> -->
-                        <div class="row mt-2 mb-2 text-center">
-                            <div ng-repeat="i in $ctrl.animal.galeria track by $index" class="col-lg-3 p-2 delete-image d-flex justify-content-center align-items-center border"
-                                ng-init="imageCroped = ''">
-                                <img-crop ng-class="{'d-none': !modifyImage,'d-block': modifyImage}" image="imagen.imagen" area-type="square" result-image="imageCroped"></img-crop>
-                                <img ng-src="{{i.imagen}}" ng-class="{'d-none': modifyImage,'d-block': !modifyImage}" class="img-fluid" style="max-height: 100%;">
-                                <div ng-show="modifyImage">
-                                    <button class="btn btn-success btn-sm" ng-click="$ctrl.updateImage($index, imageCroped); modifyImage = false;" style="position: absolute; bottom: 5px; right: 5px;">
-                                        <i class="fa fa-check"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm" ng-click="modifyImage = false;" style="position: absolute; bottom: 5px; left: 5px;">
-                                        <i class="fa fa-times"></i>
-                                    </button>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div ngf-drop="$ctrl.addImages($ctrl.images);" ngf-select="$ctrl.addImages($ctrl.images);" ng-model="$ctrl.images" name="file"
+                                    ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-multiple="true" ngf-max-files="6"
+                                    class="border" style="cursor: pointer;">
+                                    <h4 class="text-center">
+                                        Arrastra o presiona aquí para cargar tus imágenes
+                                    </h4>
                                 </div>
-                                <div ng-hide="modifyImage" class="contenedor">
-                                    <button type="button" class="btn btn-primary btn-sm btn-delete dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only"></span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href ng-click="$ctrl.deleteImage($index)">
-                                            <i class="fa fa-trash"></i> Eliminar
-                                        </a>
-                                        <a class="dropdown-item" href ng-click="$ctrl.previewImage(i.imagen);">
-                                            <i class="fa fa-eye"></i> Visualizar
-                                        </a>
-                                        <a class="dropdown-item" href ng-click="modifyImage = true;">
-                                            <i class="fa fa-expand"></i> Recortar
-                                        </a>
-                                        <a class="dropdown-item" ng-href="{{i.imagen}}" download>
-                                            <i class="fa fa-download"></i> Descargar
-                                        </a>
-                                        <a class="dropdown-item" ng-href="{{i.imagen}}" download>
-                                            <i class="fa fa-bookmark"></i> Predeterminada
-                                        </a>
+                                <div class="container">
+                                    <div class="row" ng-hide="$ctrl.loading">
+                                        <div ng-repeat="image in $ctrl.files track by $index" class="col-6 col-lg-4 p-2 d-flex justify-content-center align-items-center border">
+                                            <img ng-src="{{image}}" class="img-fluid" style="max-height: 100%;">
+                                            <div class="btn-group btn-opt" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.deleteFile($index);" title="Eliminar">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-primary btn-sm" title="Cargar" ng-click="$ctrl.uploadImage(image, $index);">
+                                                    <i class="fa fa-upload"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <br>
+                                    <br>
+                                    <center>
+                                        <div class="lds-spinner" ng-show="$ctrl.loading">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </center>
                                 </div>
                             </div>
-                            <!-- <div ng-repeat="file in $ctrl.files track by $index" class="col-lg-3 p-2 delete-image d-flex justify-content-center align-items-center border" ng-init="imageCroped = ''">
-                                <img-crop ng-class="{'d-none': !modifyImage,'d-block': modifyImage}" image="file" area-type="square" result-image="imageCroped"></img-crop>
-                                <img ng-class="{'d-none': modifyImage,'d-block': !modifyImage}" ng-src="{{file}}" class="img-fluid" style="max-height: 100%;">
-                                <div ng-show="modifyImage">
-                                    <button class="btn btn-success btn-sm" ng-click="$ctrl.updateImage($index, imageCroped); modifyImage = false;" style="position: absolute; bottom: 5px; right: 5px;">
-                                        <i class="fa fa-check"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm" ng-click="modifyImage = false;" style="position: absolute; bottom: 5px; left: 5px;">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
-                                <div ng-hide="modifyImage" class="contenedor">
-                                    <button type="button" class="btn btn-primary btn-sm btn-delete dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only"></span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href ng-click="$ctrl.deleteImage($index)">
-                                            <i class="fa fa-trash"></i> Eliminar
-                                        </a>
-                                        <a class="dropdown-item" href ng-click="$ctrl.previewImage(file);">
-                                            <i class="fa fa-eye"></i> Visualizar
-                                        </a>
-                                        <a class="dropdown-item" href ng-click="modifyImage = true;">
-                                            <i class="fa fa-expand"></i> Recortar
-                                        </a>
-                                        <a class="dropdown-item" ng-href="{{file}}" download>
-                                            <i class="fa fa-download"></i> Descargar
-                                        </a>
-                                        <a class="dropdown-item" ng-href="{{file}}" download>
-                                            <i class="fa fa-bookmark"></i> Predeterminada
-                                        </a>
+                            <div class="col-lg-8 mb-2 text-center">
+                                <div class="row">
+                                    <div ng-repeat="i in $ctrl.animal.galeria track by $index" class="col-lg-4 p-2 btn-down d-flex justify-content-center align-items-center border"
+                                        ng-init="imageCroped = ''">
+                                        <img-crop ng-class="{'d-none': !modifyImage,'d-block': modifyImage}" image="imagen.imagen" area-type="square" result-image="imageCroped"></img-crop>
+                                        <img ng-src="{{i.imagen}}" ng-class="{'d-none': modifyImage,'d-block': !modifyImage}" class="img-fluid" style="max-height: 200px;">
+                                        <i ng-show="i.predeterminado == 1;" class="fa fa-bookmark text-info" style="position: absolute; top: 5px; left: 5px;"></i>
+                                        <div ng-show="modifyImage">
+                                            <button class="btn btn-success btn-sm" ng-click="$ctrl.updateImage($index, imageCroped); modifyImage = false;" style="position: absolute; bottom: 5px; right: 5px;">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm" ng-click="modifyImage = false;" style="position: absolute; bottom: 5px; left: 5px;">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div ng-hide="modifyImage" class="contenedor">
+                                            <button type="button" style="position: absolute; top: 5px; right: 5px;" class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="sr-only"></span>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href ng-click="$ctrl.dropGalery(i, $index)">
+                                                    <i class="fa fa-trash"></i> Eliminar
+                                                </a>
+                                                <a class="dropdown-item" href ng-click="$ctrl.previewImage(i.imagen);">
+                                                    <i class="fa fa-eye"></i> Visualizar
+                                                </a>
+                                                <a class="dropdown-item" ng-href="{{i.imagen}}" download>
+                                                    <i class="fa fa-download"></i> Descargar
+                                                </a>
+                                                <a class="dropdown-item" ng-hide="i.predeterminado == 1" ng-click="$ctrl.predeterminarGalery(i);">
+                                                    <i class="fa fa-bookmark"></i> Predeterminar
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> -->
+                                <!-- <div ng-repeat="file in $ctrl.files track by $index" class="col-lg-3 p-2 btn-down d-flex justify-content-center align-items-center border" ng-init="imageCroped = ''">
+                                    <img-crop ng-class="{'d-none': !modifyImage,'d-block': modifyImage}" image="file" area-type="square" result-image="imageCroped"></img-crop>
+                                    <img ng-class="{'d-none': modifyImage,'d-block': !modifyImage}" ng-src="{{file}}" class="img-fluid" style="max-height: 100%;">
+                                    <div ng-show="modifyImage">
+                                        <button class="btn btn-success btn-sm" ng-click="$ctrl.updateImage($index, imageCroped); modifyImage = false;" style="position: absolute; bottom: 5px; right: 5px;">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm" ng-click="modifyImage = false;" style="position: absolute; bottom: 5px; left: 5px;">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <div ng-hide="modifyImage" class="contenedor">
+                                        <button type="button" class="btn btn-primary btn-sm btn-delete dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="sr-only"></span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href ng-click="$ctrl.deleteImage($index)">
+                                                <i class="fa fa-trash"></i> Eliminar
+                                            </a>
+                                            <a class="dropdown-item" href ng-click="$ctrl.previewImage(file);">
+                                                <i class="fa fa-eye"></i> Visualizar
+                                            </a>
+                                            <a class="dropdown-item" href ng-click="modifyImage = true;">
+                                                <i class="fa fa-expand"></i> Recortar
+                                            </a>
+                                            <a class="dropdown-item" ng-href="{{file}}" download>
+                                                <i class="fa fa-download"></i> Descargar
+                                            </a>
+                                            <a class="dropdown-item" ng-href="{{file}}" download>
+                                                <i class="fa fa-bookmark"></i> Predeterminada
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
                         </div>
                     </form>
                 </div>
