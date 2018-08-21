@@ -6,13 +6,14 @@
             </a>
         </div>
         <ul class="navbar-nav navbar-nav-right">
-            <!-- <li class="nav-item dropdown">
-                <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                    <i class="fa fa-search"></i>
-                    
+            <li class="nav-item dropdown">
+                <a class="nav-link count-indicator" ui-sref="Solicitudes" ng-controller="solicitudAdopcionController as solCtrl">
+                    <i class="fa fa-bell" ng-init="solCtrl.obtenerListaSolicitudes();"></i>
+                    <span ng-show="solCtrl.listaSolicitudes.length > 0" class="count" ng-bind="solCtrl.listaSolicitudes.length"></span>
                 </a>
-            </li> -->
-            <li class="nav-item dropdown" ng-controller="solicitudAdopcionController as solCtrl">
+            </li>
+
+            <!-- <li class="nav-item dropdown">
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href data-toggle="dropdown" ng-controller="solicitudAdopcionController as solCtrl">
                     <i class="fa fa-bell" ng-init="solCtrl.obtenerListaSolicitudes();"></i>
                     <span ng-show="solCtrl.listaSolicitudes.length > 0" class="count" ng-bind="solCtrl.listaSolicitudes.length"></span>
@@ -23,7 +24,7 @@
                             Solicitudes de adopción
                         </p>
                         <span class="badge badge-pill badge-warning float-right">
-                           <a ui-sref="/Solicitudes">Ver todo</a>
+                            Ver todo
                         </span>
                     </a>
                     <div class="dropdown-divider"></div>
@@ -69,7 +70,7 @@
                         </div>
                     </a>
                 </div>
-            </li>
+            </li> -->
             <li class="nav-item dropdown">
                 <a class="nav-link count-indicator dropdown-toggle" id="userDropdown" href data-toggle="dropdown">
                     <i class="fa fa-user"></i>

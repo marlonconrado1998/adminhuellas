@@ -3,15 +3,16 @@ var app = angular.module('app', [
     'ui.bootstrap',
     'ngWizard',
     'ngFileUpload',
-    'ngImgCrop'
+    'ngImgCrop',
+    'chart.js'
 ]);
 
 app.run(["$rootScope", "$location",
     function ($rootScope, $location) {
         $rootScope.$on("$locationChangeStart",
             function () {
-                var account = JSON.parse(sessionStorage.getItem("user"));
-                if (account == null || account == undefined) {
+
+                if (sessionStorage.getItem("user") == null || sessionStorage.getItem("user") == undefined) {
                     $location.path("/Login");
                 } else {
                     if ($location.path() == "/Login") {

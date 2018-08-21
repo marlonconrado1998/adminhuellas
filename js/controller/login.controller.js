@@ -17,8 +17,10 @@ function loginController(loginService, $location) {
     getAccount();
 
     loginCtrl.logout = function () {
-        sessionStorage.setItem("user", null);
-        getAccount();
+        sessionStorage.removeItem("user");
+        $location.path("/Login");
+        loginService.loged = false;
+        loginCtrl.loged = loginService.loged;
     }
 
     loginCtrl.showPass = function () {
@@ -36,31 +38,30 @@ function loginController(loginService, $location) {
         loginCtrl.loading = true;
         loginService.login({ user: loginCtrl.user, password: loginCtrl.password })
             .then(function (response) {
-                setAccount(response.data);
+                loginCtrl.loading = false;
+                if (response.data == null) {
+                    throw new Error();
+                } else {
+                    setAccount(response.data);
+                }
             })
             .catch(function (error) {
                 console.log(error);
+                loginCtrl.mensaje = "Usuario o contraseña invalido."
             });
     }
 
     function setAccount(data) {
-        if (data == null) {
-            loginCtrl.mensaje = "Usuario o contraseña invalido."
-        } else {
-            $location.path("/Inicio");            
-        }
-        loginCtrl.loading = false;
+        $location.path("/Inicio");
         sessionStorage.setItem("user", JSON.stringify(data));
         getAccount();
     }
 
     function getAccount() {
-        loginService.account = JSON.parse(sessionStorage.getItem("user"));
-        if (loginService.account == null || loginService.account == undefined) {
-            // $location.path("/Login");
+        if (sessionStorage.getItem("user") == null || sessionStorage.getItem("user") == undefined) {
             loginService.loged = false;
         } else {
-            // $location.path("/Inicio");
+            loginService.account = JSON.parse(sessionStorage.getItem("user"));
             loginService.loged = true;
         }
         loginCtrl.account = loginService.account;

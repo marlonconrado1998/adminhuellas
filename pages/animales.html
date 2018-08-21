@@ -36,7 +36,7 @@
                                 <tr ng-repeat="animal in ctrl.animales | filter: buscar_animal" ng-click="ctrl.modal(animal.idanimal);" ng-mouseenter="cssmodal = true"
                                     ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
                                     <td>
-                                        <span class="count-table-item" ng-class="{'bg-info':animal.estado_actual == 'Adoptado', 'bg-danger':animal.estado_actual == 'Cuarentena', 'bg-success':animal.estado_actual == 'Patio (Adoptable)', 'bg-warning':animal.estado_actual == 'Patio (No adoptable)'}"></span>
+                                        <span class="count-table-item" ng-class="{'bg-info':animal.estado_actual == 'Adoptado', 'bg-danger':animal.estado_actual == 'Cuarentena', 'bg-success':animal.estado_actual == 'Patio (Adoptable)', 'bg-warning':animal.estado_actual == 'Observación'}"></span>
                                         <span ng-bind="animal.idanimal"></span>
                                     </td>
                                     <td ng-bind="animal.nombre"></td>
@@ -62,7 +62,7 @@
                     <p class="text-gray small">Patio (Adoptable).
                         <span class="count-table-item bg-success mt-1 mr-2"></span>
                     </p>
-                    <p class="text-gray small">Patio (No adoptable).
+                    <p class="text-gray small">Observación.
                         <span class="count-table-item bg-warning mt-1 mr-2"></span>
                     </p>
                 </section>

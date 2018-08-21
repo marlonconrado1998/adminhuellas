@@ -35,6 +35,10 @@ app.config(["$stateProvider", "$urlRouterProvider", '$compileProvider', '$locati
             name: 'Solicitudes',
             url: '/Solicitudes',
             templateUrl: 'pages/solicitudes.html'
+        }).state({
+            name: 'Reportes',
+            url: '/Reportes',
+            templateUrl: 'pages/reportes.html'
         });
     }
 ]);
