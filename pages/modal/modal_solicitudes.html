@@ -27,9 +27,12 @@
                                 <span class="font-weight-bold text-capitalize">Fecha de solicitud: </span>
                                 <span ng-bind="$ctrl.solicitud.fecha_solicitud"></span>
                             </p>
-                            <p>
+                            <p ng-if="$ctrl.solicitud.estado == 'Solicitado'">
                                 <span class="font-weight-bold text-capitalize">Dias de expiracion de solicitud: </span>
                                 <span ng-bind="$ctrl.solicitud.restantes + ' dias.'"></span>
+                            </p>
+                            <p ng-if="$ctrl.solicitud.estado != 'Solicitado'">
+                                <span class="font-weight-bold text-capitalize">La solicitud fue <span ng-bind="$ctrl.solicitud.estado"></span></span>
                             </p>
                             <hr class="w-75">
                             <p>
@@ -135,7 +138,7 @@
         </uib-tabset>
     </div>
 </div>
-<div class="modal-footer bg-white">
-    <input class="btn btn-inverse-danger mr-auto" type="button" value="Rechazar" ng-click="$ctrl.aceptarSolicitud();">
-    <input class="btn btn-inverse-success" type="button" value="Aceptar" ng-click="$ctrl.rechazarSolicitud();">
+<div class="modal-footer bg-white" ng-if="$ctrl.solicitud.estado != 'Legalizada'">
+    <input class="btn btn-inverse-danger mr-auto" type="button" value="Rechazar" ng-hide="$ctrl.solicitud.estado == 'Rechazada'" ng-click="$ctrl.rechazarSolicitud();">
+    <input class="btn btn-inverse-success" type="button" value="Aceptar"  ng-hide="$ctrl.solicitud.estado == 'Aceptada'" ng-click="$ctrl.aceptarSolicitud();">
 </div>

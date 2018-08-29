@@ -25,8 +25,8 @@ app.factory("selectFactory", ["generalService", function (generalService) {
                 } else if (variable == 'estado') {
                     estados = response.data;
                 }
-            }).catch(function () {
-                console.log("Ubo un error.");
+            }).catch(function (error) {
+                console.log(error);
             });
     }
 

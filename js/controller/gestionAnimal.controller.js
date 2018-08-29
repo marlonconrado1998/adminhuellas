@@ -1,8 +1,8 @@
 app.controller('gestionAnimalCtrl', gestionAnimalCtrl);
 
-gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', "GeneralURL", "selectFactory", "Upload"];
+gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', "selectFactory", "Upload"];
 
-function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFactory, Upload) {
+function gestionAnimalCtrl($uibModal, gestionAnimalService, selectFactory, Upload) {
 
     var gestionCtrl = this;
     //VARIABLES
@@ -105,12 +105,14 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFa
             gestionCtrl.mensajeListaAnimales = "Cargando...";
             gestionAnimalService.obtenerListaAnimales()
                 .then(function (response) {
-                    gestionAnimalService.animales = response.data;
-                    gestionCtrl.animales = gestionAnimalService.animales;
-                    if (gestionAnimalService.animales.length > 0) {
-                        gestionCtrl.mensajeListaAnimales = "";
-                    } else {
-                        gestionCtrl.mensajeListaAnimales = "No hay animales para mostrar.";
+                    if (angular.isArray(response.data)) {
+                        gestionAnimalService.animales = response.data;
+                        gestionCtrl.animales = gestionAnimalService.animales;
+                        if (gestionAnimalService.animales.length > 0) {
+                            gestionCtrl.mensajeListaAnimales = "";
+                        } else {
+                            gestionCtrl.mensajeListaAnimales = "No hay animales para mostrar.";
+                        }
                     }
                 }).catch(function (error) {
                     console.error(error);
@@ -129,22 +131,23 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, GeneralURL, selectFa
 //Controller MODAL==============================================//
 app.controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
-ModalInstanceCtrl.$inject = ['$uibModalInstance', 'items', "$http", 'selectFactory', 'Upload'];
+ModalInstanceCtrl.$inject = ['$uibModalInstance', 'items', 'selectFactory', 'Upload', 'gestionAnimalService'];
 
-function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory, Upload) {
+function ModalInstanceCtrl($uibModalInstance, items, selectFactory, Upload, gestionAnimalService) {
 
     var gestionCtrl = this;
 
     gestionCtrl.animal = items.data;
     var originalData;
 
-    gestionCtrl.galeria = [];
     gestionCtrl.imageCrop = '';
     gestionCtrl.imageCroped = '';
     gestionCtrl.files = [];
     gestionCtrl.optionsSelect = selectFactory.getAll();
     gestionCtrl.editable = false;
+    gestionCtrl.loading = false;
 
+    // console.log(gestionCtrl.animal);
     function startUpdate() {
         swal({
             type: 'question',
@@ -206,13 +209,13 @@ function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory, Uploa
     }
 
     gestionCtrl.addImages = function (images) {
-        if (gestionCtrl.files.length >= 5) {
+        if (gestionCtrl.files.length >= 6) {
             return false;
         }
         Upload.base64DataUrl(images).then(function (imagesB64) {
             var iter = imagesB64.length;
             while (iter--) {
-                if (gestionCtrl.files.length < 5) {
+                if (gestionCtrl.files.length < 6) {
                     gestionCtrl.files.push(imagesB64[iter]);
                 }
             }
@@ -223,8 +226,13 @@ function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory, Uploa
         gestionCtrl.files[index] = imageCroped;
     }
 
-    gestionCtrl.deleteImage = function (index) {
-        gestionCtrl.files.splice(index, 1);
+    gestionCtrl.deleteFile = function (pos) {
+        gestionCtrl.files.splice(pos, 1);
+    };
+
+    gestionCtrl.deleteImage = function (pos) {
+        // gestionCtrl.files.splice(getPosicion(animal.id), 1);
+        gestionCtrl.animal.galeria.splice(pos, 1);
     }
 
     gestionCtrl.previewImage = function (file) {
@@ -233,7 +241,7 @@ function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory, Uploa
     }
 
     gestionCtrl.cerrar = function () {
-        $uibModalInstance.dismiss( gestionCtrl.animal);
+        $uibModalInstance.dismiss(gestionCtrl.animal);
     };
 
     gestionCtrl.asignarAttr = function () {
@@ -270,6 +278,108 @@ function ModalInstanceCtrl($uibModalInstance, items, $http, selectFactory, Uploa
             });
 
         originalData = JSON.stringify(gestionCtrl.animal);
+    }
+
+    // Sube la imagen
+    gestionCtrl.uploadImage = function (file, pos) {
+
+        if (gestionCtrl.animal.galeria.length >= 5) {
+            swal({
+                type: 'warning',
+                title: 'Cantidad máxima de imágenes alcanzada',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return false;
+        }
+        var image = {
+            file: file,
+            idanimal: gestionCtrl.animal.idanimal,
+            iduser: JSON.parse(sessionStorage.getItem("user")).identificacion,
+            fecha: new Date()
+        }
+        gestionCtrl.loading = true;
+        gestionAnimalService.subirImagen(image).then(function (response) {
+            gestionCtrl.deleteFile(pos);
+            gestionCtrl.loading = false;
+            swal({
+                type: 'success',
+                title: 'Imagen cargada correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            searchGalery();
+        }).catch(function () { });
+    }
+
+    // Busca la galería del animal
+    function searchGalery() {
+        gestionAnimalService.buscarGaleria(gestionCtrl.animal.idanimal).then(function (response) {
+            gestionCtrl.animal.galeria = response.data;
+        }).catch(function () { })
+    }
+
+
+    gestionCtrl.dropGalery = function (file, pos) {
+        if (file.predeterminado == 1) {
+            swal({
+                type: 'warning',
+                title: 'No puede eliminar la imagen predeterminada',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return false;
+        }
+        swal({
+            title: '¿Estás seguro?',
+            text: "Esta imagen será eliminada",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                gestionAnimalService.dropGaleria(file).then(function (response) {
+                    gestionCtrl.deleteImage(pos);
+                    swal({
+                        type: 'success',
+                        title: 'Imagen eliminada correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }).catch(function () { })
+            }
+        });
+    }
+
+    gestionCtrl.predeterminarGalery = function (file) {
+        var data = { 
+            idanimal: gestionCtrl.animal.idanimal,
+            idgaleria: file.id
+        }
+
+        gestionAnimalService.predeterminarGaleria(data).then(function (response) {
+            desPredeterminar();
+            file.predeterminado = 1;
+            swal({
+                type: 'success',
+                title: 'La imagen ha sido preterminada correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }).catch(function () { })
+    }
+
+    // Busca entre la galeria la imagen predeterminada y la despredetermina
+    function desPredeterminar () {
+        for (var i = 0; i < gestionCtrl.animal.galeria.length; i++) {
+            if (gestionCtrl.animal.galeria[i].predeterminado === 1) {
+                gestionCtrl.animal.galeria[i].predeterminado = 0;
+                return true;
+            }
+        }
     }
 
     gestionCtrl.asignarAttr();
