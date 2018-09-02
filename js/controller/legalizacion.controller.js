@@ -82,7 +82,7 @@ function modalLegalizacionCtrl($uibModalInstance, items, gestionAnimalService, $
     var msg = {
         name: "Fundacion huellas de amor",
         email: "customershuellas@gmail.com",
-        subject: "Respuesta de solicitud de adopcion",
+        subject: "Legalizacion de adopcion",
         body: '',
         to: ''
     }
@@ -123,8 +123,8 @@ function modalLegalizacionCtrl($uibModalInstance, items, gestionAnimalService, $
                     lugar: document.getElementById("lugar_encuentro").value.trim(),
                 }
                 if (data.fecha && data.lugar && data.hora) {
-                    msg.body = 'Hola ' + datos.nombre_adoptante + '.<br><br>' +
-                        '<p>La solicitud con referencia ' + datos.referencia + ', que realizaste el dia ' + datos.fecha_solicitud + ' a sido <strong>APLAZADA</strong>.</p><br>' +
+                    msg.body = 'Hola ' + datos.adoptante.nombre + ' ' + datos.adoptante.apellido + '.<br><br>' +
+                        '<p>La solicitud con referencia ' + datos.referencia + ', que fue aceptada en la fecha ' + datos.fecha_aceptacion + ' a sido <strong>APLAZADA</strong>.</p><br>' +
                         '<span>¡Estos son los nuevos datos de encuentro.</span><br><br>' +
                         '<span><i>Lugar de encuentro: ' + data.lugar + '</i></span><br>' +
                         '<span><i>Fecha de encuentro: ' + data.fecha + '</i></span><br>' +
@@ -133,6 +133,8 @@ function modalLegalizacionCtrl($uibModalInstance, items, gestionAnimalService, $
                     data.estado = 'Aceptada';
                     datos.estado = 'Aceptada';
                     data.referencia = datos.referencia;
+        console.log(data, datos);
+
                     return items.method({ msg, datos: data }).then(function (response) {
                         if (response) {
                             return true;
