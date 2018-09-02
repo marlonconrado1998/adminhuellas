@@ -30,20 +30,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="solicitud in solCtrl.listaSolicitudes | orderBy: solicitud.restantes | filter: buscar_solicitud " ng-click="solCtrl.modal(solicitud);" ng-mouseenter="cssmodal = true"
-                                    ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
-                                    <td>
-                                        <span class="count-table-item" ng-class="{'bg-info':solicitud.estado == 'Solicitado', 'bg-danger':solicitud.estado == 'Rechazada', 'bg-success':solicitud.estado == 'Aceptada'}"></span>
-                                        <span ng-bind="solicitud.referencia"></span>
-                                    </td>
+                                <tr ng-repeat="solicitud in solCtrl.listaSolicitudes | orderBy: solicitud.restantes | filter: buscar_solicitud " ng-click="solCtrl.modal(solicitud);"
+                                    ng-mouseenter="cssmodal = true" ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
+                                    <td ng-bind="solicitud.referencia"></td>
                                     <td ng-bind="solicitud.nombre_adoptante"></td>
                                     <td ng-bind="solicitud.fecha_solicitud"></td>
                                     <td>
-                                        <p ng-if="solicitud.estado != 'Solicitado'">--</p>
-                                        <p ng-if="solicitud.estado == 'Solicitado'">
-                                            <span ng-if="solicitud.restantes < 0" ng-bind="'Retrasado ' + (solicitud.restantes * 1)"></span>
-                                            <span ng-if="solicitud.restantes > 0" ng-bind="solicitud.restantes"></span>
-                                        </p>
+                                        <span ng-if="solicitud.restantes < 0" ng-bind="'Retrasado ' + (solicitud.restantes * 1)"></span>
+                                        <span ng-if="solicitud.restantes > 0" ng-bind="solicitud.restantes"></span>
                                     </td>
                                     <td ng-bind="solicitud.estado"></td>
                                 </tr>
@@ -53,18 +47,6 @@
                             <h4 class="text-center pt-5 text-gray" ng-bind="solCtrl.mensaje"></h4>
                         </div>
                     </div>
-
-                    <section class="container">
-                        <p class="text-gray small">Solicitada.
-                            <span class="count-table-item bg-info mt-1 mr-2"></span>
-                        </p>
-                        <p class="text-gray small">Rechazada.
-                            <span class="count-table-item bg-danger mt-1 mr-2"></span>
-                        </p>
-                        <p class="text-gray small">Aceptada.
-                            <span class="count-table-item bg-success mt-1 mr-2"></span>
-                        </p>
-                    </section>
                 </div>
             </div>
         </div>

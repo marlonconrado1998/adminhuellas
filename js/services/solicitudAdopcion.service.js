@@ -17,8 +17,6 @@ function solicitudService(generalService) {
     service.obtenerInformacionAdoptante = getPerson;
     service.responderSolicitud = responderSolicitud;
 
-    console.log("solicitud service Already");
-
     function getList() {
         return generalService.EJECUTAR_SERVICES("GET", "api_solicitudes.php/obtenerListaSolicitudes");
     }

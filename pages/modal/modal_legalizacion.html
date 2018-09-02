@@ -1,0 +1,113 @@
+<div class="modal-header">
+    <span class="text-gray h3 mb-0 float-left" ng-if="$ctrl.animal.estado_actual == 'Adoptado'">Adoptado</span>
+    <span class="font-weight-bold pt-2 text-gray" ng-bind="'Ref. ' + $ctrl.legalizacion_item.referencia"></span>
+    <a href class="text-gray ml-auto" ng-click="$ctrl.cerrar()">
+        <span>
+            <i class="fa fa-times fa-2x"></i>
+        </span>
+    </a>
+</div>
+<div class="modal-body bg-white">
+    <div class="container">
+        <uib-tabset active="pills">
+            <uib-tab index="0" heading="Solicitante">
+                <form class="container my-3 form_modify_animal" name="form_modify_animal" ng-submit="$ctrl.registrarDatos();">
+
+                    <div class="row text-gray">
+                        <div class="col-12 text-center mt-3">
+                            <p>
+                                <span class="font-weight-bold text-capitalize">Identificacion: </span>
+                                <span ng-bind="$ctrl.legalizacion_item.adoptante.identificacion"></span>
+                            </p>
+                            <p>
+                                <span class="font-weight-bold text-capitalize">Ocupación: </span>
+                                <span ng-bind="$ctrl.legalizacion_item.adoptante.ocupacion"></span>
+                            </p>
+                            <p>
+                                <span class="font-weight-bold text-capitalize">Telefono: </span>
+                                <span ng-bind="$ctrl.legalizacion_item.adoptante.telefono"></span>
+                            </p>
+                            <p>
+                                <span class="font-weight-bold text-capitalize">Correo: </span>
+                                <span ng-bind="$ctrl.legalizacion_item.adoptante.correo"></span>
+                            </p>
+                            <p>
+                                <span class="font-weight-bold text-capitalize">Direccion de residencia: </span>
+                                <span ng-bind="$ctrl.legalizacion_item.adoptante.direccion + ' (' + $ctrl.legalizacion_item.adoptante.ciudad + ')'"></span>
+                            </p>
+                            <p>
+                                <span class="font-weight-bold text-capitalize">Empresa: </span>
+                                <span ng-bind="$ctrl.legalizacion_item.adoptante.empresa"></span>
+                            </p>
+                            <p>
+                                <span class="font-weight-bold text-capitalize">Ciudad de empresa: </span>
+                                <span ng-bind="$ctrl.legalizacion_item.adoptante.ciudad_empresa"></span>
+                            </p>
+                            <p>
+                                <span class="font-weight-bold text-capitalize">Telefono oficina: </span>
+                                <span ng-bind="$ctrl.legalizacion_item.adoptante.telefono"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 justify-content-center" ng-show="$ctrl.editable">
+                        <button type="submit" class="btn btn-success mt-3" ng-disabled="form_modify_animal.$invalid">Guardar
+                            cambios
+                        </button>
+                    </div>
+                </form>
+            </uib-tab>
+            <uib-tab index="1" heading="Animal">
+                <div class="row text-gray">
+                    <div class="col-12 text-center mt-3">
+                        <p>
+                            <span class="font-weight-bold text-capitalize">Nombre: </span>
+                            <span ng-bind="$ctrl.legalizacion_item.animal.nombre"></span>
+                        </p>
+                        <p>
+                            <span class="font-weight-bold text-capitalize">Especie: </span>
+                            <span ng-bind="$ctrl.legalizacion_item.animal.especie"></span>
+                        </p>
+                        <p>
+                            <span class="font-weight-bold text-capitalize">Raza: </span>
+                            <span ng-bind="$ctrl.legalizacion_item.animal.raza"></span>
+                        </p>
+                        <p>
+                            <span class="font-weight-bold text-capitalize">Sexo: </span>
+                            <span ng-bind="$ctrl.legalizacion_item.animal.sexo.nombre"></span>
+                        </p>
+                        <p>
+                            <span class="font-weight-bold text-capitalize">Peso: </span>
+                            <span ng-bind="$ctrl.legalizacion_item.animal.peso + 'Kg.'"></span>
+                        </p>
+                        <p>
+                            <span class="font-weight-bold text-capitalize">Color: </span>
+                            <span ng-bind="$ctrl.legalizacion_item.animal.color"></span>
+                        </p>
+                        <p>
+                            <span class="font-weight-bold text-capitalize">Edad: </span>
+                            <span ng-bind="$ctrl.legalizacion_item.animal.edad"></span>
+                        </p>
+                        <p>
+                            <span class="font-weight-bold text-capitalize">Estado Actual: </span>
+                            <span ng-bind="$ctrl.legalizacion_item.animal.estado_actual"></span>
+                        </p>
+                    </div>
+                    <center>
+                        <div ng-repeat="i in $ctrl.legalizacion_item.animal.galeria track by $index" class="col-4 p-2 d-inline-block justify-content-center align-items-center border">
+                            <img ng-src="{{i.imagen}}" ng-class="{'d-none': modifyImage,'d-block': !modifyImage}" class="img-fluid" style="max-height: 100%;">
+                        </div>
+                    </center>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>
+<div class="modal-footer bg-white">
+    <div class="container">
+        <div class="row">
+            <input class="col-4 col-sm-3 btn btn-inverse-danger pl-2 pr-2 mr-auto" type="button" value="Rechazar" ng-click="$ctrl.rechazarLegalizacion();">
+            <input class="col-4 col-sm-3 btn btn-inverse-warning pl-2 pr-2 mr-auto" type="button" value="Aplazar" ng-click="$ctrl.aplazarLegalizacion();">
+            <input class="col-4 col-sm-3 btn btn-inverse-success pl-2 pr-2" type="button" value="Confirmar" ng-click="$ctrl.confirmarLegalizacion();">
+        </div>
+    </div>
+</div>

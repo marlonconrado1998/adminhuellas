@@ -7,7 +7,7 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
     var gestionAdopcion = this;
     gestionAdopcion.informacion_animal = {};
     gestionAdopcion.informacion_animal.mensaje = ".";
-    
+
     gestionAdopcion.ciudades = selectFactory.getCiudades();
     var AdopcionRegistrada;
 
@@ -20,11 +20,11 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
     }
 
     function verifyData() {
-        if (typeof gestionAnimalService.informacion_animal == 'object') {
-            gestionAdopcion.informacion_animal = gestionAnimalService.informacion_animal;
-            gestionAdopcion.onVerificarAnimal(gestionAnimalService.informacion_animal.idanimal);
-            gestionAnimalService.informacion_animal = {};
+        gestionAdopcion.onVerificarAnimal(gestionAnimalService.informacion_animal.idanimal);
+        if (typeof gestionAnimalService.informacion_animal.persona == 'object') {
+            gestionAdopcion.onVerificarPersona(gestionAnimalService.informacion_animal.persona.identificacion);
         }
+        gestionAnimalService.informacion_animal = {};
     }
 
     function finalizarAdopcion(datos, contenidoDocumento) {
@@ -49,34 +49,32 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
     }
 
     gestionAdopcion.onVerificarAnimal = function (animal) {
-        if (animal != undefined) {
+        if (animal != undefined && animal != null) {
             gestionAdopcion.informacion_animal = {};
             gestionAdopcion.informacion_animal.mensaje = "Cargando...";
 
             gestionAnimalService.buscarAnimal(animal)
                 .then(function (response) {
-                    if(response.data.idanimal != undefined || response.data.idanima != null){
+                    if (response.data.idanimal != undefined || response.data.idanimal != null) {
                         gestionAdopcion.informacion_animal = response.data;
-    
-                        if (response.data.estado_actual == 'Adoptado') {
-                             gestionAdopcion.informacion_animal = {};
-                            gestionAdopcion.informacion_animal.mensaje = "El animal con ese código ya fue adoptado.";
-                        } else if (response.data.estado_actual == 'Cuarentena') {
-                        gestionAdopcion.informacion_animal = {};
-                        gestionAdopcion.informacion_animal.mensaje = "El animal se encuentra actualmente en cuarentena.";
-                         } else if (response.data.estado_actual == 'Patio (No adoptable)') {
-                             gestionAdopcion.informacion_animal = {};
-                        gestionAdopcion.informacion_animal.mensaje = "El animal se encuentra actualmente en patio pero no esta listo para una adopcion.";
+
+                        if (response.data.estado_actual != 'Patio (Adoptable)') {
+                            gestionAdopcion.informacion_animal = {};
+                            if (response.data.estado_actual == 'Adoptado') {
+                                gestionAdopcion.informacion_animal.mensaje = "El animal con ese código ya fue adoptado.";
+                            } else {
+                                gestionAdopcion.informacion_animal.mensaje = "El animal no puede adoptarse porque tiene el estado: " + response.data.estado_actual.toUpperCase(); + ".";
+                            }
                         } else {
                             gestionAnimalService.obtenerGaleriaAnimal(animal)
                                 .then(function (response) {
                                     gestionAdopcion.informacion_animal.galeria = response.data;
                                     gestionAdopcion.informacion_animal.mensaje = "";
-                                }).catch(function(error){
+                                }).catch(function (error) {
                                 });
                         }
                     } else {
-                    gestionAdopcion.informacion_animal.mensaje = "No se encontró animal con ese código.";
+                        gestionAdopcion.informacion_animal.mensaje = "No se encontró animal con ese código.";
                     }
                 })
                 .catch(function () {
@@ -86,7 +84,7 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
     }
 
     gestionAdopcion.onVerificarPersona = function (id) {
-        if (id != undefined) {
+        if (id != undefined && id != null) {
             gestionAdopcionService.buscarPersona(id)
                 .then(function (response) {
                     if (response.data != null) {
@@ -94,7 +92,7 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
                         gestionAdopcion.adopcion.telefono = parseInt(response.data.telefono);
                         gestionAdopcion.adopcion.telefono_oficina = parseInt(response.data.telefono_oficina);
                         gestionAdopcion.adopcion.identificacion = parseInt(response.data.identificacion);
-                       
+
                         angular.forEach(gestionAdopcion.ciudades, function (value) {
                             if (value.nombre == gestionAdopcion.adopcion.ciudad) {
                                 gestionAdopcion.adopcion.ciudad = value;
@@ -110,11 +108,11 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
     }
 
     gestionAdopcion.imprimirAdopcion = function (datos) {
-        
+
         var _especie = typeof gestionAdopcion.informacion_animal.especie == "object" ? gestionAdopcion.informacion_animal.especie.nombre : gestionAdopcion.informacion_animal.especie;
         var _raza = typeof gestionAdopcion.informacion_animal.raza == "object" ? gestionAdopcion.informacion_animal.raza.nombre : gestionAdopcion.informacion_animal.raza;
         var _sexo = typeof gestionAdopcion.informacion_animal.sexo == "object" ? gestionAdopcion.informacion_animal.sexo.nombre : gestionAdopcion.informacion_animal.sexo;
-       
+
         var cuerpo = document.getElementById("textoCompromiso").innerHTML;
         var logotipo = '<div style="display: flex; justify-content: center; opacity: 0.5"><img src="images/logo_main.svg" style="height:4.5cm"></div>';
         var contenido = logotipo +
@@ -152,5 +150,5 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
     }
 
     verifyData();
-    
+
 }

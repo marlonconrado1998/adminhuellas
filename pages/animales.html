@@ -36,7 +36,7 @@
                                 <tr ng-repeat="animal in ctrl.animales | filter: buscar_animal" ng-click="ctrl.modal(animal.idanimal);" ng-mouseenter="cssmodal = true"
                                     ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
                                     <td>
-                                        <span class="count-table-item" ng-class="{'bg-info':animal.estado_actual == 'Adoptado', 'bg-danger':animal.estado_actual == 'Cuarentena', 'bg-success':animal.estado_actual == 'Patio (Adoptable)', 'bg-warning':animal.estado_actual == 'Observación'}"></span>
+                                        <span class="count-table-item" ng-class="{'bg-info':animal.estado_actual == 'Fallecido', 'bg-danger':animal.estado_actual == 'Cuarentena', 'bg-success':animal.estado_actual == 'Patio (Adoptable)', 'bg-warning':animal.estado_actual == 'Observación', 'bg-primary':animal.estado_actual == 'Tratamiento', 'bg-secondary':animal.estado_actual == 'Adoptado'}"></span>
                                         <span ng-bind="animal.idanimal"></span>
                                     </td>
                                     <td ng-bind="animal.nombre"></td>
@@ -53,7 +53,7 @@
                 </div>
 
                 <section class="container" ng-show="ctrl.mensajeListaAnimales == ''">
-                    <p class="text-gray small">Adoptado.
+                    <p class="text-gray small">Fallecido.
                         <span class="count-table-item bg-info mt-1 mr-2"></span>
                     </p>
                     <p class="text-gray small">Cuarentena.
@@ -64,6 +64,12 @@
                     </p>
                     <p class="text-gray small">Observación.
                         <span class="count-table-item bg-warning mt-1 mr-2"></span>
+                    </p>
+                    <p class="text-gray small">En tratamiento.
+                        <span class="count-table-item bg-primary mt-1 mr-2"></span>
+                    </p>
+                    <p class="text-gray small">Adoptado.
+                        <span class="count-table-item bg-secondary mt-1 mr-2"></span>
                     </p>
                 </section>
             </div>
