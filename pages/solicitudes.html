@@ -35,9 +35,9 @@
                                     <td ng-bind="solicitud.referencia"></td>
                                     <td ng-bind="solicitud.nombre_adoptante"></td>
                                     <td ng-bind="solicitud.fecha_solicitud"></td>
-                                    <td>
-                                        <span ng-if="solicitud.restantes < 0" ng-bind="'Retrasado ' + (solicitud.restantes * 1)"></span>
-                                        <span ng-if="solicitud.restantes > 0" ng-bind="solicitud.restantes"></span>
+                                    <td ng-class="{'alert-danger':solicitud.restantes < 0}">
+                                        <span ng-if="solicitud.restantes < 0" ng-bind="'Retrasado ' + (solicitud.restantes * -1) + ' dias'"></span>
+                                        <span ng-if="solicitud.restantes >= 0" ng-bind="solicitud.restantes"></span>
                                     </td>
                                     <td ng-bind="solicitud.estado"></td>
                                 </tr>

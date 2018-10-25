@@ -61,14 +61,15 @@
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" name="nombre" class="form-control" placeholder="Nombre de animal" ng-model="$ctrl.animal.nombre" ng-required="true"
-                                    ng-disabled="!$ctrl.editable" />
+                                <input type="text" name="nombre" class="form-control" placeholder="Nombre de animal"
+                                    ng-model="$ctrl.animal.nombre" ng-required="true" ng-disabled="!$ctrl.editable" />
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="especie">Especie</label>
-                                <select name="especie" ng-model="$ctrl.animal.especie" class="form-control" ng-disabled="!$ctrl.editable" ng-options="especie as especie.nombre for especie in $ctrl.optionsSelect.especies track by especie.id"
+                                <select name="especie" ng-model="$ctrl.animal.especie" class="form-control" ng-disabled="!$ctrl.editable"
+                                    ng-options="especie as especie.nombre for especie in $ctrl.optionsSelect.especies track by especie.id"
                                     required>
                                 </select>
                             </div>
@@ -76,7 +77,8 @@
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="raza">Raza</label>
-                                <select name="raza" ng-model="$ctrl.animal.raza" class="form-control" ng-disabled="!$ctrl.editable" ng-options="raza as raza.nombre for raza in $ctrl.optionsSelect.razas | filter: $ctrl.animal.especie.nombre track by raza.id"
+                                <select name="raza" ng-model="$ctrl.animal.raza" class="form-control" ng-disabled="!$ctrl.editable"
+                                    ng-options="raza as raza.nombre for raza in $ctrl.optionsSelect.razas | filter: $ctrl.animal.especie.nombre track by raza.id"
                                     required>
                                 </select>
                             </div>
@@ -84,44 +86,45 @@
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="peso">Peso (Kg)</label>
-                                <input type="number" name="peso" class="form-control" min="1" placeholder="Peso" ng-model="$ctrl.animal.peso" ng-required="true"
-                                    ng-disabled="!$ctrl.editable">
+                                <input type="number" name="peso" class="form-control" min="1" placeholder="Peso"
+                                    ng-model="$ctrl.animal.peso" ng-required="true" ng-disabled="!$ctrl.editable">
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="edad">Edad</label>
-                                <input type="number" name="edad" class="form-control" min="0" placeholder="Edad" ng-model="$ctrl.animal.edad" ng-required="true"
-                                    ng-disabled="!$ctrl.editable">
+                                <input type="number" name="edad" class="form-control" min="0" placeholder="Edad"
+                                    ng-model="$ctrl.animal.edad" ng-required="true" ng-disabled="!$ctrl.editable">
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="color">Color</label>
-                                <select name="color" ng-model="$ctrl.animal.color" class="form-control" ng-required="true" ng-disabled="!$ctrl.editable"
-                                    ng-options="color as color.nombre for color in $ctrl.optionsSelect.colores track by color.nombre">
+                                <select name="color" ng-model="$ctrl.animal.color" class="form-control" ng-required="true"
+                                    ng-disabled="!$ctrl.editable" ng-options="color as color.nombre for color in $ctrl.optionsSelect.colores track by color.nombre">
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="sexo">Sexo</label>
-                                <select name="sexo" ng-model="$ctrl.animal.sexo" class="form-control" ng-required="true" ng-disabled="!$ctrl.editable" ng-options="sexo as sexo.nombre for sexo in $ctrl.optionsSelect.sexos track by sexo.nombre">
+                                <select name="sexo" ng-model="$ctrl.animal.sexo" class="form-control" ng-required="true"
+                                    ng-disabled="!$ctrl.editable" ng-options="sexo as sexo.nombre for sexo in $ctrl.optionsSelect.sexos track by sexo.nombre">
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="fecha_ingreso">Fecha ingreso</label>
-                                <input type="datetime-local" name="fecha_ingreso" class="form-control" placeholder="Fecha de ingreso" ng-model="$ctrl.animal.fecha_ingreso"
-                                    ng-required="true" ng-disabled="!$ctrl.editable">
+                                <input type="datetime-local" name="fecha_ingreso" class="form-control" placeholder="Fecha de ingreso"
+                                    ng-model="$ctrl.animal.fecha_ingreso" ng-required="true" ng-disabled="!$ctrl.editable">
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label for="estado_interno">Estado interno</label>
-                                <select name="estado_interno" ng-model="$ctrl.animal.estado_actual" class="form-control" ng-required="true" ng-disabled="!$ctrl.editable"
-                                    ng-options="estado as estado.nombre for estado in $ctrl.optionsSelect.estados track by estado.id">
+                                <select name="estado_interno" ng-model="$ctrl.animal.estado_actual" class="form-control"
+                                    ng-required="true" ng-disabled="!$ctrl.editable" ng-options="estado as estado.nombre for estado in $ctrl.optionsSelect.estados track by estado.id">
                                     <!-- <option ng-repeat="estado in $ctrl.optionsSelect.estados" ng-bind="estado.nombre" ng-value="estado.nombre"></option> -->
                                 </select>
                             </div>
@@ -129,14 +132,15 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="estado">Estado</label>
-                                <textarea name="estado" class="form-control" placeholder="Estado de ingreso" ng-model="$ctrl.animal.estado_ingreso" ng-required="true"
-                                    ng-disabled="!$ctrl.editable"></textarea>
+                                <textarea name="estado" class="form-control" placeholder="Estado de ingreso" ng-model="$ctrl.animal.estado_ingreso"
+                                    ng-required="true" ng-disabled="!$ctrl.editable"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <div class="row col-md-12 justify-content-center" ng-show="$ctrl.editable">
-                        <button type="submit" class="btn btn-success mt-3" ng-disabled="form_modify_animal.$invalid">Guardar cambios</button>
+                        <button type="submit" class="btn btn-success mt-3" ng-disabled="form_modify_animal.$invalid">Guardar
+                            cambios</button>
                     </div>
                 </form>
             </uib-tab>
@@ -145,22 +149,24 @@
                     <form class="my-3" name="form_galeria">
                         <div class="row">
                             <div class="col-lg-4">
-                                <div ngf-drop="$ctrl.addImages($ctrl.images);" ngf-select="$ctrl.addImages($ctrl.images);" ng-model="$ctrl.images" name="file"
-                                    ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-multiple="true" ngf-max-files="6"
-                                    class="border" style="cursor: pointer;">
+                                <div ngf-drop="$ctrl.addImages($ctrl.images);" ngf-select="$ctrl.addImages($ctrl.images);"
+                                    ng-model="$ctrl.images" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'"
+                                    ngf-max-size="10MB" ngf-multiple="true" ngf-max-files="6" class="border" style="cursor: pointer;">
                                     <h4 class="text-center">
                                         Arrastra o presiona aquí para cargar tus imágenes
                                     </h4>
                                 </div>
                                 <div class="container">
                                     <div class="row" ng-hide="$ctrl.loading">
-                                        <div ng-repeat="image in $ctrl.files track by $index" class="col-6 col-lg-4 p-2 d-flex justify-content-center align-items-center border">
+                                        <div ng-repeat="image in $ctrl.files track by $index" class="col-6 col-lg-6 p-2 d-flex justify-content-center align-items-center border">
                                             <img ng-src="{{image}}" class="img-fluid" style="max-height: 100%;">
                                             <div class="btn-group btn-opt" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.deleteFile($index);" title="Eliminar">
+                                                <button type="button" class="btn btn-danger btn-sm" ng-click="$ctrl.deleteFile($index);"
+                                                    title="Eliminar">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-primary btn-sm" title="Cargar" ng-click="$ctrl.uploadImage(image, $index);">
+                                                <button type="button" class="btn btn-primary btn-sm" title="Cargar"
+                                                    ng-click="$ctrl.uploadImage(image, $index);">
                                                     <i class="fa fa-upload"></i>
                                                 </button>
                                             </div>
@@ -190,11 +196,14 @@
                                 <div class="row">
                                     <div ng-repeat="i in $ctrl.animal.galeria track by $index" class="col-lg-4 p-2 btn-down d-flex justify-content-center align-items-center border"
                                         ng-init="imageCroped = ''">
-                                        <img-crop ng-class="{'d-none': !modifyImage,'d-block': modifyImage}" image="imagen.imagen" area-type="square" result-image="imageCroped"></img-crop>
-                                        <img ng-src="{{i.imagen}}" ng-class="{'d-none': modifyImage,'d-block': !modifyImage}" class="img-fluid" style="max-height: 200px;">
+                                        <img-crop ng-class="{'d-none': !modifyImage,'d-block': modifyImage}" image="imagen.imagen"
+                                            area-type="square" result-image="imageCroped"></img-crop>
+                                        <img ng-src="{{i.imagen}}" ng-class="{'d-none': modifyImage,'d-block': !modifyImage}"
+                                            class="img-fluid" style="max-height: 200px;">
                                         <i ng-show="i.predeterminado == 1;" class="fa fa-bookmark text-info" style="position: absolute; top: 5px; left: 5px;"></i>
                                         <div ng-show="modifyImage">
-                                            <button class="btn btn-success btn-sm" ng-click="$ctrl.updateImage($index, imageCroped); modifyImage = false;" style="position: absolute; bottom: 5px; right: 5px;">
+                                            <button class="btn btn-success btn-sm" ng-click="$ctrl.updateImage($index, imageCroped); modifyImage = false;"
+                                                style="position: absolute; bottom: 5px; right: 5px;">
                                                 <i class="fa fa-check"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm" ng-click="modifyImage = false;" style="position: absolute; bottom: 5px; left: 5px;">
@@ -202,7 +211,8 @@
                                             </button>
                                         </div>
                                         <div ng-hide="modifyImage" class="contenedor">
-                                            <button type="button" style="position: absolute; top: 5px; right: 5px;" class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split"
+                                            <button type="button" style="position: absolute; top: 5px; right: 5px;"
+                                                class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span class="sr-only"></span>
                                             </button>
@@ -262,13 +272,160 @@
                     </form>
                 </div>
             </uib-tab>
-            <!-- <div class="ml-auto" ng-if="$ctrl.animal.estado_actual != 'Adoptado'">
-                <span class="text-sw">Editar:</span>
-                <label class="switch" title="Editar información">
-                    <input type="checkbox" ng-model="$ctrl.editable">
-                    <span class="slider round"></span>
-                </label>
-            </div> -->
+            <uib-tab index="3" heading="Historia" ng-click="$ctrl.onExectQuerys();">
+
+                <form ng-show="$ctrl.mostrarFormSesion" name="formSesion" ng-submit="$ctrl.onAddSesion(sesion);"
+                    novalidate title="Debes llenar todos los campos">
+                    <div class="row d-flex justify-content-between">
+                        <a class="btn btn-inverse-info btn-rounded btn-fw my-3" href ng-click="$ctrl.mostrarFormSesion = false;">
+                            <i class="fa fa-undo"></i> Volver
+                        </a>
+                        <button ng-show="!$ctrl.loadingSave;" type="submit" title="Debes llenar todos los campos" ng-disabled="formSesion.$invalid"
+                            class="btn btn-success btn-rounded btn-fw my-3" href>
+                            <i class="fa fa-save"></i> Guardar
+                        </button>
+
+                        <div ng-show="$ctrl.loadingSave == true;" class="row my-3 d-flex justify-content-around">
+                            <div class="col-lg-1">
+                                <div class="lds-spinner">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="fecha">Fecha</label>
+                                <input type="datetime-local" name="fecha" ng-model="sesion.fecha" class="form-control"
+                                    required>
+                                <span ng-if="formSesion.fecha.$invalid && !formSesion.fecha.$pristine" class="text-danger">
+                                    Este campo es requerido
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="medico">Médico</label>
+                                <input type="text" name="medico" ng-model="sesion.medico" class="form-control" required>
+                                <span ng-if="formSesion.medico.$invalid && !formSesion.medico.$pristine" class="text-danger">
+                                    Este campo es requerido
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="observacion">Observación</label>
+                                <input type="text" name="observacion" ng-model="sesion.observacion" class="form-control"
+                                    required>
+                                <span ng-if="formSesion.observacion.$invalid && !formSesion.observacion.$pristine"
+                                    class="text-danger">
+                                    Este campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row d-flex">
+                                <div class="col-lg-6 mb-4" ng-repeat="item in $ctrl.items">
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                                            style="background-color: rgba(0, 0, 0, 0.03);">
+                                            <div style="overflow:hidden;white-space:nowrap;text-overflow: ellipsis;">
+                                                {{item.nombre}}
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                                            ng-repeat="valorItem in item.valorItem track by $index">
+                                            <div style="overflow:hidden;
+                                                                        white-space:nowrap;
+                                                                        text-overflow: ellipsis;">
+                                                {{valorItem.nombre}}
+                                            </div>
+                                            <input type="checkbox" name="check" id="check" class="form-check-input bg-info"
+                                                ng-model="valorItem.check" style="width: 20px; height: 20px; position: absolute; right: 8px; top: 8px; bottom: 2px;">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div ng-show="!$ctrl.mostrarFormSesion == true && !$ctrl.mostrarSesion">
+                    <a class="btn btn-inverse-success btn-rounded btn-fw my-3" href ng-click="$ctrl.onBuscarValoresItem(); $ctrl.mostrarFormSesion = true;">
+                        <i class="fa fa-plus"></i> Nueva sesión
+                    </a>
+                    <div class="row">
+                        <div class="col-lg-3 mb-2" ng-repeat="sesion in $ctrl.sesiones" ng-click="$ctrl.onMostrarSesion(sesion); $ctrl.loading = true;">
+                            <div class="card border card-sesion">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <img class="menu-icon" src="images/menu_icons/06.png" alt="menu icon">
+                                        </div>
+                                        <div class="col-10">
+                                            <strong class="text-center" ng-bind="sesion.fecha | date:'medium'"></strong>
+                                            <br><small><i ng-bind="sesion.medico"></i> </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="$ctrl.loading == true;" class="row my-3 d-flex justify-content-around">
+                        <div class="col-lg-1">
+                            <div class="lds-spinner">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="$ctrl.mostrarSesion">
+                    <a class="btn btn-inverse-info btn-rounded btn-fw my-3" href ng-click="$ctrl.loading = false; $ctrl.mostrarSesion = false;">
+                        <i class="fa fa-undo"></i> Volver
+                    </a>
+
+                    <p ng-bind="$ctrl.sesion.observacion"></p>
+
+                    <div class="row my-3">
+                        <div class="col-lg-3 mb-4" ng-repeat="item in $ctrl.sesion">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: rgba(0, 0, 0, 0.03);">
+                                    <div style="overflow:hidden;
+                                                white-space:nowrap;
+                                                text-overflow: ellipsis;">
+                                        {{item.nombre}}
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="valor in item.valorItem track by $index">
+                                    <div style="overflow:hidden;
+                                            white-space:nowrap;
+                                            text-overflow: ellipsis;">
+                                        {{valor.nombre}}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
         </uib-tabset>
     </div>
 </div>

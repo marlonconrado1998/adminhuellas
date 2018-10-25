@@ -1,3 +1,8 @@
+/**
+ *@author: Neider Galofre Morales
+ *@description: Controlador que permite gestionar las legalizaciones de adopcion.
+ */
+
 app.controller('legalizacionController', legalizacionController)
 
 /** @ngInject */
@@ -10,6 +15,7 @@ function legalizacionController(legalizacionService, solicitudService, $uibModal
     legalizacionCtrl.mensaje = '';
     legalizacionCtrl.listaLegalizaciones = legalizacionService.listaLegalizaciones;
 
+    //Metodo para obtener la lista de las legalizaciones pendientes
     legalizacionCtrl.obtenerListaLegalizaciones = function () {
         legalizacionCtrl.mensaje = "Cargando...";
         legalizacionService.obtenerListaLegalizaciones().then(function (response) {
@@ -23,6 +29,7 @@ function legalizacionController(legalizacionService, solicitudService, $uibModal
         });
     }
 
+    //Modal para gestionar legalizaciones
     legalizacionCtrl.modal = function (datos) {
         var legalizacion = angular.copy(datos);
         solicitudService.obtenerInformacionAnimal(legalizacion.animal)
@@ -91,6 +98,7 @@ function modalLegalizacionCtrl($uibModalInstance, items, gestionAnimalService, $
         $uibModalInstance.dismiss("Modal closed");
     };
 
+    //Confirmar una legalizacion 
     legalizacionCtrl.confirmarLegalizacion = function () {
         gestionAnimalService.informacion_animal = legalizacionCtrl.legalizacion_item.animal;
         gestionAnimalService.informacion_animal.persona = legalizacionCtrl.legalizacion_item.adoptante;
@@ -98,6 +106,7 @@ function modalLegalizacionCtrl($uibModalInstance, items, gestionAnimalService, $
         legalizacionCtrl.cerrar();
     }
 
+    //Aplazar una legalizacion
     legalizacionCtrl.aplazarLegalizacion = function () {
         datos = legalizacionCtrl.legalizacion_item;
         swal({
@@ -133,7 +142,6 @@ function modalLegalizacionCtrl($uibModalInstance, items, gestionAnimalService, $
                     data.estado = 'Aceptada';
                     datos.estado = 'Aceptada';
                     data.referencia = datos.referencia;
-        console.log(data, datos);
 
                     return items.method({ msg, datos: data }).then(function (response) {
                         if (response) {
@@ -162,6 +170,7 @@ function modalLegalizacionCtrl($uibModalInstance, items, gestionAnimalService, $
         });
     };
 
+    //Rechazar una legalizacion
     legalizacionCtrl.rechazarLegalizacion = function (datos) {
         datos = legalizacionCtrl.legalizacion_item;
         swal({

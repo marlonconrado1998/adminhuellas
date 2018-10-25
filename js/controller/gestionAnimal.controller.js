@@ -1,3 +1,4 @@
+//Controlador para gestion de animales
 app.controller('gestionAnimalCtrl', gestionAnimalCtrl);
 
 gestionAnimalCtrl.$inject = ['$uibModal', 'gestionAnimalService', "selectFactory", "Upload"];
@@ -9,9 +10,11 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, selectFactory, Uploa
 
     gestionCtrl.animales = gestionAnimalService.animales;
     gestionCtrl.optionsSelect = selectFactory.getAll();
-    gestionCtrl.imagenesAnimalRegistro = [];
-    gestionCtrl.mensajeListaAnimales = '';
+    gestionCtrl.optionsSelect = selectFactory.getAll();
+    gestionCtrl.imagenesAnimalRegistro = []; //Imagenes de un animal para registrarse
+    gestionCtrl.mensajeListaAnimales = ''; // Mensaje para usuario
 
+    //Modal para gestionar los datos de un animal
     gestionCtrl.modal = function (animal) {
         gestionAnimalService.buscarAnimal(animal).then(function (response) {
             var modalInstance = $uibModal.open({
@@ -30,7 +33,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, selectFactory, Uploa
                     }
                 }
             });
-            modalInstance.result.then(function () { }, function (value) {
+            modalInstance.result.then(function () {}, function (value) {
                 if (typeof value != 'undefined') {
                     if (value.actualizar) {
                         gestionCtrl.onBuscarAnimal('');
@@ -41,6 +44,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, selectFactory, Uploa
         });
     };
 
+    //Registra la infomacion del animal
     gestionCtrl.registrarAnimal = function (animal) {
         var url = 'api_gestionAnimal.php/registrarAnimal';
         animal.imagenes = gestionCtrl.imagenesAnimalRegistro;
@@ -58,6 +62,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, selectFactory, Uploa
             });
     }
 
+    //Sube archivos (Imagenes) de un animal (Maximo 5)
     gestionCtrl.uploadMultipleFiles = function (files) {
         var existe = false;
         if (gestionCtrl.imagenesAnimalRegistro.length + files.length <= 5) {
@@ -86,20 +91,24 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, selectFactory, Uploa
         }
     };
 
+    //Elimina una imagen de la galeria de un animal
     gestionCtrl.onDeleteImage = function (position_image) {
         gestionCtrl.imagenesAnimalRegistro.splice(position_image, 1)
     }
 
+    //Muestra una imagen
     gestionCtrl.onShowImage = function (position_image) {
         var aux = gestionCtrl.imagenesAnimalRegistro[position_image];
         gestionCtrl.imagenesAnimalRegistro[position_image] = gestionCtrl.imagenesAnimalRegistro[gestionCtrl.imagenesAnimalRegistro.length - 1];
         gestionCtrl.imagenesAnimalRegistro[gestionCtrl.imagenesAnimalRegistro.length - 1] = aux;
     }
 
+    //Para recortar imagen
     gestionCtrl.onCropImage = function (position_image) {
 
     }
 
+    //Buscar un animal en particular
     gestionCtrl.onBuscarAnimal = function (refresh) {
         if (refresh == undefined && gestionCtrl.animales.length == 0) {
             gestionCtrl.mensajeListaAnimales = "Cargando...";
@@ -136,18 +145,26 @@ ModalInstanceCtrl.$inject = ['$uibModalInstance', 'items', 'selectFactory', 'Upl
 function ModalInstanceCtrl($uibModalInstance, items, selectFactory, Upload, gestionAnimalService) {
 
     var gestionCtrl = this;
-
-    gestionCtrl.animal = items.data;
     var originalData;
 
+    gestionCtrl.animal = items.data;
     gestionCtrl.imageCrop = '';
     gestionCtrl.imageCroped = '';
     gestionCtrl.files = [];
     gestionCtrl.optionsSelect = selectFactory.getAll();
-    gestionCtrl.editable = false;
-    gestionCtrl.loading = false;
+    gestionCtrl.editable = false; // En true permite modificar los datos del animal
+    gestionCtrl.loading = false; // Muestra un loader al estar en true
+    gestionCtrl.sesiones = []; // Lista de sesiones
+    gestionCtrl.sesion = []; // Sesión seleccionada de la historia médica
+    gestionCtrl.items = []; // Items de una historia médica
+    gestionCtrl.list_valor_item = []; // Valor de item
+    gestionCtrl.controlQuerys = false; // Controla que no se vuelva a hacer la misma consulta
+    gestionCtrl.valorItem = {}; // Controla que no se vuelva a hacer la misma consulta
 
-    // console.log(gestionCtrl.animal);
+    gestionCtrl.onAgregarValorItem = function (option, valor) {
+        gestionCtrl.list_valor_item.push(option);
+    };
+
     function startUpdate() {
         swal({
             type: 'question',
@@ -309,14 +326,14 @@ function ModalInstanceCtrl($uibModalInstance, items, selectFactory, Upload, gest
                 timer: 1500
             });
             searchGalery();
-        }).catch(function () { });
+        }).catch(function () {});
     }
 
     // Busca la galería del animal
     function searchGalery() {
         gestionAnimalService.buscarGaleria(gestionCtrl.animal.idanimal).then(function (response) {
             gestionCtrl.animal.galeria = response.data;
-        }).catch(function () { })
+        }).catch(function () {})
     }
 
 
@@ -349,13 +366,13 @@ function ModalInstanceCtrl($uibModalInstance, items, selectFactory, Upload, gest
                         showConfirmButton: false,
                         timer: 1500
                     });
-                }).catch(function () { })
+                }).catch(function () {})
             }
         });
     }
 
     gestionCtrl.predeterminarGalery = function (file) {
-        var data = { 
+        var data = {
             idanimal: gestionCtrl.animal.idanimal,
             idgaleria: file.id
         }
@@ -369,11 +386,11 @@ function ModalInstanceCtrl($uibModalInstance, items, selectFactory, Upload, gest
                 showConfirmButton: false,
                 timer: 1500
             });
-        }).catch(function () { })
+        }).catch(function () {})
     }
 
     // Busca entre la galeria la imagen predeterminada y la despredetermina
-    function desPredeterminar () {
+    function desPredeterminar() {
         for (var i = 0; i < gestionCtrl.animal.galeria.length; i++) {
             if (gestionCtrl.animal.galeria[i].predeterminado === 1) {
                 gestionCtrl.animal.galeria[i].predeterminado = 0;
@@ -382,6 +399,86 @@ function ModalInstanceCtrl($uibModalInstance, items, selectFactory, Upload, gest
         }
     }
 
-    gestionCtrl.asignarAttr();
 
+    // Busca todas las sesiones que ha tenido un animal
+    gestionCtrl.onMostrarSesiones = function () {
+        gestionAnimalService.mostrarSesiones(gestionCtrl.animal.idanimal).then(function (resp) {
+            if (angular.isArray(resp) && resp) {
+                gestionCtrl.sesiones = resp;
+            }
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
+
+    // Busca la sesión seleccionada de la lista de sesiones
+    gestionCtrl.onMostrarSesion = function (sesion) {
+        gestionAnimalService.mostrarSesion(sesion.idsesion, gestionCtrl.animal.especie.id).then(function (resp) {
+            if (resp) {
+                gestionCtrl.sesion = resp;
+                gestionCtrl.sesion.observacion = sesion.observacion;
+                gestionCtrl.mostrarSesion = true;
+            }
+        }).catch(function (error) {
+            console.error(error);
+        })
+    }
+
+    // Agrega una nueva sesión a la historia médica
+    gestionCtrl.onAddSesion = function (sesion) {
+
+        var checks = getChecks();
+        sesion.checks = checks;
+        sesion.idanimal = gestionCtrl.animal.idanimal;
+        gestionCtrl.loadingSave = true;
+
+        gestionAnimalService.agregarSesion(sesion).then(function (resp) {
+            if (resp) {
+                swal({
+                    position: 'top-end',
+                    type: 'success',
+                    title: 'La sesión se ha agregado correctamente',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                gestionCtrl.cerrar();
+            }
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
+
+    // Busca la lista los valores de los items de la historia médica
+    gestionCtrl.onBuscarValoresItem = function () {
+        gestionAnimalService.buscarValorItem(gestionCtrl.animal.especie.id).then(function (resp) {
+            if (resp && angular.isArray(resp)) {
+                gestionCtrl.items = resp;
+            }
+        }).catch(function (error) {
+            console.error(error);
+        })
+    }
+
+    // Método que ejecuta  métodos relacionados con las historias clínicas 
+    gestionCtrl.onExectQuerys = function () {
+        if (gestionCtrl.controlQuerys == true) return false;
+        gestionCtrl.onBuscarValoresItem();
+        gestionCtrl.onMostrarSesiones();
+        gestionCtrl.controlQuerys = true;
+    }
+
+    // Busca los valores items chequeados al agregar una sesion de historia médica
+    function getChecks() {
+        var listChecks = [];
+        gestionCtrl.items.forEach(function (item) { // Recorre la lista de items
+            item.valorItem.forEach(function (valorItem) { // Recorre la lista de valorres de cada item
+                if (valorItem.check) { // Valida que el valor item esté seleccionado
+                    valorItem.iditem = item.iditem;
+                    listChecks.push(valorItem); // Agrega el item
+                };
+            });
+        });
+        return listChecks;
+    }
+    gestionCtrl.asignarAttr();
 }

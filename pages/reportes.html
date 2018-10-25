@@ -1,32 +1,98 @@
 <div id="app" class="container-scroller">
-        <div class="container-fluid page-body-wrapper">
-            <div class="main-panel">
-                <div class="content-wrapper">
-    
-                    <section class="page-title mb-20 text-gray">
-                        <h2 class="text-gray text-center">Reportes</h2>
-                    </section>
-                    
-                    <ul>
-                        <li>
-                            <a class="h4" href ng-click="">Reporte de animales</a>
-                        </li>
+    <div class="container-fluid page-body-wrapper">
+        <div class="main-panel">
+            <div class="content-wrapper" ng-controller="reportesController as rc">
+
+                <section class="page-title mb-20 text-gray">
+                    <h2 class="text-gray text-center">Reportes</h2>
+                </section>
+
+                <div class="mt-5">
+                    <a ng-repeat="report in rc.reportList" class="d-block text-gray h4 mb-4 text-uppercase" href
+                        ng-click="rc.getSelectedReport(report.idreporte, report.nombre_reporte);">
+                        <i class="fa fa-chart-bar pr-2"></i><span ng-bind="report.nombre_reporte"></span>
+                    </a>
+                    <br>
+                </div>
+
+
+                <div class="bg-white d-none" id="report_panel">
+
+                    <div class="content-wrapper bg-white">
+
+                        <header class="d-print-none row bg-white">
+                            <nav class="col-12">
+                                <a href class="text-gray" ng-click="rc.closePrintReport();"><i class="fa fa-arrow-left fa-2x"></i></a>
+                                <a href class="float-right text-gray pl-4" ng-click="rc.downloadReport();"><i class="fa fa-download fa-2x"></i></a>
+                                <a href class="float-right text-gray" ng-click="rc.printReport()"><i class="fa fa-print fa-2x"></i></a>
+                                <hr>
+                            </nav>
+                        </header>
+                        <div ng-show="rc.cargando" class="text-center loading-center-view">
+                            <span>Cargando...</span><br>
+                            <span class="d-inline-block loader"></span>
+                        </div>
                         <br>
-                        <li>
-                            <a class="h4" href ng-click="">Reporte de Adopciones</a>
-                        </li>
-                        <br>
-                        <li>
-                            <a class="h4" href ng-click="">Reporte de Solicitudes</a>
-                        </li>
-                        <br>
-                        <li>
-                            <a class="h4" href ng-click="">Reporte medico</a>
-                        </li>
-                    </ul>
-                    
-                    
-                </div>	
+                        <div ng-show="!rc.cargando">
+                            <div>
+                                <h1 class="text-center" ng-bind="rc.header_title"></h1>
+                            </div>
+                            <br>
+                            <div class="row overflow-x mt-2" id="reporte-grafico">
+                                <div class="border pt-2 pb-2 col-12" ng-repeat="grafic in rc.grafic">
+                                    <div class="col-12 col-sm-8 m-auto">
+                                        <header class="row d-print-none form-group">
+                                            <div class="col-12 col-sm-6">
+                                                <label>Modo del gráfico:</label>
+                                                <select class="form-control text-capitalize" ng-model="grafic.type"
+                                                    ng-options="type.name for type in rc.graficsTypes" ng-change="rc.changeGraphics(grafic)"></select>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <label>Dato agrupador:</label>
+                                                <select class="form-control text-capitalize" ng-model="grafic.agrupador"
+                                                    ng-options="item for item in rc.datos_agrupadores" ng-change="rc.changeElelmentGroup(grafic);"></select>
+                                            </div>
+                                        </header>
+                                        <br>
+                                        <canvas id="base" chart-type="grafic.type.type" class="chart-base" chart-data="grafic.data"
+                                            chart-labels="grafic.labels" chart-series="grafic.series" chart-options="grafic.options"
+                                            chart-dataset-override="grafic.dataSetOveride" chart-click="grafic.click">
+                                        </canvas>
+                                    </div>
+                                    <div class="text-gray">
+                                        <b ng-bind="'Total: ' + rc.getTotalData(grafic.data);"> </b>
+                                        <a href class="d-print-none text-danger float-right" ng-click="rc.removeGrafic($index);"><b>Eliminar</b></a>
+                                    </div>
+                                </div>
+                                <button class="d-print-none m-auto btn btn-outline-success" ng-click="rc.addNewGrafic();">Agregar
+                                    Grafico</button>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="col-12 overflow-x mt-2" id="reporte">
+                                <table class="table table-condensed table-bordered  text-center table-hover">
+                                    <thead class="table-active">
+                                        <tr>
+                                            <th class="text-capitalize" ng-repeat="head in rc.cabecera" ng-bind="head"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in rc.datos">
+                                            <td ng-repeat="prop in rc.cabecera">
+                                                <span ng-bind="item[prop]"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <div>
+                                <h6 class="text-center" ng-bind="rc.footer_title"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>

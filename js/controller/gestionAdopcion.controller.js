@@ -1,24 +1,42 @@
+// Controlador para gestionar adopciones
 app.controller("adopcionController", adopcionController);
 
+// @Inject
 adopcionController.$inject = ['gestionAnimalService', 'gestionAdopcionService', 'selectFactory'];
 
 function adopcionController(gestionAnimalService, gestionAdopcionService, selectFactory) {
 
     var gestionAdopcion = this;
-    gestionAdopcion.informacion_animal = {};
-    gestionAdopcion.informacion_animal.mensaje = ".";
+    gestionAdopcion.informacion_animal = {}; //Informacion de animal
+    gestionAdopcion.informacion_animal.mensaje = "."; //Mensaje para usuario
 
-    gestionAdopcion.ciudades = selectFactory.getCiudades();
+    gestionAdopcion.ciudades = gestionAdopcionService.ciudades;
+    gestionAdopcion.ciudades = gestionAdopcionService.ciudades;
     var AdopcionRegistrada;
 
+    //Imprimir documento
     function showPrintWindow(contenido) {
         var ventana = window.open('', '');
         ventana.document.write(contenido);
         ventana.document.close();
         ventana.print();
         ventana.close();
+        swal({
+            type: 'question',
+            title: '¿Desea hacer un testimonio?',
+            text: 'A continuacion ingrese la opinio del adoptante y la foto del momento en que realiza la adopcion.',
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+        }).then(function (result) {
+            if(result.value){
+                gestionAdopcion.registrarTestimonio();
+            }
+        });
     }
 
+    // Verificar datos al entrar al panel de adopcion
     function verifyData() {
         gestionAdopcion.onVerificarAnimal(gestionAnimalService.informacion_animal.idanimal);
         if (typeof gestionAnimalService.informacion_animal.persona == 'object') {
@@ -27,6 +45,7 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
         gestionAnimalService.informacion_animal = {};
     }
 
+    //Finalizar proceso de adopcion
     function finalizarAdopcion(datos, contenidoDocumento) {
         datos.animal = gestionAdopcion.informacion_animal.idanimal;
         gestionAdopcionService.guardarInformacion(datos)
@@ -48,6 +67,7 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
             });
     }
 
+    //Verificar informacion de un animal
     gestionAdopcion.onVerificarAnimal = function (animal) {
         if (animal != undefined && animal != null) {
             gestionAdopcion.informacion_animal = {};
@@ -83,6 +103,7 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
         }
     }
 
+    //Verificar informacion de persona adoptante
     gestionAdopcion.onVerificarPersona = function (id) {
         if (id != undefined && id != null) {
             gestionAdopcionService.buscarPersona(id)
@@ -107,6 +128,61 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
         }
     }
 
+    //Abre formulario testimonios de los adoptantes
+    gestionAdopcion.registrarTestimonio = function () {
+        swal({
+            type: '',
+            title: "Agregar testimonio",
+            html: `<br><h4>Imagen para el testimonio</h4>
+                <input type="file" id="imagen_testimonio" class="swal2-file"><br><br>
+                <h4>Descripcion de testimonio</h4>
+                <textarea id="descripcion_testimonio" cols="30" rows="10" class="swal2-textarea"></textarea>`,
+            showCancelButton: true,
+            confirmButtonText: 'Guardar',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#d33',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            preConfirm: function (value) {
+                var imagen = document.getElementById("imagen_testimonio");
+                imagen = imagen.files[0];
+                var descripcion = "";
+                descripcion = $("#descripcion_testimonio").val();
+
+                if (imagen == undefined || descripcion.trim() == "") {
+                    swal.showValidationError("Obligatorio la imagen y la descripcion...");
+                } else {
+                    return { descripcion, imagen }
+                }
+            }
+        }).then(function (result) {
+            if (result.value) {
+                var f = new FileReader();
+                f.readAsDataURL(result.value.imagen);
+                f.onloadend = function (e) {
+                    result.value.imagen = e.target.result;
+                    finalizarRegistroTestimonio(result.value);
+                }
+                result.value.adoptante = gestionAdopcion.adopcion.identificacion;
+            }
+        });
+    }
+
+    //Registra testimonios de los adoptantes
+    function finalizarRegistroTestimonio(datos) {
+        gestionAdopcionService.registrarTestimonio(datos).then(function (response) {
+            swal({
+                type: 'success',
+                title: '¡Se ha guardado el testimonio exitosamente!',
+                confirmButtonText: 'Ok'
+            });
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    //Organiza datos de adopcion para imprimir
     gestionAdopcion.imprimirAdopcion = function (datos) {
 
         var _especie = typeof gestionAdopcion.informacion_animal.especie == "object" ? gestionAdopcion.informacion_animal.especie.nombre : gestionAdopcion.informacion_animal.especie;

@@ -25,6 +25,10 @@ function gestionAnimalService(generalService) {
     service.buscarGaleria = buscarGaleria;
     service.dropGaleria = dropGaleria;
     service.predeterminarGaleria = predeterminarGaleria;
+    service.mostrarSesiones = mostrarSesiones;
+    service.mostrarSesion = mostrarSesion;
+    service.buscarValorItem = buscarValorItem;
+    service.agregarSesion = agregarSesion;
 
 
     function solicitarAdopcion() {
@@ -36,7 +40,9 @@ function gestionAnimalService(generalService) {
     }
 
     function registrarAnimal(url, datos) {
-        return generalService.EJECUTAR_SERVICES('POST', url, { "data": datos });
+        return generalService.EJECUTAR_SERVICES('POST', url, {
+            "data": datos
+        });
     }
 
     function obtenerListaAnimales() {
@@ -48,25 +54,49 @@ function gestionAnimalService(generalService) {
     }
 
     function actualizarDatosAnimal(data) {
-        return generalService.EJECUTAR_SERVICES('PUT', "api_gestionAnimal.php/actualizarAnimal", { "data": data });
+        return generalService.EJECUTAR_SERVICES('PUT', "api_gestionAnimal.php/actualizarAnimal", {
+            "data": data
+        });
     }
+
     function eliminarImagen(data) {
-        return generalService.EJECUTAR_SERVICES('DELETE', "api_gestionAnimal.php/eliminarImagen", { "data": data });
+        return generalService.EJECUTAR_SERVICES('DELETE', "api_gestionAnimal.php/eliminarImagen", {
+            "data": data
+        });
     }
 
     function subirImagen(data) {
-        return generalService.EJECUTAR_SERVICES('POST', "api_gestionAnimal.php/subirImagen", { "data": data });
+        return generalService.EJECUTAR_SERVICES('POST', "api_gestionAnimal.php/subirImagen", {
+            "data": data
+        });
     }
-    
+
     function buscarGaleria(idanimal) {
-        return generalService.EJECUTAR_SERVICES('GET', "api_gestionAnimal.php/buscarGaleria/"+idanimal);
+        return generalService.EJECUTAR_SERVICES('GET', "api_gestionAnimal.php/buscarGaleria/" + idanimal);
     }
-    
+
     function dropGaleria(file) {
-        return generalService.EJECUTAR_SERVICES('DELETE', "api_gestionAnimal.php/dropGaleria/"+file.id);
+        return generalService.EJECUTAR_SERVICES('DELETE', "api_gestionAnimal.php/dropGaleria/" + file.id);
     }
-    
+
     function predeterminarGaleria(data) {
         return generalService.EJECUTAR_SERVICES('PUT', "api_gestionAnimal.php/predeterminarGaleria", data);
     }
+
+    function mostrarSesiones(idanimal) {
+        return generalService.EJECUTAR_SERVICES('GET', "api_gestionAnimal.php/buscarSesiones/" + idanimal);
+    }
+
+    function mostrarSesion(idsesion, idespecie) {
+        return generalService.EJECUTAR_SERVICES('GET', "api_gestionAnimal.php/buscarSesion/" + idsesion + "/" + idespecie);
+    }
+    
+    function buscarValorItem(idespecie) {
+        return generalService.EJECUTAR_SERVICES('GET', "api_gestionAnimal.php/buscarValorItem/" + idespecie);
+    }
+    
+    function agregarSesion(sesion) {
+        return generalService.EJECUTAR_SERVICES('POST', "api_gestionAnimal.php/agregarSesion", {data: sesion});
+    }
+
 }

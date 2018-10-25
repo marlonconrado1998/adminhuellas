@@ -47,21 +47,12 @@ app.config(["$stateProvider", "$urlRouterProvider", '$compileProvider', '$locati
     }
 ]);
 
-
-function openMenu() {
-    $('.sidebar').animate({ left: '0%' });
-    $(".divClose").show("slow");
+function toggleMenuSidebar() {
+    $('.sidebar-offcanvas').toggleClass('active');
+    $('.divClose').fadeToggle();
 }
 
-function closeMenu() {
-    $('.sidebar').animate({ left: '-100%' });
-    $(".divClose").hide("slow");
-}
-
-$(document).ready(function () {
-    $('#bt-toggle-menu').click(openMenu);
-    // $('.divClose').click(closeMenu);
-    // $('.itemClose').click(closeMenu);
-    $(document).on('click', '.divClose, .itemClose', closeMenu);    
+$(document).ready(function(){
+    $(document).on('click', '.divClose, .itemClose, #bt-toggle-menu', toggleMenuSidebar);    
 });
 

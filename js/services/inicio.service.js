@@ -7,6 +7,7 @@ function inicioService(generalService) {
 
     var inicioService = this;
 
+    inicioService.dataChart = [[],[]];
     inicioService.buscarInfoGeneral = buscarInfoGeneral;
 
     function buscarInfoGeneral() {

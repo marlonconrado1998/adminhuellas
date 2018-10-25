@@ -1,3 +1,7 @@
+/**
+ *@author: Neider Galofre Morales
+ *@description: Controlador para gestionar las solicitudes de adopciones. 
+ */
 app.controller('solicitudAdopcionController', solicitudAdopcionController)
 
 /** @ngInject */
@@ -10,6 +14,7 @@ function solicitudAdopcionController($uibModal, solicitudService, $location) {
     solicitudCtrl.mensaje = '';
     solicitudCtrl.listaSolicitudes = solicitudService.listaSolicitudes;
 
+    //Obtiene un listado de solicitudes pendientes.
     solicitudCtrl.obtenerListaSolicitudes = function () {
         solicitudCtrl.mensaje = "Cargando...";
         solicitudService.obtenerListaSolicitudes().then(function (response) {
@@ -23,6 +28,7 @@ function solicitudAdopcionController($uibModal, solicitudService, $location) {
         });
     }
 
+    //Modal para gestionar las solicitudes de adopcion
     solicitudCtrl.modal = function (solicitud) {
         solicitudService.obtenerInformacionAnimal(solicitud.idanimal)
             .then(function (response) {
@@ -76,7 +82,7 @@ modalSolicitudCtrl.$inject = ['$uibModalInstance', 'items', "$http", 'selectFact
 function modalSolicitudCtrl($uibModalInstance, items, $http, selectFactory, Upload) {
 
     var solicitudCtrl = this;
-
+    //VARIABLES
     solicitudCtrl.solicitud = items.data;
     solicitudCtrl.galeria = [];
     solicitudCtrl.editable = false;
@@ -89,6 +95,7 @@ function modalSolicitudCtrl($uibModalInstance, items, $http, selectFactory, Uplo
         to: ''
     }
 
+    //Funcion para actualizar datos de adoptante
     function startUpdate() {
         swal({
             type: 'question',
@@ -117,6 +124,7 @@ function modalSolicitudCtrl($uibModalInstance, items, $http, selectFactory, Uplo
         });
     }
 
+    //Funcion para registrar los datos
     solicitudCtrl.registrarDatos = function () {
         if (_compare()) {
             startUpdate();
@@ -134,6 +142,7 @@ function modalSolicitudCtrl($uibModalInstance, items, $http, selectFactory, Uplo
         $uibModalInstance.dismiss("Modal closed");
     };
 
+    //Funcion para aceptar solicitudes
     solicitudCtrl.aceptarSolicitud = function () {
         datos = solicitudCtrl.solicitud;
         swal({
@@ -195,9 +204,9 @@ function modalSolicitudCtrl($uibModalInstance, items, $http, selectFactory, Uplo
         });
     };
 
+    //Funcion para rechazar las solicitudes de adopcion
     solicitudCtrl.rechazarSolicitud = function (datos) {
         datos = solicitudCtrl.solicitud;
-        console.log(datos);
         swal({
             type: 'warning',
             title: "Respuesta de rechazo de solicitud",
