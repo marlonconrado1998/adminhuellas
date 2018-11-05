@@ -11,6 +11,7 @@ function gestionAnimalCtrl($uibModal, gestionAnimalService, selectFactory, Uploa
     gestionCtrl.optionsSelect = selectFactory.getAll();
     gestionCtrl.imagenesAnimalRegistro = [];
     gestionCtrl.mensajeListaAnimales = '';
+    
 
     gestionCtrl.modal = function (animal) {
         gestionAnimalService.buscarAnimal(animal).then(function (response) {
