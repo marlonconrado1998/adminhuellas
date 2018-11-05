@@ -29,6 +29,7 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
             showCancelButton: true,
             confirmButtonText: "Si",
             cancelButtonText: "No",
+            cancelButtonColor: '#dc1010a8',
         }).then(function (result) {
             if(result.value){
                 gestionAdopcion.registrarTestimonio();
@@ -58,12 +59,16 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
                     text: 'A continuacion debe realizar la impresion del documento de compromiso.',
                     showConfirmButton: true,
                     confirmButtonText: "Ok, imprimir",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
                 }).then(function (result) {
                     showPrintWindow(contenidoDocumento);
+                    return true;
                 });
             })
             .catch(function (error) {
-                console.log("error", error);
+                console.log("error");
+                return false;
             });
     }
 
@@ -211,15 +216,15 @@ function adopcionController(gestionAnimalService, gestionAdopcionService, select
                 text: 'Al confirmar se registra en la base de datos la informacion.',
                 showConfirmButton: true,
                 showCancelButton: true,
-                cancelButtonText: 'Si',
-                confirmButtonText: 'No',
-                confirmButtonColor: '#dc1010a8',
-                cancelButtonColor: '#0000ff94'
-            }).then(function (result) {
-                if (!result.value) {
-                    finalizarAdopcion(datos, contenido);
+                cancelButtonText: 'No',
+                confirmButtonText: 'Si',
+                cancelButtonColor: '#dc1010a8',
+                confirmButtonColor: '#0000ff94',
+                showLoaderOnConfirm: true,
+                preConfirm:function(){
+                    return finalizarAdopcion(datos, contenido);
                 }
-            });
+            }).then(function (result) {});
         } else {
             showPrintWindow(contenido);
         }

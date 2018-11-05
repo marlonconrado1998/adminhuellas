@@ -16135,6 +16135,7 @@ border-radius: 5px;}
   .report_panel{
     height: auto;
     width: 100%;
+    min-height:100%;
   }
   .report_panel th{
     background-color: rgb(232,232,232) !important;

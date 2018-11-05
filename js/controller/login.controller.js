@@ -56,8 +56,8 @@ function loginController(loginService, $location) {
     }
 
     //Recupera datos de la cuenta, se verifican y se guadan en storage
-    function setAccount(data) {
-        $location.path("/Inicio");
+    function setAccount(data) {        
+        $location.path("/Dashboard/Inicio");
         sessionStorage.setItem("user", JSON.stringify(data));
         getAccount();
     }

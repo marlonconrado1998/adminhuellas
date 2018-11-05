@@ -44,30 +44,30 @@ function inicioController(inicioService, reportesService) {
     };
 
     function getChartData() {
-        if (inicioService.dataChart[0].length == 0) {
-            var p = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            var g = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            reportesService.SolicitarReporteSeleccionado(3).then(function (perros) {
-                reportesService.SolicitarReporteSeleccionado(4).then(function (gatos) {
+        // if (inicioService.dataChart[0].length == 0) {
+        //     var p = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        //     var g = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        //     reportesService.SolicitarReporteSeleccionado(3).then(function (perros) {
+        //         reportesService.SolicitarReporteSeleccionado(4).then(function (gatos) {
 
-                    let p1 = forData(p, perros.data);
-                    let p2 = forData(g, gatos.data);
-                    inicioCtrl.data = [p1, p2];
-                    inicioService.dataChart = [p1, p2];
-                });
-            }).catch(function (error) {
-                console.log(error);
-            });
-        } else {
-            inicioCtrl.data = inicioService.dataChart;
-        }
+        //             let p1 = forData(p, perros.data);
+        //             let p2 = forData(g, gatos.data);
+        //             inicioCtrl.data = [p1, p2];
+        //             inicioService.dataChart = [p1, p2];
+        //         });
+        //     }).catch(function (error) {
+        //         console.log(error);
+        //     });
+        // } else {
+        //     inicioCtrl.data = inicioService.dataChart;
+        // }
     }
 
     function forData(array, data) {
-        for (let i = 0; i < data.length; i++) {
-            array[(parseInt(data[i].fecha) - 1)] = data[i].cantidad;
-        }
-        return array;
+        // for (let i = 0; i < data.length; i++) {
+        //     array[(parseInt(data[i].fecha) - 1)] = data[i].cantidad;
+        // }
+        // return array;
     }
 
     getChartData();

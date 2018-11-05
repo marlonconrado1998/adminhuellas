@@ -89,6 +89,13 @@ function reportesController(reportesService, $location) {
 
     //Descargar el archivo como un reporte pdf
     ctrl.downloadReport = function () {
+        // let contenido = document.getElementById("report_panel");
+        // let pdf = new jsPDF();
+        // console.log(pdf);
+        // pdf.fromHTML(contenido.innerHTML, 15, 15, {
+        //     'width': 170
+        // });
+        // pdf.save(`${ctrl.header_title}.pdf`);
         alert("Aun no es posible descargar...");
     }
 

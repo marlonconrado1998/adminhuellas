@@ -1,0 +1,16 @@
+<div class="container-fluid" id="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <ng-include src="'partials/_navbar.html'">
+        </div>
+        <div>
+            <ng-include src="'partials/_sidebar.html'">
+        </div>
+        <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 ml-auto pl-0 pr-0">
+            <ui-view></ui-view>
+        </div>
+        <div class="col-sm-12" style="padding:0px;">
+            <ng-include src="'partials/_footer.html'">
+        </div>
+    </div>
+</div>

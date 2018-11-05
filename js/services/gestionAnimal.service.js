@@ -29,6 +29,7 @@ function gestionAnimalService(generalService) {
     service.mostrarSesion = mostrarSesion;
     service.buscarValorItem = buscarValorItem;
     service.agregarSesion = agregarSesion;
+    service.getHistoriaMedica = getHistoriaMedica;
 
 
     function solicitarAdopcion() {
@@ -97,6 +98,10 @@ function gestionAnimalService(generalService) {
     
     function agregarSesion(sesion) {
         return generalService.EJECUTAR_SERVICES('POST', "api_gestionAnimal.php/agregarSesion", {data: sesion});
+    }
+
+    function getHistoriaMedica (idanimal) {
+        return generalService.EJECUTAR_SERVICES('GET', `api_gestionAnimal.php/historia_medica/${idanimal}`);        
     }
 
 }

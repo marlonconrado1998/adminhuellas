@@ -17,22 +17,7 @@
 <body>
     <div class="divClose" id="divClose"></div>
     <div class="preloader-bg" id="preloader-bg"></div>
-    <div class="container-fluid" id="container-fluid">
-        <div class="row" ng-controller="loginController as lc">
-            <div class="col-sm-12" ng-if="lc.loged ">
-                <ng-include src="'partials/_navbar.html'">
-            </div>
-            <div ng-if="lc.loged">
-                <ng-include src="'partials/_sidebar.html'">
-            </div>
-            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 ml-auto pl-0 pr-0">
-                <ui-view></ui-view>
-            </div>
-            <div class="col-sm-12" style="padding:0px;" ng-if="lc.loged">
-                <ng-include src="'partials/_footer.html'">
-            </div>
-        </div>
-    </div>
+   <ui-view></ui-view>
     <!-- Bower-->
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="node_modules/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
@@ -58,6 +43,7 @@
     <script type="text/javascript" src="js/config/constant.js"></script>
     <!-- Directive -->
     <script type="text/javascript" src="js/directive/select.factory.js"></script>
+    <script type="text/javascript" src="js/directive/jspdf.min.js"></script>
     <!-- Controller -->
     <script type="text/javascript" src="js/controller/gestionAnimal.controller.js"></script>
     <script type="text/javascript" src="js/controller/gestionAdopcion.controller.js"></script>

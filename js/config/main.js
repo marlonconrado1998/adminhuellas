@@ -17,7 +17,7 @@ app.run(["$rootScope", "$location",
                 } else {
                     if ($location.path() == "/Login") {
                         // window.history.back();
-                        $location.path("/Inicio");
+                        $location.path("/Dashboard/Inicio");
                     }
                 }
             });

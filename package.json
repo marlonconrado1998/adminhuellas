@@ -30,7 +30,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "bootstrapdash",
+  "author": "Neider Galofre, Marlon Conrado y Roberto Restrepo",
   "url": "http://www.bootstrapdash.com/",
   "copyright": "",
   "license": ""

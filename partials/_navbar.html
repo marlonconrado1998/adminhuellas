@@ -7,7 +7,7 @@
         </div>
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item dropdown">
-                <a class="nav-link count-indicator" ui-sref="Solicitudes" ng-controller="solicitudAdopcionController as solCtrl">
+                <a class="nav-link count-indicator" ui-sref="Dashboard.Solicitudes" ng-controller="solicitudAdopcionController as solCtrl">
                     <i class="fa fa-bell" ng-init="solCtrl.obtenerListaSolicitudes();"></i>
                     <span ng-show="solCtrl.listaSolicitudes.length > 0" class="count" ng-bind="solCtrl.listaSolicitudes.length"></span>
                 </a>

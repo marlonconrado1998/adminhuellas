@@ -102,7 +102,7 @@ function modalLegalizacionCtrl($uibModalInstance, items, gestionAnimalService, $
     legalizacionCtrl.confirmarLegalizacion = function () {
         gestionAnimalService.informacion_animal = legalizacionCtrl.legalizacion_item.animal;
         gestionAnimalService.informacion_animal.persona = legalizacionCtrl.legalizacion_item.adoptante;
-        $location.path("/adopcion");
+        $location.path("/Dashboard/adopcion");
         legalizacionCtrl.cerrar();
     }
 
