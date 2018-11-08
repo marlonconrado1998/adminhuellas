@@ -2,76 +2,86 @@
     <div class="container-fluid page-body-wrapper">
         <div class="main-panel">
             <div class="content-wrapper" ng-controller="gestionAnimalCtrl as ctrl">
-                <section class="page-title" ng-init="ctrl.onBuscarAnimal();">
+                <!-- <section class="page-title" ng-init="ctrl.onBuscarAnimal();">
                     <h2 class="text-gray text-center">Lista de animales</h2>
-                </section>
-                <div class="row">
-                    <section class="container row p-3" ng-show="ctrl.mensajeListaAnimales == ''">
-                        <div class="col-12 col-sm-4">
-                            <p class="text-gray small">Fallecido.
-                                <span class="count-table-item bg-info mt-1 mr-2"></span>
-                            </p>
-                            <p class="text-gray small">Cuarentena.
-                                <span class="count-table-item bg-danger mt-1 mr-2"></span>
-                            </p>
-                            <p class="text-gray small">Patio (Adoptable).
-                                <span class="count-table-item bg-success mt-1 mr-2"></span>
-                            </p>
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <p class="text-gray small">Observación.
-                                <span class="count-table-item bg-warning mt-1 mr-2"></span>
-                            </p>
-                            <p class="text-gray small">En tratamiento.
-                                <span class="count-table-item bg-primary mt-1 mr-2"></span>
-                            </p>
-                            <p class="text-gray small">Adoptado.
-                                <span class="count-table-item bg-secondary mt-1 mr-2"></span>
-                            </p>
-                        </div>
-                    </section>
-                    <div class="col-12 col-sm-8 col-md-8">
-                        <a class="btn btn-inverse-success btn-rounded btn-fw mb-2 float-left" href ui-sref="Dashboard.registro_animal">
-                            <i class="fa fa-plus"></i> Nuevo
-                        </a>
-                        <a class="btn btn-inverse-primary btn-rounded btn-fw mb-2 float-right" href ng-click="ctrl.onBuscarAnimal('');">
-                            <i class="fa fa-redo"></i> Refrescar
-                        </a>
-                    </div>
-                    <div class="col-12 col-sm-4 col-md-4 input-group-icon">
-                        <div class="icon">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </div>
-                        <input type="search" name="buscar_animal" ng-model="buscar_animal" placeholder="Buscar" onfocus="this.placeholder = ''"
-                            onblur="this.placeholder = 'Buscar'" class="single-input btn btn-rounded btn-inverse-light w-100">
-                    </div>
-                    <div class="col-12 overflow-x mt-2">
-                        <table class="table table-condensed table-bordered  text-center table-hover">
-                            <thead class="table-active">
-                                <tr>
-                                    <th>#Código</th>
-                                    <th>Nombre</th>
-                                    <th>Especie</th>
-                                    <th>Raza</th>
-                                    <th>Sexo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="animal in ctrl.animales | filter: buscar_animal" ng-click="ctrl.modal(animal.idanimal);"
-                                    ng-mouseenter="cssmodal = true" ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
-                                    <td>
-                                        <span class="count-table-item" ng-class="{'bg-info':animal.estado_actual == 'Fallecido', 'bg-danger':animal.estado_actual == 'Cuarentena', 'bg-success':animal.estado_actual == 'Patio (Adoptable)', 'bg-warning':animal.estado_actual == 'Observación', 'bg-primary':animal.estado_actual == 'Tratamiento', 'bg-secondary':animal.estado_actual == 'Adoptado'}"></span>
-                                        <span ng-bind="animal.idanimal"></span>
-                                    </td>
-                                    <td ng-bind="animal.nombre"></td>
-                                    <td ng-bind="animal.especie"></td>
-                                    <td ng-bind="animal.raza"></td>
-                                    <td ng-bind="animal.sexo"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div>
-                            <h4 class="text-center pt-5 text-gray" ng-bind="ctrl.mensajeListaAnimales"></h4>
+                </section> -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-sm-8 col-md-8 d-flex justify-content-between">
+                                <a class="btn btn-inverse-success btn-rounded mb-2" href ui-sref="Dashboard.registro_animal">
+                                    <i class="fa fa-plus"></i> <span class="d-none d-lg-inline-block">Nuevo</span>
+                                </a>
+                                <a class="btn btn-inverse-primary btn-rounded mb-2" href ng-click="ctrl.onBuscarAnimal('');">
+                                    <i class="fa fa-redo"></i> <span class="d-none d-lg-inline-block">Refrescar</span>
+                                </a>
+                                <div class="dropdown">
+                                    <button class="btn btn-inverse-info btn-rounded dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i class="fa fa-book"></i><span class="d-none d-lg-inline-block">Estados</span>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href ng-click="ctrl.f_estado = undefined">Todos.
+                                            <span class="count-table-item bg-dark mt-1 mr-2"></span>
+                                        </a>
+                                        <a class="dropdown-item" href ng-click="ctrl.f_estado = 'Fallecido'">Fallecido.
+                                            <span class="count-table-item bg-info mt-1 mr-2"></span>
+                                        </a>
+                                        <a class="dropdown-item" href ng-click="ctrl.f_estado = 'Cuarentena'">Cuarentena.
+                                            <span class="count-table-item bg-danger mt-1 mr-2"></span>
+                                        </a>
+                                        <a class="dropdown-item" href ng-click="ctrl.f_estado = 'Patio (Adoptable)'"> Patio.
+                                            <span class="count-table-item bg-success mt-1 mr-2"></span>
+                                        </a>
+                                        <a class="dropdown-item" href ng-click="ctrl.f_estado = 'Observación'"> Observación.
+                                                <span class="count-table-item bg-warning mt-1 mr-2"></span>
+                                        </a>
+                                        <a class="dropdown-item" href ng-click="ctrl.f_estado = 'Tratamiento'"> Tratamiento.
+                                                <span class="count-table-item bg-primary mt-1 mr-2"></span>
+                                        </a>
+                                        <a class="dropdown-item" href ng-click="ctrl.f_estado = 'Adoptado'"> Adoptado.
+                                            <span class="count-table-item bg-secondary mt-1 mr-2"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4 col-md-4 input-group-icon">
+                                <div class="icon">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
+                                <input type="search" name="buscar_animal" ng-model="buscar_animal" placeholder="Buscar"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Buscar'" class="single-input btn btn-rounded btn-inverse-light w-100">
+                            </div>
+                            <div class="col-12 overflow-x mt-2">
+                                <table class="table table-condensed table-bordered  text-center table-hover">
+                                    <thead class="table-active">
+                                        <tr>
+                                            <th>#Código</th>
+                                            <th>Nombre</th>
+                                            <th>Especie</th>
+                                            <th>Raza</th>
+                                            <th>Sexo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="animal in ctrl.animales | filter: buscar_animal  | filter: {estado_actual: ctrl.f_estado}" ng-click="ctrl.modal(animal.idanimal);"
+                                            ng-mouseenter="cssmodal = true" ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
+                                            <td>
+                                                <span class="count-table-item" ng-class="{'bg-info':animal.estado_actual == 'Fallecido', 'bg-danger':animal.estado_actual == 'Cuarentena', 'bg-success':animal.estado_actual == 'Patio (Adoptable)', 'bg-warning':animal.estado_actual == 'Observación', 'bg-primary':animal.estado_actual == 'Tratamiento', 'bg-secondary':animal.estado_actual == 'Adoptado'}"></span>
+                                                <span ng-bind="animal.idanimal"></span>
+                                            </td>
+                                            <td ng-bind="animal.nombre"></td>
+                                            <td ng-bind="animal.especie"></td>
+                                            <td ng-bind="animal.raza"></td>
+                                            <td ng-bind="animal.sexo"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h4 class="text-center pt-5 text-gray" ng-bind="ctrl.mensajeListaAnimales"></h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

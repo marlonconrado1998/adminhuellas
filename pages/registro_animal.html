@@ -15,181 +15,206 @@
     <div class="container-fluid page-body-wrapper" ng-controller="gestionAnimalCtrl as ctrl">
         <div class="main-panel">
             <div class="content-wrapper">
-                <section class="page-title text-gray text-center">
+                <!-- <section class="page-title text-gray text-center">
                     <h2>Registro de animal</h2>
                     <small>Todos los campos son obligatorios, incluido fotos.</small>
-                </section>
-
-                <div class="container text-gray">
-                    <form ng-model="formAnimalRegister" name="formAnimalRegister" ng-submit="ctrl.registrarAnimal(this.animal);" class="form-animal-register">
-                        <div class="row">
-                            <div class="row col-sm-6">
-                                <div class="form-group col-sm-12">
-                                    <br>
-                                    <h3 class="text-gray text-center">Información</h3>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="nombre">Nombre
-                                        <span class="symbol-required">*</span>
-                                    </label>
-                                    <input type="text" name="nombre" ng-model="animal.nombre" ng-change="ctrl.validar(this);" class="form-control" ng-required="true">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="peso">Peso (Kg)
-                                        <span class="symbol-required">*</span>
-                                    </label>
-                                    <input type="number" name="peso" min="0" ng-model="animal.peso" class="form-control" min="0" ng-required="true">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="edad">Edad
-                                        <span class="symbol-required">*</span>
-                                    </label>
-                                    <input type="number" name="edad" min="1" ng-model="animal.edad" class="form-control" min="0" ng-required="true">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="especie">Especie
-                                        <span class="symbol-required">*</span>
-                                    </label>
-                                    <select name="especie" ng-model="animal.especie" class="form-control" ng-options="especie.nombre for especie in ctrl.optionsSelect.especies"
-                                        ng-required="true"></select>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="raza">Raza
-                                        <span class="symbol-required">*</span>
-                                    </label>
-                                    <select name="raza" ng-model="animal.raza" class="form-control" ng-options="raza.nombre for raza in ctrl.optionsSelect.razas | filter: animal.especie.nombre"
-                                        ng-required="true"></select>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="color">Color
-                                        <span class="symbol-required">*</span>
-                                    </label>
-                                    <select name="color" ng-model="animal.color" class="form-control" ng-options="color.nombre for color in ctrl.optionsSelect.colores"
-                                        ng-required="true"></select>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="sexo">Sexo
-                                        <span class="symbol-required">*</span>
-                                    </label>
-                                    <select name="sexo" ng-model="animal.sexo" class="form-control" ng-options="sexo.nombre for sexo in ctrl.optionsSelect.sexos" ng-required="true"></select>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="fecha_ingreso">Fecha de ingreso
-                                        <span class="symbol-required">*</span>
-                                    </label>
-                                    <input type="datetime-local" name="fecha_ingreso" ng-model="animal.fecha_ingreso" class="form-control" ng-required="true">
-                                </div>
-                                <div class="form-group col-sm-12">
-                                    <label for="estado_ingreso">Estado de ingreso
-                                        <span class="symbol-required">*</span>
-                                    </label>
-                                    <textarea class="form-control" name="estado_ingreso" ng-model="animal.estado_ingreso" class="form-control" ng-required="true"></textarea>
-                                </div>
-                                <div class="form-group col-sm-12">
-                                    <input type="checkbox" ng-model="animal.entregado" class="btn btn-danger">
-                                    <span>El animal fue entregado a la fundacion.</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <br>
-                                <h3 class="text-gray text-center">Adjuntar fotos </h3>
-                                <br>
-                                <div ng-hide="ctrl.imagenesAnimalRegistro.length > 0" ngf-drop="ctrl.uploadMultipleFiles($files)" ngf-select="ctrl.uploadMultipleFiles($files);"
-                                    class="drop-box col-12" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-pattern="'image/*'"
-                                    ngf-rezise="{weidth=100 ,height=100}">
-                                    <p class="fa fa-images fa-3x"></p>
-                                    <br>
-                                    <h4 class="">Click o arrastra imagenes hasta aqui </h4>
-                                </div>
-                                <div ngf-no-file-drop>No se pudo cargar la imagen</div>
-
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div ng-show="ctrl.imagenesAnimalRegistro.length > 0" class="box-principal-img col-12 box-mask">
-                                            <img ng-src="{{ctrl.imagenesAnimalRegistro[ctrl.imagenesAnimalRegistro.length-1].image}}" class="image-responsive">
-                                            <div class="text-on-box">
-                                                <p class="fa fa-trash fa-2x m-5" ng-click="ctrl.onDeleteImage(ctrl.imagenesAnimalRegistro.length-1);"></p>
-                                                <p class="fa fa-crop fa-2x m-5" ng-click="ctrl.onCropImage(ctrl.imagenesAnimalRegistro.length-1);"></p>
-                                            </div>
+                </section> -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="container text-gray">
+                            <form ng-model="formAnimalRegister" name="formAnimalRegister" ng-submit="ctrl.registrarAnimal(this.animal);"
+                                class="form-animal-register">
+                                <div class="row">
+                                    <div class="row col-sm-6">
+                                        <div class="form-group col-sm-12">
+                                            <br>
+                                            <h3 class="text-gray text-center">Información</h3>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="nombre">Nombre
+                                                <span class="symbol-required">*</span>
+                                            </label>
+                                            <input type="text" name="nombre" ng-model="animal.nombre" ng-change="ctrl.validar(this);"
+                                                class="form-control" ng-required="true">
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="peso">Peso (Kg)
+                                                <span class="symbol-required">*</span>
+                                            </label>
+                                            <input type="number" name="peso" min="0" ng-model="animal.peso" class="form-control"
+                                                min="0" ng-required="true">
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="edad">Edad
+                                                <span class="symbol-required">*</span>
+                                            </label>
+                                            <input type="number" name="edad" min="1" ng-model="animal.edad" class="form-control"
+                                                min="0" ng-required="true">
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="especie">Especie
+                                                <span class="symbol-required">*</span>
+                                            </label>
+                                            <select name="especie" ng-model="animal.especie" class="form-control"
+                                                ng-options="especie.nombre for especie in ctrl.optionsSelect.especies"
+                                                ng-required="true"></select>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="raza">Raza
+                                                <span class="symbol-required">*</span>
+                                            </label>
+                                            <select name="raza" ng-model="animal.raza" class="form-control" ng-options="raza.nombre for raza in ctrl.optionsSelect.razas | filter: animal.especie.nombre"
+                                                ng-required="true"></select>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="color">Color
+                                                <span class="symbol-required">*</span>
+                                            </label>
+                                            <select name="color" ng-model="animal.color" class="form-control"
+                                                ng-options="color.nombre for color in ctrl.optionsSelect.colores"
+                                                ng-required="true"></select>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="sexo">Sexo
+                                                <span class="symbol-required">*</span>
+                                            </label>
+                                            <select name="sexo" ng-model="animal.sexo" class="form-control" ng-options="sexo.nombre for sexo in ctrl.optionsSelect.sexos"
+                                                ng-required="true"></select>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="fecha_ingreso">Fecha de ingreso
+                                                <span class="symbol-required">*</span>
+                                            </label>
+                                            <input type="datetime-local" name="fecha_ingreso" ng-model="animal.fecha_ingreso"
+                                                class="form-control" ng-required="true">
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label for="estado_ingreso">Estado de ingreso
+                                                <span class="symbol-required">*</span>
+                                            </label>
+                                            <textarea class="form-control" name="estado_ingreso" ng-model="animal.estado_ingreso"
+                                                class="form-control" ng-required="true"></textarea>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <input type="checkbox" ng-model="animal.entregado" class="btn btn-danger">
+                                            <span>El animal fue entregado a la fundacion.</span>
                                         </div>
                                     </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <br>
+                                        <h3 class="text-gray text-center">Adjuntar fotos </h3>
+                                        <br>
+                                        <div ng-hide="ctrl.imagenesAnimalRegistro.length > 0" ngf-drop="ctrl.uploadMultipleFiles($files)"
+                                            ngf-select="ctrl.uploadMultipleFiles($files);" class="drop-box col-12"
+                                            ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-pattern="'image/*'"
+                                            ngf-rezise="{weidth=100 ,height=100}">
+                                            <p class="fa fa-images fa-3x"></p>
+                                            <br>
+                                            <h4 class="">Click o arrastra imagenes hasta aqui </h4>
+                                        </div>
+                                        <div ngf-no-file-drop>No se pudo cargar la imagen</div>
 
-                                    <div class="row">
-                                        <div class="slide-box-image">
-                                            <div ng-repeat="imagen in ctrl.imagenesAnimalRegistro | limitTo: ctrl.imagenesAnimalRegistro.length-1" class="col-3 p-0  box-mask">
-                                                <div class="col-12 box-img">
-                                                    <img ng-src="{{imagen.image}}" class="image-responsive">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div ng-show="ctrl.imagenesAnimalRegistro.length > 0" class="box-principal-img col-12 box-mask">
+                                                    <img ng-src="{{ctrl.imagenesAnimalRegistro[ctrl.imagenesAnimalRegistro.length-1].image}}"
+                                                        class="image-responsive">
                                                     <div class="text-on-box">
-                                                        <p class="fa fa-trash m-3" ng-click="ctrl.onDeleteImage($index);"></p>
-                                                        <p class="fa fa-search-plus m-3" ng-click="ctrl.onShowImage($index);"></p>
+                                                        <p class="fa fa-trash fa-2x m-5" ng-click="ctrl.onDeleteImage(ctrl.imagenesAnimalRegistro.length-1);"></p>
+                                                        <p class="fa fa-crop fa-2x m-5" ng-click="ctrl.onCropImage(ctrl.imagenesAnimalRegistro.length-1);"></p>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div ng-hide="ctrl.imagenesAnimalRegistro.length == 5" class="col-3">
-                                                <div ng-show="ctrl.imagenesAnimalRegistro.length > 0" class="col-12 drop-box-small" ngf-drop="ctrl.uploadMultipleFiles($files)"
-                                                    ngf-select="ctrl.uploadMultipleFiles($files);" ngf-drag-over-class="'dragover'"
-                                                    ngf-multiple="true" ngf-pattern="'image/*'" ngf-rezise="{weidth=100,height=100}">
-                                                    <p class=" fa fa-plus "></p>
-                                                    <br>
+                                            <div class="row">
+                                                <div class="slide-box-image">
+                                                    <div ng-repeat="imagen in ctrl.imagenesAnimalRegistro | limitTo: ctrl.imagenesAnimalRegistro.length-1"
+                                                        class="col-3 p-0  box-mask">
+                                                        <div class="col-12 box-img">
+                                                            <img ng-src="{{imagen.image}}" class="image-responsive">
+                                                            <div class="text-on-box">
+                                                                <p class="fa fa-trash m-3" ng-click="ctrl.onDeleteImage($index);"></p>
+                                                                <p class="fa fa-search-plus m-3" ng-click="ctrl.onShowImage($index);"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div ng-hide="ctrl.imagenesAnimalRegistro.length == 5" class="col-3">
+                                                        <div ng-show="ctrl.imagenesAnimalRegistro.length > 0" class="col-12 drop-box-small"
+                                                            ngf-drop="ctrl.uploadMultipleFiles($files)" ngf-select="ctrl.uploadMultipleFiles($files);"
+                                                            ngf-drag-over-class="'dragover'" ngf-multiple="true"
+                                                            ngf-pattern="'image/*'" ngf-rezise="{weidth=100,height=100}">
+                                                            <p class=" fa fa-plus "></p>
+                                                            <br>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="row col-sm-12 pt-3" ng-show="animal.entregado">
+                                    <div class="form-group col-sm-4">
+                                        <label for="identificacion_persona">Identificacion
+                                            <span class="symbol-required">*</span>
+                                        </label>
+                                        <input type="number" name="identificacion_persona" ng-minlength="7" min="1"
+                                            ng-model="animal.persona.identificacion" class="form-control" ng-required="animal.entregado">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="nombre_persona">Nombre
+                                            <span class="symbol-required">*</span>
+                                        </label>
+                                        <input type="text" name="nombre_persona" ng-model="animal.persona.nombre" class="form-control"
+                                            ng-required="animal.entregado">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="apellido_persona">Apellido
+                                            <span class="symbol-required">*</span>
+                                        </label>
+                                        <input type="text" name="apellido_persona" ng-model="animal.persona.apellido"
+                                            class="form-control" ng-required="animal.entregado">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="ciudad_persona">Ciudad residencia
+                                            <span class="symbol-required">*</span>
+                                        </label>
+                                        <select type="text" name="ciudad_persona" ng-model="animal.persona.ciudad"
+                                            class="form-control" ng-required="animal.entregado" ng-options="ciudad.nombre for ciudad in ctrl.optionsSelect.ciudades"></select>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="direccion_persona">Detalles residencia
+                                            <span class="symbol-required">*</span>
+                                        </label>
+                                        <input type="text" name="direccion_persona" ng-model="animal.persona.detalles_direccion"
+                                            class="form-control" ng-required="animal.entregado">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="telefono_persona">Telefono
+                                            <span class="symbol-required">*</span>
+                                        </label>
+                                        <input type="number" name="telefono_persona" ng-minlength="7" min="1" ng-model="animal.persona.telefono"
+                                            class="form-control" ng-required="animal.entregado">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="correo_persona">Correo
+                                            <span class="symbol-required">*</span>
+                                        </label>
+                                        <input type="email" name="correo_persona" ng-minlenght="8" ng-model="animal.persona.correo"
+                                            class="form-control" ng-required="animal.entregado">
+                                    </div>
+                                </div>
+                                <div class="row pt-5">
+                                    <div class="col-12 text-center">
+                                        <button type="submit" ng-disabled="formAnimalRegister.$invalid || ctrl.imagenesAnimalRegistro == 0"
+                                            class="btn btn-inverse-success btn-rounded mb-2">
+                                            <i class="fa fa-save"></i>
+                                            Finalizar Registro</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="row col-sm-12 pt-3" ng-show="animal.entregado">
-                            <div class="form-group col-sm-4">
-                                <label for="identificacion_persona">Identificacion
-                                    <span class="symbol-required">*</span>
-                                </label>
-                                <input type="number" name="identificacion_persona" ng-minlength="7" min="1" ng-model="animal.persona.identificacion" class="form-control" ng-required="animal.entregado">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="nombre_persona">Nombre
-                                    <span class="symbol-required">*</span>
-                                </label>
-                                <input type="text" name="nombre_persona" ng-model="animal.persona.nombre" class="form-control" ng-required="animal.entregado">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="apellido_persona">Apellido
-                                    <span class="symbol-required">*</span>
-                                </label>
-                                <input type="text" name="apellido_persona" ng-model="animal.persona.apellido" class="form-control" ng-required="animal.entregado">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="ciudad_persona">Ciudad residencia
-                                    <span class="symbol-required">*</span>
-                                </label>
-                                <select type="text" name="ciudad_persona" ng-model="animal.persona.ciudad" class="form-control" ng-required="animal.entregado"
-                                    ng-options="ciudad.nombre for ciudad in ctrl.optionsSelect.ciudades"></select>
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="direccion_persona">Detalles residencia
-                                    <span class="symbol-required">*</span>
-                                </label>
-                                <input type="text" name="direccion_persona" ng-model="animal.persona.detalles_direccion" class="form-control" ng-required="animal.entregado">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="telefono_persona">Telefono
-                                    <span class="symbol-required">*</span>
-                                </label>
-                                <input type="number" name="telefono_persona" ng-minlength="7" min="1"  ng-model="animal.persona.telefono" class="form-control" ng-required="animal.entregado">
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="correo_persona">Correo
-                                    <span class="symbol-required">*</span>
-                                </label>
-                                <input type="email" name="correo_persona" ng-minlenght="8" ng-model="animal.persona.correo" class="form-control" ng-required="animal.entregado">
-                            </div>
-                        </div>
-                        <div class="row pt-5">
-                            <div class="col-12 text-center">
-                                <button type="submit" ng-disabled="formAnimalRegister.$invalid || ctrl.imagenesAnimalRegistro == 0" class="btn btn-outline-success">Finalizar Registro</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

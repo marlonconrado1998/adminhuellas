@@ -16162,3 +16162,10 @@ border-radius: 5px;}
 .content-button a {
   display: none;
 }
+
+.sideactive {
+  background-image: linear-gradient(to right, rgb(200, 200, 201), rgb(229, 231, 231));
+  color: white !important;
+  font-weight: bold;
+  text-transform: uppercase;
+}

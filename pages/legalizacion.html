@@ -1,47 +1,51 @@
 <div id="app" class="container-scroller">
-        <div class="container-fluid page-body-wrapper">
-            <div class="main-panel">
-                <div class="content-wrapper" ng-controller="legalizacionController as legCtrl">
-                    <section class="page-title" ng-init="legCtrl.obtenerListaLegalizaciones();">
+    <div class="container-fluid page-body-wrapper">
+        <div class="main-panel">
+            <div class="content-wrapper" ng-controller="legalizacionController as legCtrl">
+                <!-- <section class="page-title" ng-init="legCtrl.obtenerListaLegalizaciones();">
                         <h2 class="text-gray text-center">Legalizaciones</h2>
-                    </section>
-                    <div class="row">
-                        <div class="col-12 col-sm-8 col-md-8">
-                            <a class="btn btn-inverse-primary btn-rounded btn-fw mb-2 float-left" href ng-click="legCtrl.obtenerListaLegalizaciones();">
-                                <i class="fa fa-redo"></i> Refrescar
-                            </a>
-                        </div>
-                        <div class="col-12 col-sm-4 col-md-4 input-group-icon">
-                            <div class="icon">
-                                <i class="fa fa-search" aria-hidden="true"></i>
+                    </section> -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-sm-8 col-md-8">
+                                <a class="btn btn-inverse-primary btn-rounded btn-fw mb-2 float-left" href ng-click="legCtrl.obtenerListaLegalizaciones();">
+                                    <i class="fa fa-redo"></i> Refrescar
+                                </a>
                             </div>
-                            <input type="search" name="buscar_animal" ng-model="buscar_legalizacion" placeholder="Buscar" onfocus="this.placeholder = ''"
-                                onblur="this.placeholder = 'Buscar'" class="single-input btn btn-rounded btn-inverse-light w-100">
-                        </div>
-                        <div class="col-12 overflow-x mt-2">
-                            <table class="table table-condensed table-bordered  text-center table-hover">
-                                <thead class="table-active">
-                                    <tr>
-                                        <th>Referencia</th>
-                                        <th>Fecha de encuentro</th>
-                                        <th>Hora</th>
-                                        <th>Ubicación</th>
-                                        <th>fecha aceptación</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="legalizacion in legCtrl.listaLegalizaciones | orderBy: legalizacion.fecha | filter: buscar_legalizacion " ng-click="legCtrl.modal(legalizacion);" ng-mouseenter="cssmodal = true"
-                                        ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
-                                        <td ng-bind="legalizacion.referencia"></td>
-                                        <td ng-bind="legalizacion.fecha"></td>
-                                        <td ng-bind="legalizacion.hora"></td>
-                                        <td ng-bind="legalizacion.lugar"></td>
-                                        <td ng-bind="legalizacion.fecha_aceptacion"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div>
-                                <h4 class="text-center pt-5 text-gray" ng-bind="legCtrl.mensaje"></h4>
+                            <div class="col-12 col-sm-4 col-md-4 input-group-icon">
+                                <div class="icon">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
+                                <input type="search" name="buscar_animal" ng-model="buscar_legalizacion" placeholder="Buscar"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Buscar'" class="single-input btn btn-rounded btn-inverse-light w-100">
+                            </div>
+                            <div class="col-12 overflow-x mt-2">
+                                <table class="table table-condensed table-bordered  text-center table-hover">
+                                    <thead class="table-active">
+                                        <tr>
+                                            <th>Referencia</th>
+                                            <th>Fecha de encuentro</th>
+                                            <th>Hora</th>
+                                            <th>Ubicación</th>
+                                            <th>fecha aceptación</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="legalizacion in legCtrl.listaLegalizaciones | orderBy: legalizacion.fecha | filter: buscar_legalizacion "
+                                            ng-click="legCtrl.modal(legalizacion);" ng-mouseenter="cssmodal = true"
+                                            ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
+                                            <td ng-bind="legalizacion.referencia"></td>
+                                            <td ng-bind="legalizacion.fecha"></td>
+                                            <td ng-bind="legalizacion.hora"></td>
+                                            <td ng-bind="legalizacion.lugar"></td>
+                                            <td ng-bind="legalizacion.fecha_aceptacion"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h4 class="text-center pt-5 text-gray" ng-bind="legCtrl.mensaje"></h4>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -49,3 +53,4 @@
             </div>
         </div>
     </div>
+</div>

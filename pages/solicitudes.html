@@ -2,49 +2,54 @@
     <div class="container-fluid page-body-wrapper">
         <div class="main-panel">
             <div class="content-wrapper" ng-controller="solicitudAdopcionController as solCtrl">
-                <section class="page-title" ng-init="solCtrl.obtenerListaSolicitudes();">
+                <!-- <section class="page-title" ng-init="solCtrl.obtenerListaSolicitudes();">
                     <h2 class="text-gray text-center">Solicitudes de adopción</h2>
-                </section>
-                <div class="row">
-                    <div class="col-12 col-sm-8 col-md-8">
-                        <a class="btn btn-inverse-primary btn-rounded btn-fw mb-2 float-left" href ng-click="solCtrl.obtenerListaSolicitudes();">
-                            <i class="fa fa-redo"></i> Refrescar
-                        </a>
-                    </div>
-                    <div class="col-12 col-sm-4 col-md-4 input-group-icon">
-                        <div class="icon">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </div>
-                        <input type="search" name="buscar_animal" ng-model="buscar_solicitud" placeholder="Buscar" onfocus="this.placeholder = ''"
-                            onblur="this.placeholder = 'Buscar'" class="single-input btn btn-rounded btn-inverse-light w-100">
-                    </div>
-                    <div class="col-12 overflow-x mt-2">
-                        <table class="table table-condensed table-bordered  text-center table-hover">
-                            <thead class="table-active">
-                                <tr>
-                                    <th>Referencia</th>
-                                    <th>Solicitante</th>
-                                    <th>Fecha Solicitado</th>
-                                    <th>Dias Restantes</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="solicitud in solCtrl.listaSolicitudes | orderBy: solicitud.restantes | filter: buscar_solicitud " ng-click="solCtrl.modal(solicitud);"
-                                    ng-mouseenter="cssmodal = true" ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
-                                    <td ng-bind="solicitud.referencia"></td>
-                                    <td ng-bind="solicitud.nombre_adoptante"></td>
-                                    <td ng-bind="solicitud.fecha_solicitud"></td>
-                                    <td ng-class="{'alert-danger':solicitud.restantes < 0}">
-                                        <span ng-if="solicitud.restantes < 0" ng-bind="'Retrasado ' + (solicitud.restantes * -1) + ' dias'"></span>
-                                        <span ng-if="solicitud.restantes >= 0" ng-bind="solicitud.restantes"></span>
-                                    </td>
-                                    <td ng-bind="solicitud.estado"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div>
-                            <h4 class="text-center pt-5 text-gray" ng-bind="solCtrl.mensaje"></h4>
+                </section> -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-sm-8 col-md-8">
+                                <a class="btn btn-inverse-primary btn-rounded btn-fw mb-2 float-left" href ng-click="solCtrl.obtenerListaSolicitudes();">
+                                    <i class="fa fa-redo"></i> Refrescar
+                                </a>
+                            </div>
+                            <div class="col-12 col-sm-4 col-md-4 input-group-icon">
+                                <div class="icon">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
+                                <input type="search" name="buscar_animal" ng-model="buscar_solicitud" placeholder="Buscar"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Buscar'" class="single-input btn btn-rounded btn-inverse-light w-100">
+                            </div>
+                            <div class="col-12 overflow-x mt-2">
+                                <table class="table table-condensed table-bordered  text-center table-hover">
+                                    <thead class="table-active">
+                                        <tr>
+                                            <th>Referencia</th>
+                                            <th>Solicitante</th>
+                                            <th>Fecha Solicitado</th>
+                                            <th>Dias Restantes</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="solicitud in solCtrl.listaSolicitudes | orderBy: solicitud.restantes | filter: buscar_solicitud "
+                                            ng-click="solCtrl.modal(solicitud);" ng-mouseenter="cssmodal = true"
+                                            ng-mouseleave="cssmodal = false" ng-class="{'table-success':cssmodal, 'cursor-pointer':cssmodal}">
+                                            <td ng-bind="solicitud.referencia"></td>
+                                            <td ng-bind="solicitud.nombre_adoptante"></td>
+                                            <td ng-bind="solicitud.fecha_solicitud"></td>
+                                            <td ng-class="{'alert-danger':solicitud.restantes < 0}">
+                                                <span ng-if="solicitud.restantes < 0" ng-bind="'Retrasado ' + (solicitud.restantes * -1) + ' dias'"></span>
+                                                <span ng-if="solicitud.restantes >= 0" ng-bind="solicitud.restantes"></span>
+                                            </td>
+                                            <td ng-bind="solicitud.estado"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <h4 class="text-center pt-5 text-gray" ng-bind="solCtrl.mensaje"></h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
