@@ -1,0 +1,49 @@
+<div id="app" class="container-scroller">
+    <div class="container-fluid page-body-wrapper">
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <form ng-submit="sitioCtrl.onSubmit();" novalidate>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="imgp">Imagen principal</label>
+                                        <file-uplaod add-img="sitioCtrl.onAddImgp"></file-uplaod>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <div class="form-group col-lg-6">
+                                            <label for="titulo">Título</label>
+                                            <input id="titulo" placeholder="Ingrese título" type="text" class="form-control"
+                                                ng-model="sitioCtrl.metadata[2]._value">
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label for="subtitulo">Subtítulo</label>
+                                            <input id="subtitulo" placeholder="Ingrese subtítulo" type="text" class="form-control"
+                                                ng-model="sitioCtrl.metadata[3]._value">
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label for="ubicacion">Ubicación</label>
+                                            <input id="ubicacion" placeholder="Ingrese ubicación de la fundación" type="text"
+                                                class="form-control" ng-model="sitioCtrl.metadata[1]._value">
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label for="correo">Correo</label>
+                                            <input id="correo" placeholder="Ingrese correo de la fundación" type="email"
+                                                class="form-control" ng-model="sitioCtrl.metadata[0]._value">
+                                        </div>
+                                        <div class="form-group col-lg-12 d-flex justify-content-center mt-3">
+                                            <input type="submit" class="btn btn-outline-success" value="Guardar cambios" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

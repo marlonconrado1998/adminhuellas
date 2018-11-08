@@ -16141,3 +16141,24 @@ border-radius: 5px;}
     background-color: rgb(232,232,232) !important;
   }
 }
+
+.content-img:hover .content-button {
+  background-color: rgba(173, 216, 230, 0.445);
+}
+
+.content-img:hover .content-button a {
+  display: block;
+}
+
+.content-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+}
+
+.content-button a {
+  display: none;
+}

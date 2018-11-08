@@ -1,0 +1,8 @@
+<div class="content-imgp">
+    <a href ngf-drop="vm.onSubmit(vm.image);" ngf-select="vm.onSubmit(vm.image);" ng-model="vm.image"
+        ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-pattern="'image/*'">
+        <i class="fa fa-edit fa-lg"></i>
+    </a>
+    <img ng-show="vm.image_preview" ng-src="{{vm.image_preview}}" class="img-fluid" />
+    <img ng-show="!vm.image_preview" ng-src="{{'http://localhost/startadmin_back-end/webapis/api/api_webSite.php/imgp'}}" class="img-fluid" />
+</div>

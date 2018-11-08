@@ -69,7 +69,13 @@ app.config(["$stateProvider", "$urlRouterProvider", '$compileProvider', '$locati
             name: 'Dashboard.Legalizaciones',
             url: '/Legalizaciones',
             templateUrl: 'pages/legalizacion.html'
-        });
+        }).state({
+            name: 'Dashboard.gestor',
+            url: '/Gestor',
+            templateUrl: 'pages/sitio-web.html',
+            controller: 'SitioController', 
+            controllerAs: 'sitioCtrl'
+        })
     }
 ]);
 
